@@ -1,0 +1,23 @@
+#!/bin/sh
+# @author rendong
+# @since 2025-07-17
+
+killall -q  mako bar status sandbar fcitx5 pipewire || true
+ 
+# wallpaper 
+pgrep "swww-daemon" || riverctl spawn "swww-daemon && swww img $HOME/.local/share/wallpaper/iceland.jpg"
+# fcitx5
+riverctl spawn "fcitx5 -d"
+# pipewire
+riverctl spawn "pipewire"
+# foot
+pgrep --full "foot --server" || riverctl spawn "foot --server"
+# mako(notification daemon)
+riverctl spawn "mako"
+# gammastep
+pgrep "gammastep" || riverctl spawn "gammastep"
+# bar
+riverctl spawn "$HOME/.config/river/sandbar/status"
+riverctl spawn "$HOME/.config/river/sandbar/bar"
+# display
+pgrep "kanshi" || riverctl spawn "kanshi"

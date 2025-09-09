@@ -1,0 +1,12 @@
+[preview]
+image_quality = 50
+
+[opener]
+pdf_open = [
+	{ run = 'zathura "$@"', orphan = true, desc = "Open pdf", for = "linux"},
+]
+
+[open]
+prepend_rules = [
+	{ mime = "application/pdf", use = "pdf_open" },
+]

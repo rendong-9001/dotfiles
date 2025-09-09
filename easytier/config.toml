@@ -1,0 +1,16 @@
+ipv4 = "10.11.11.11"
+dhcp = false
+
+listeners = []
+
+rpc_portal = "127.0.0.1:15888"
+
+[network_identity]
+network_name = "name"
+network_secret = "secret"
+
+[[peer]]
+uri = "tcp://public.easytier.cn:11010"
+
+[flags]
+enable_ipv6 = false

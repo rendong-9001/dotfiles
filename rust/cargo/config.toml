@@ -1,0 +1,70 @@
+[net]
+git-fetch-with-cli = true
+retry = 3
+
+[cache]
+auto-clean-frequency = "7 day"
+
+[build]
+incremental = false
+rustc-wrapper = "sccache"
+
+[target.x86_64-unknown-linux-gnu]
+linker = "gcc"
+rustflags = ["-C", "target-cpu=native", "-C", "link-arg=-fuse-ld=mold"]
+
+[target.x86_64-unknown-linux-musl]
+linker = "gcc"
+rustflags = [
+  "-C",
+  "target-cpu=native",
+  "-C",
+  "target-feature=-crt-static",
+  "-C",
+  "link-arg=-fuse-ld=mold",
+]
+
+[doc]
+browser = "firefox"
+
+[cargo-new]
+vcs = "git"
+
+[http]
+timeout = 15
+ssl-version = "tlsv1.2"
+multiplexing = true
+
+[future-incompat-report]
+frequency = "always"
+
+[alias]
+b = "build"
+c = "check"
+t = "test"
+r = "run"
+l = "clean"
+br = "build --release"
+
+[term]
+unicode = true
+progress.when = "always"
+progress.width = 100
+
+#[install]
+#root = "/home/rendong/.local/bin"
+
+[profile.release]
+opt-level = "s"
+codegen-units = 1
+lto = "thin"
+debug = "line-tables-only"
+
+[source.crates-io]
+replace-with = 'rsproxy-sparse'
+[source.rsproxy]
+registry = "https://rsproxy.cn/crates.io-index"
+[source.rsproxy-sparse]
+registry = "sparse+https://rsproxy.cn/index/"
+[registries.rsproxy]
+index = "https://rsproxy.cn/crates.io-index"

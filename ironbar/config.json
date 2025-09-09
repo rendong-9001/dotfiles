@@ -1,0 +1,93 @@
+{
+  "monitors": {
+    "eDP-1": [
+      {
+        "name": "niriworkspace",
+        "position": "top",
+        "height": 8,
+        "popup_gap": 2,
+        "layer": "top",
+        "exclusive_zone": false,
+        "margin": {
+          "top": 0,
+          "bottom": 0,
+          "left": 700,
+          "right": 700
+        },
+        "center": [
+          {
+            "type": "workspaces",
+            "name_map": {
+              "1": "1",
+              "2": "2",
+              "3": "3",
+              "4": "4",
+              "5": "5"
+            },
+            "all_monitors": false
+          }
+        ]
+      },
+      {
+        "name": "niribar",
+        "position": "bottom",
+        "icon_theme": "awaita",
+        "anchor_to_edges": true,
+        "layer": "top",
+        "popup_gap": 4,
+        "height": 40,
+        "margin": {
+          "top": 0,
+          "bottom": 0,
+          "left": 0,
+          "right": 0
+        },
+        "start": [
+          {
+            "type": "launcher",
+            "show_names": false,
+            "show_icons": true,
+            "reversed": false
+          }
+        ],
+        "center": [
+          {
+            "type": "focused",
+            "show_icon": true,
+            "show_title": true,
+            "icon_size": 30,
+            "truncate": {
+              "mode": "middle",
+              "length": 20
+            }
+          }
+        ],
+        "end": [
+          {
+            "type": "sys_info",
+            "interval": {
+              "memory": 5,
+              "temps": 5,
+              "disks": 3000
+            },
+            "format": [
+              " {temp_c@min: <2}°C",
+              " {memory_percent: <2.0}%",
+              " {disk_percent@/: <2}%"
+            ]
+          },
+          {
+            "type": "script",
+            "cmd": "/home/rendong/.local/bin/get-sysinfo.sh --wifi",
+            "mode": "poll",
+            "interval": 2000
+          },
+          {
+            "type": "clock",
+            "format": " %m-%d %a %H:%M "
+          }
+        ]
+      }
+    ]
+  }
+}

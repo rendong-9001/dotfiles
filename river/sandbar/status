@@ -1,0 +1,60 @@
+#!/bin/sh
+
+cpu() {
+	cpu="CPU:$(top -bn1 | grep "%Cpu(s)" | awk '{ printf "%.0f",$2 + $4 }')%"
+}
+
+memory() {
+	memory="MEM:$(free -m | grep 'Mem' | awk '{printf "%.0f",($3/$2)*100}')%"
+}
+
+disk() {
+	disk="DISK:$(df -h  / | grep -Eo "[0-9]{1,}%")"
+}
+
+datetime() {
+	datetime="$(date "+%a %d %b %I:%M %P")"
+}
+
+bat() {
+	read -r bat_status </sys/class/power_supply/BAT1/status
+	read -r bat_capacity </sys/class/power_supply/BAT1/capacity
+	bat="$bat_status $bat_capacity%"
+}
+
+light() {
+  local current=$(brightnessctl get)
+  local max=$(brightnessctl  max)
+  brightnss="LIGHT:$(((current*100)/max))%"
+}
+
+vol() {
+	local out=$(wpctl get-volume @DEFAULT_SINK@) 
+	vol="VOL:$(echo "$out" | awk '{print $2*100}' | cut -d'.' -f1)%"
+}
+
+display() {
+	echo "all status [$memory $cpu $disk] [$bat] [$brightnss] [$vol] [$datetime]" >"$FIFO"
+}
+
+printf "%s" "$$" > "/tmp/status_pid"
+FIFO="/tmp/sandbar"
+[ -e "$FIFO" ] || mkfifo "$FIFO"
+sec=0
+
+while true; do
+	sleep 1 &
+	wait && {
+		[ $((sec % 15)) -eq 0 ] && memory
+		[ $((sec % 15)) -eq 0 ] && cpu
+		[ $((sec % 15)) -eq 0 ] && disk
+		[ $((sec % 60)) -eq 0 ] && bat
+		[ $((sec % 5)) -eq 0 ] && vol
+		[ $((sec % 5)) -eq 0 ] && light
+		[ $((sec % 60)) -eq 0 ] && datetime
+		[ $((sec % 5)) -eq 0 ] && display
+
+		sec=$((sec + 1))
+	}
+done
+

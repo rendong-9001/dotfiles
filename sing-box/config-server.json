@@ -1,0 +1,89 @@
+{
+  "log": {
+    "disabled": false,
+    "level": "error",
+    "output": "/var/log/sing.log",
+    "timestamp": true
+  },
+  "dns": {
+    "servers": [
+      {
+        "tag": "cloudflare",
+        "type": "tcp",
+        "server": "1.1.1.1",
+        "connect_timeout": "5s",
+        "detour": "direct"
+      }
+    ],
+    "disable_cache": false,
+    "strategy": "prefer_ipv4"
+  },
+  "inbounds": [
+    {
+      "type": "vless",
+      "tag": "vless-in",
+      "listen": "host",
+      "listen_port": 443,
+      "users": [
+        {
+          "name": "name",
+          "uuid": "uuid",
+          "flow": "xtls-rprx-vision"
+        }
+      ],
+      "tls": {
+        "enabled": true,
+        "server_name": "apache.org",
+        "reality": {
+          "enabled": true,
+          "handshake": {
+            "server": "apache.org",
+            "server_port": 443
+          },
+          "private_key": "private_key",
+          "short_id": "110355"
+        }
+      },
+      "multiplex": {
+        "enabled": true,
+        "brutal": {
+          "enabled": true,
+          "up_mbps": 40,
+          "down_mbps": 80
+        }
+      }
+    }
+  ],
+  "outbounds": [
+    {
+      "type": "direct",
+      "tag": "direct",
+      "domain_resolver": "cloudflare"
+    },
+    {
+      "type": "block",
+      "tag": "block"
+    }
+  ],
+  "route": {
+    "rules": [
+      {
+        "ip_is_private": true,
+        "outbound": "block"
+      },
+      {
+        "rule_set": "geoip-cn",
+        "outbound": "block"
+      }
+    ],
+    "rule_set": [
+      {
+        "type": "remote",
+        "tag": "geoip-cn",
+        "url": "https://raw.githubusercontent.com/SagerNet/sing-geoip/rule-set/geoip-cn.srs",
+        "download_detour": "direct"
+      }
+    ],
+    "final": "direct"
+  }
+}

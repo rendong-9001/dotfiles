@@ -1,0 +1,19 @@
+set selection-clipboard clipboard
+set font "Hack Regular 14"
+set recolor true
+set recolor-lightcolor "#FFFFFF"
+set recolor-darkcolor "#1E1E1E" 
+set scroll-step 50
+set page-padding 1
+set database 'sqlite'
+set statusbar-h-padding 0
+set statusbar-v-padding 0
+set statusbar-home-tilde true
+set statusbar-page-percent true
+set statusbar-basename
+set adjust-open width
+
+map n scroll half-down
+map p scroll half-up
+map u adjust_window width
+map v adjust_window height

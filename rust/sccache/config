@@ -1,0 +1,10 @@
+[cache.disk]
+size = 42949672960
+
+[cache.disk.preprocessor_cache_mode]
+use_preprocessor_cache_mode = true
+use_ctime_for_stat = false
+ignore_time_macros = true
+file_stat_matches = true
+skip_system_headers = false
+hash_working_directory = true

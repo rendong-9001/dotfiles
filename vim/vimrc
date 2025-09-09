@@ -1,0 +1,25 @@
+set number relativenumber
+set cursorline
+set tabstop=4
+set encoding=utf-8
+set fileencoding=utf-8
+set nocompatible
+set incsearch
+set scrolloff=8
+set sidescrolloff=5
+set ignorecase
+set showcmd
+set showmatch
+set wildmenu
+set wildmode=list:longest
+set showmode
+set hlsearch
+set nobackup
+set noswapfile
+set history=1000
+set lazyredraw
+set ruler
+set laststatus=2
+set smartindent
+syntax on
+filetype plugin indent on

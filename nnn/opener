@@ -1,0 +1,61 @@
+#!/bin/sh
+
+set -euf -o noclobber -o noglob -o nounset
+
+FPATH="$1"
+FNAME=$(basename "$1")
+EDITOR=${EDITOR:-nvi}
+PAGER="${PAGER:-less -R}"
+ext="${FNAME##*.}"
+if [ -n "$ext" ]; then
+    ext="$(printf "%s" "${ext}" | tr '[:upper:]' '[:lower:]')"
+fi
+
+handle_video() {
+	if type mpv &> /dev/null; then
+		nohup mpv "${FPATH}" &> /dev/null &
+	else
+		return
+	fi
+	exit 0
+}
+
+handle_pdf() {
+	if type zathura &> /dev/null; then
+		nohup zathura "${FPATH}" &> /dev/null &
+	else
+		return
+	fi
+	exit 0
+}
+
+handle_photo() {
+	if type imv &> /dev/null; then
+		nohup imv "${FPATH}" &> /dev/null &
+	else
+		return
+	fi
+	exit 0
+}
+
+handle_ext() {
+	case "${ext}" in
+		pdf)
+			handle_pdf
+			exit 1;;
+		mp4|mkv|mp3|wav|flac|flv)
+			handle_video
+			exit 1;;
+		log|rs|py|sh|ini|toml|conf|json|jsonc|txt|sql|md)
+			"${EDITOR}" "${FPATH}"
+			exit 0;;
+		jpg|png)
+			handle_photo
+			exit 1;;
+		*)
+			exit 0;;
+	esac
+}
+
+handle_ext
+exit 1

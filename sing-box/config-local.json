@@ -1,0 +1,130 @@
+{
+  "log": {
+    "disabled": false,
+    "level": "info",
+    "output": "./sing.log",
+    "timestamp": true
+  },
+  "dns": {
+    "servers": [
+      {
+        "tag": "cloudflare",
+        "type": "tcp",
+        "server": "1.1.1.1",
+        "connect_timeout": "10s",
+        "detour": "vless-out"
+      },
+      {
+        "tag": "alidns",
+        "type": "udp",
+        "connect_timeout": "5s",
+        "server": "223.5.5.5",
+        "detour": "direct"
+      }
+    ],
+    "rules": [
+      {
+        "rule_set": [
+          "gfw"
+        ],
+        "server": "cloudflare"
+      }
+    ],
+    "disable_cache": false,
+    "strategy": "prefer_ipv4",
+    "final": "alidns"
+  },
+  "inbounds": [
+    {
+      "type": "mixed",
+      "tag": "mixed",
+      "listen": "0.0.0.0",
+      "listen_port": 14443,
+      "set_system_proxy": false
+    }
+  ],
+  "outbounds": [
+    {
+      "tag": "direct",
+      "type": "direct",
+      "domain_resolver": "alidns"
+    },
+    {
+      "type": "block",
+      "tag": "block"
+    },
+    {
+      "tag": "vless-out",
+      "type": "vless",
+      "server": "host",
+      "server_port": 443,
+      "domain_resolver": "cloudflare",
+      "uuid": "uuid",
+      "flow": "xtls-rprx-vision",
+      "tls": {
+        "enabled": true,
+        "server_name": "apache.org",
+        "utls": {
+          "enabled": true,
+          "fingerprint": "firefox"
+        },
+        "reality": {
+          "enabled": true,
+          "public_key": "public_key",
+          "short_id": "110355"
+        }
+      }
+    }
+  ],
+  "route": {
+    "rules": [
+      {
+        "protocol": "dns",
+        "action": "hijack-dns"
+      },
+      {
+        "rule_set": [
+          "geoip-cn"
+        ],
+        "outbound": "direct"
+      },
+      {
+        "rule_set": [
+          "gfw"
+        ],
+        "outbound": "vless-out"
+      },
+      {
+        "rule_set": [
+          "category-ads-all"
+        ],
+        "outbound": "block"
+      }
+    ],
+    "rule_set": [
+      {
+        "tag": "geoip-cn",
+        "type": "remote",
+        "format": "binary",
+        "url": "https://raw.githubusercontent.com/SagerNet/sing-geoip/rule-set/geoip-cn.srs",
+        "download_detour": "vless-out"
+      },
+      {
+        "tag": "gfw",
+        "type": "remote",
+        "format": "binary",
+        "url": "https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/sing/geo/geosite/gfw.srs",
+        "download_detour": "vless-out"
+      },
+      {
+        "tag": "category-ads-all",
+        "type": "remote",
+        "format": "binary",
+        "url": "https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/sing/geo/geosite/category-ads-all.srs",
+        "download_detour": "vless-out"
+      }
+    ],
+    "final": "direct",
+    "auto_detect_interface": true
+  }
+}

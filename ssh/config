@@ -1,0 +1,23 @@
+Host custom
+  Port 22
+  HostName xxx
+  User xxx
+  IdentityFile ~/.ssh/xxx
+  IdentitiesOnly yes
+  ServerAliveCountMax 4
+  ServerAliveInterval 60
+  TCPKeepAlive yes
+
+Host github
+	Port 443
+    HostName ssh.github.com
+    User git
+    IdentityFile ~/.ssh/xxx
+    IdentitiesOnly yes
+
+Host codeberg
+    HostName codeberg.com
+	Port 22
+    User git
+    IdentityFile ~/.ssh/custom_vps/ed25519
+    IdentitiesOnly yes

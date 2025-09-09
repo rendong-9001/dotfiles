@@ -1,0 +1,20 @@
+# @author rendong
+# @since 2025-09-09
+
+font=Hack Italic 16
+background-color=#0A0A12  
+text-color=#A0B2C6  
+border-color=#00FFC8  
+border-size=2  
+ignore-timeout=1  
+default-timeout=5000  
+margin=8  
+
+[hidden]  
+format=(and %h more)  
+text-color=#3A4D44  
+border-color=#3A4D44  
+
+[urgency=high]  
+background-color=#05050A  
+border-color=#FF2A4D  

@@ -1,0 +1,11 @@
+# @author rendong
+# @since 2025-08-24
+
+profile single {
+	output eDP-1 enable mode 1920x1080@60Hz position 0,0
+}
+
+profile multi {
+	output eDP-1 enable mode --custom 1920x1080@60Hz on position 0,0
+	output HDMI-A-1 enable mode --custom 1920x1080@60Hz transform 90 position 1920,-500
+}
