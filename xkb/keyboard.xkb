@@ -9,9 +9,7 @@ xkb_keymap {
         include "pc"
         include "us"
         include "inet(evdev)"
+		include "ctrl:nocaps"
         replace key <RALT> { [ Multi_key ] };
-        replace key <ESC> { [ Caps_Lock ] };
-        replace key <CTRL_R> { [ Escape ] };
-		modifier_map Control { <CAPS> };
     };
 };
