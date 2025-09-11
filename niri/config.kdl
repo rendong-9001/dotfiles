@@ -12,16 +12,21 @@ environment {
     DISPLAY "null"
 }
 cursor {
-    xcursor-theme "adwaita"
+    xcursor-theme "Adwaita"
     xcursor-size 16
     hide-when-typing
     hide-after-inactive-ms 5000
+}
+xwayland-satellite {
+    off
+    path "xwayland-satellite"
 }
 clipboard {
     disable-primary
 }
 hotkey-overlay {
     skip-at-startup
+    hide-not-bound
 }
 overview {
     zoom 0.6
@@ -43,10 +48,13 @@ input {
         track-layout "global"
         repeat-delay 400
         repeat-rate 50
+        numlock
         xkb {
             layout "us"
             // variant "colemak_dh_ortho"
-            options "ctrl:nocaps,compose:ralt"
+            model "pc86"
+            options "ctrl:nocaps,compose:rwin,altwin:swap_lalt_lwin"
+            rules "evdev"
         }
     }
     touchpad {
@@ -63,7 +71,20 @@ input {
         natural-scroll
         // accel-speed 0.3
         accel-profile "flat"
-        scroll-factor 1.25
+        // scroll-factor 1.25
+        scroll-factor horizontal=1.5 vertical=-1.0
+    }
+    trackpoint {
+        off
+    }
+    trackball {
+        off
+    }
+    tablet {
+        off
+    }
+    touch {
+        off
     }
 }
 output "eDP-1" {
@@ -74,7 +95,7 @@ output "eDP-1" {
     position x=0 y=0
     variable-refresh-rate on-demand=true
 }
-/-output "HDMI-A-1" {
+output "HDMI-A-1" {
     mode "1920x1080@60"
     scale 1.0
     transform "90"
@@ -103,8 +124,12 @@ layout {
     }
     focus-ring {
         width 4
+        urgent-color "#9B0000"
         active-gradient from="#B71C1C" to="#FFFDD0" angle=45 relative-to="workspace-view" in="oklch longer hue"
         inactive-gradient from="#7BB8FF" to="#121212" angle=45 relative-to="workspace-view" in="oklch longer hue"
+    }
+    insert-hint {
+        color "#C87F80"
     }
     border {
         off
@@ -114,7 +139,7 @@ layout {
         on
         softness 30
         spread 5
-        offset x=4 y=4
+        offset x=2 y=2
         color "#1A1A2E"
     }
     tab-indicator {
@@ -124,15 +149,25 @@ layout {
         gaps-between-tabs 2
         hide-when-single-tab
         length total-proportion=0.95
+        corner-radius 3
         //place-within-column
         active-color "#00FFC8"
         inactive-color "#3A4D44"
+        urgent-color "#9B0000"
     }
     struts {
         left 10
         right 10
         top 0
         bottom 0
+    }
+}
+switch-events {
+    lid-close {
+        spawn "notify-send" "The laptop lid is closed!"
+    }
+    lid-open {
+        spawn "notify-send" "The laptop lid is open!"
     }
 }
 animations {
@@ -469,7 +504,7 @@ binds {
     Mod+Control+Semicolon {
         spawn "brightnessctl" "set" "10%-"
     }
-    Mod+Control+Apostrophe  {
+    Mod+Control+Apostrophe {
         spawn "brightnessctl" "set" "+10%"
     }
     // player
@@ -525,6 +560,7 @@ window-rule {
 layer-rule {
     match namespace="^notifications$"
     match namespace="^ironbar$"
+    opacity 0.7
     block-out-from "screencast"
 }
 // floating
@@ -577,10 +613,11 @@ window-rule {
     }
 }
 // auto
-spawn-at-startup "sh" "-c" "swww-daemon && . ~/.config/niri/wallpaper.sh"
+spawn-at-startup "swww-daemon"
 spawn-at-startup "foot" "--server"
 spawn-at-startup "fcitx5" "-d"
 spawn-at-startup "gammastep"
 spawn-at-startup "ironbar"
 spawn-at-startup "mako"
 spawn-at-startup "pipewire"
+spawn-sh-at-startup "$HOME/.config/niri/wallpaper.sh"
