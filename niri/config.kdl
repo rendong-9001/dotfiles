@@ -77,15 +77,6 @@ input {
     trackpoint {
         off
     }
-    trackball {
-        off
-    }
-    tablet {
-        off
-    }
-    touch {
-        off
-    }
 }
 output "eDP-1" {
     focus-at-startup
@@ -106,7 +97,7 @@ layout {
     gaps 10
     center-focused-column "never"
     default-column-display "normal"
-    background-color "#32CD32"
+    background-color "transparent"
     preset-column-widths {
         proportion 0.3
         proportion 0.5
@@ -562,6 +553,10 @@ layer-rule {
     match namespace="^ironbar$"
     opacity 0.7
     block-out-from "screencast"
+}
+layer-rule {
+  match namespace="^swww-daemon$"
+  place-within-backdrop true
 }
 // floating
 window-rule {
