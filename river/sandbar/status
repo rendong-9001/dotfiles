@@ -1,40 +1,52 @@
 #!/bin/sh
 
 cpu() {
-	cpu="CPU:$(top -bn1 | grep "%Cpu(s)" | awk '{ printf "%.0f",$2 + $4 }')%"
+		cpu="CPU:$(top -bn1 | grep "%Cpu(s)" | awk '{ printf "%.0f%%\n",$2 + $4 }')"
 }
 
 memory() {
-	memory="MEM:$(free -m | grep 'Mem' | awk '{printf "%.0f",($3/$2)*100}')%"
+		memory="MEM:$(free -m | awk '/Mem:/ {printf "%.0f%%\n", $3 / $2 * 100}')"
 }
 
-disk() {
-	disk="DISK:$(df -h  / | grep -Eo "[0-9]{1,}%")"
+disk_root() {
+		disk_root="DISK@/:$(df / | grep -Eo "[0-9]{1,}%")"
+}
+
+disk_home() {
+		disk_home="DISK@/home:$(df /home | grep -Eo "[0-9]{1,}%")"
 }
 
 datetime() {
-	datetime="$(date "+%a %d %b %I:%M %P")"
+		datetime="$(date "+%a %b %d %I:%M %P")"
 }
 
 bat() {
-	read -r bat_status </sys/class/power_supply/BAT1/status
-	read -r bat_capacity </sys/class/power_supply/BAT1/capacity
-	bat="$bat_status $bat_capacity%"
+		read -r bat_status </sys/class/power_supply/BAT1/status
+		read -r bat_capacity </sys/class/power_supply/BAT1/capacity
+		bat="BAT:$bat_status($bat_capacity%)"
 }
 
 light() {
-  local current=$(brightnessctl get)
-  local max=$(brightnessctl  max)
-  brightnss="LIGHT:$(((current*100)/max))%"
+  		_current=$(brightnessctl get)
+  		_max=$(brightnessctl max)
+  		brightnss="LIGHT:$(((_current * 100) / _max))%"
 }
 
 vol() {
-	local out=$(wpctl get-volume @DEFAULT_SINK@) 
-	vol="VOL:$(echo "$out" | awk '{print $2*100}' | cut -d'.' -f1)%"
+		vol="VOL:$(wpctl get-volume @DEFAULT_SINK@ | awk '{printf "%.0f%%\n", $2*100}')"
+}
+
+wifi() {
+		wifi="WIFI:$(cat /sys/class/net/w*/operstate 2>/dev/null | awk '{print toupper(substr($0,1,1)) tolower(substr($0,2))}')"
+}
+
+temp() {
+		read -r raw_temp </sys/class/thermal/thermal_zone0/temp
+		temp="TEMP:$(($raw_temp / 1000))°C"
 }
 
 display() {
-	echo "all status [$memory $cpu $disk] [$bat] [$brightnss] [$vol] [$datetime]" >"$FIFO"
+		echo "all status [$cpu $temp $memory $disk_root $disk_home] [$brightnss] [$vol] [$wifi] [$bat] [$datetime]" >"$FIFO"
 }
 
 printf "%s" "$$" > "/tmp/status_pid"
@@ -45,15 +57,17 @@ sec=0
 while true; do
 	sleep 1 &
 	wait && {
-		[ $((sec % 15)) -eq 0 ] && memory
-		[ $((sec % 15)) -eq 0 ] && cpu
-		[ $((sec % 15)) -eq 0 ] && disk
 		[ $((sec % 60)) -eq 0 ] && bat
-		[ $((sec % 5)) -eq 0 ] && vol
-		[ $((sec % 5)) -eq 0 ] && light
+		[ $((sec % 60)) -eq 0 ] && disk_home
+		[ $((sec % 60)) -eq 0 ] && disk_root
 		[ $((sec % 60)) -eq 0 ] && datetime
+		[ $((sec % 30)) -eq 0 ] && memory
+		[ $((sec % 5)) -eq 0 ] && cpu
+		[ $((sec % 5)) -eq 0 ] && temp
+		[ $((sec % 5)) -eq 0 ] && vol
+		[ $((sec % 5)) -eq 0 ] && wifi
+		[ $((sec % 5)) -eq 0 ] && light
 		[ $((sec % 5)) -eq 0 ] && display
-
 		sec=$((sec + 1))
 	}
 done

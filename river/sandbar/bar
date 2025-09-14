@@ -5,9 +5,7 @@ FIFO="/tmp/sandbar"
 mkfifo "$FIFO"
 
 while cat "$FIFO"; do :; done | sandbar \
-	-no-layout \
-	-vertical-padding 2 \
-	-font "Hack:style=Blod:size=14" \
+	-font "Hack:style=Bold Italic:pixelsize=16" \
 	-active-fg-color "#000000" \
 	-active-bg-color "#a4e378" \
 	-inactive-fg-color "#ebdbb2" \
@@ -15,6 +13,9 @@ while cat "$FIFO"; do :; done | sandbar \
 	-urgent-fg-color "#000000" \
 	-urgent-bg-color "#cc241d" \
 	-title-fg-color "#000000" \
-	-title-bg-color "#a4e378"
+	-title-bg-color "#a4e378" \
+	-no-layout \
+	-vertical-padding 3 \
+	-scale 1
 	
 	
