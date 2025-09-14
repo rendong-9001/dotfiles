@@ -2,19 +2,31 @@
 # @since 2025-09-09
 
 font=Hack Italic 16
-background-color=#0A0A12  
-text-color=#A0B2C6  
-border-color=#00FFC8  
-border-size=2  
-ignore-timeout=1  
-default-timeout=5000  
-margin=8  
+background-color=#0E1116
+text-color=#DDE6F3
+border-color=#40E0D0
+border-size=2
+ignore-timeout=1
+default-timeout=2000
+margin=8
+width=350
+height=150
+margin=8,8,8,8
+padding=16,20,16,20
+outer-margin=10
+border-radius=3        
+markup=1
+format=<b>%a</b>: %s\n%b
+text-alignment=left
+max-history=7
 
-[hidden]  
-format=(and %h more)  
-text-color=#3A4D44  
-border-color=#3A4D44  
+[hidden]
+format=(and %h more)
+text-color=#A0A8C5
+border-color=#2D3344
 
-[urgency=high]  
-background-color=#05050A  
-border-color=#FF2A4D  
+[urgency=high]
+background-color=#141421
+text-color=#FFFFFF
+border-color=#FF4C6A
+default-timeout=5000
