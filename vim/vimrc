@@ -19,7 +19,10 @@ set noswapfile
 set history=1000
 set lazyredraw
 set ruler
+set title
 set laststatus=2
 set smartindent
 syntax on
 filetype plugin indent on
+set viminfofile=~/.config/vim/viminfo
+
