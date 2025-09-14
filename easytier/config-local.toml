@@ -1,0 +1,20 @@
+ipv4 = ""
+dhcp = false
+hostname = "hostname"
+listeners = []
+
+rpc_portal = "127.0.0.1:15888"
+
+[network_identity]
+network_name = "name"
+network_secret =  "secret" 
+
+[[peer]]
+uri = "tcp://public.easytier.top:11010"
+
+[[peer]]
+uri = "udp://public.easytier.top:11010"
+
+[flags]
+private_mode = true
+enable_ipv6 = false
