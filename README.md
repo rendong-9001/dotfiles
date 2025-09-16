@@ -13,7 +13,6 @@
 - [ntpd-rs project](https://docs.ntpd-rs.pendulum-project.org/)
 ### Proxy
 - [sing-box project](https://sing-box.sagernet.org/)
-- [easytier project](https://easytier.cn/en/)
 ### File Manager
 - [nnn project](https://github.com/jarun/nnn)
 - [yazi project](https://yazi-rs.github.io/docs/installation)
