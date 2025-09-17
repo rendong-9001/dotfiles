@@ -1,15 +1,16 @@
 #!/bin/sh
-
-set -euf -o noclobber -o noglob -o nounset
+set -euf
 
 FPATH="$1"
 FNAME=$(basename "$1")
-EDITOR=${EDITOR:-nvi}
+EDITOR=${EDITOR:-vi}
 PAGER="${PAGER:-less -R}"
-ext="${FNAME##*.}"
-if [ -n "$ext" ]; then
-    ext="$(printf "%s" "${ext}" | tr '[:upper:]' '[:lower:]')"
-fi
+
+ext=""
+case "$FNAME" in
+    *.*) ext="${FNAME##*.}" ;;
+esac
+ext=$(printf "%s" "$ext" | tr '[:upper:]' '[:lower:]')
 
 handle_video() {
 	if type mpv &> /dev/null; then
@@ -41,17 +42,14 @@ handle_photo() {
 handle_ext() {
 	case "${ext}" in
 		pdf)
-			handle_pdf
-			exit 1;;
+			handle_pdf ;;
 		mp4|mkv|mp3|wav|flac|flv)
-			handle_video
-			exit 1;;
+			handle_video ;;
 		log|rs|py|sh|ini|toml|conf|json|jsonc|txt|sql|md)
 			"${EDITOR}" "${FPATH}"
 			exit 0;;
-		jpg|png)
-			handle_photo
-			exit 1;;
+		jpg|jpeg|png|gif|bmp|webp|svg)
+			handle_photo ;;
 		*)
 			exit 0;;
 	esac
