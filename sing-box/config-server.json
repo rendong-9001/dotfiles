@@ -1,6 +1,5 @@
 {
   "log": {
-    "disabled": false,
     "level": "error",
     "output": "/var/log/sing.log",
     "timestamp": true
@@ -8,21 +7,20 @@
   "dns": {
     "servers": [
       {
-        "tag": "cloudflare",
         "type": "tcp",
-        "server": "1.1.1.1",
+        "tag": "cloudflare",
+        "detour": "direct",
         "connect_timeout": "5s",
-        "detour": "direct"
+        "server": "1.1.1.1"
       }
     ],
-    "disable_cache": false,
     "strategy": "prefer_ipv4"
   },
   "inbounds": [
     {
       "type": "vless",
       "tag": "vless-in",
-      "listen": "host",
+      "listen": "0.0.0.0",
       "listen_port": 443,
       "users": [
         {
@@ -72,18 +70,19 @@
         "outbound": "block"
       },
       {
-        "rule_set": "geoip-cn",
+        "rule_set": "ip-cn",
         "outbound": "block"
       }
     ],
     "rule_set": [
       {
         "type": "remote",
-        "tag": "geoip-cn",
+        "tag": "ip-cn",
         "url": "https://raw.githubusercontent.com/SagerNet/sing-geoip/rule-set/geoip-cn.srs",
         "download_detour": "direct"
       }
     ],
-    "final": "direct"
+    "final": "direct",
+    "auto_detect_interface": true
   }
 }

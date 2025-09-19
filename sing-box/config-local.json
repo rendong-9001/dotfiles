@@ -1,6 +1,5 @@
 {
   "log": {
-    "disabled": false,
     "level": "info",
     "output": "./sing.log",
     "timestamp": true
@@ -8,45 +7,44 @@
   "dns": {
     "servers": [
       {
-        "tag": "cloudflare",
         "type": "tcp",
-        "server": "1.1.1.1",
+        "tag": "cloudflare",
+        "detour": "vless-out",
         "connect_timeout": "10s",
-        "detour": "vless-out"
+        "server": "1.1.1.1"
       },
       {
-        "tag": "alidns",
         "type": "udp",
+        "tag": "alidns",
+        "detour": "direct",
         "connect_timeout": "5s",
-        "server": "223.5.5.5",
-        "detour": "direct"
+        "server": "223.5.5.5"
       }
     ],
     "rules": [
       {
         "rule_set": [
-          "gfw"
+          "gfw",
+          "discord"
         ],
         "server": "cloudflare"
       }
     ],
-    "disable_cache": false,
-    "strategy": "prefer_ipv4",
-    "final": "alidns"
+    "final": "alidns",
+    "strategy": "prefer_ipv4"
   },
   "inbounds": [
     {
       "type": "mixed",
       "tag": "mixed",
       "listen": "0.0.0.0",
-      "listen_port": 14443,
-      "set_system_proxy": false
+      "listen_port": 14443
     }
   ],
   "outbounds": [
     {
-      "tag": "direct",
       "type": "direct",
+      "tag": "direct",
       "domain_resolver": "alidns"
     },
     {
@@ -54,11 +52,11 @@
       "tag": "block"
     },
     {
-      "tag": "vless-out",
       "type": "vless",
+      "tag": "vless-out",
+      "domain_resolver": "cloudflare",
       "server": "host",
       "server_port": 443,
-      "domain_resolver": "cloudflare",
       "uuid": "uuid",
       "flow": "xtls-rprx-vision",
       "tls": {
@@ -83,19 +81,26 @@
         "action": "hijack-dns"
       },
       {
+        "domain_suffix": ".cn",
+        "outbound": "direct"
+      },
+      {
         "rule_set": [
-          "geoip-cn"
+          "cn",
+          "bilibili"
         ],
         "outbound": "direct"
       },
       {
         "rule_set": [
-          "gfw"
+          "gfw",
+          "discord"
         ],
         "outbound": "vless-out"
       },
       {
         "rule_set": [
+          "csdn",
           "category-ads-all"
         ],
         "outbound": "block"
@@ -103,24 +108,39 @@
     ],
     "rule_set": [
       {
-        "tag": "geoip-cn",
         "type": "remote",
-        "format": "binary",
-        "url": "https://raw.githubusercontent.com/SagerNet/sing-geoip/rule-set/geoip-cn.srs",
+        "tag": "cn",
+        "url": "https://raw.githubusercontent.com/SagerNet/sing-geosite/refs/heads/rule-set/geosite-cn.srs",
         "download_detour": "vless-out"
       },
       {
+        "type": "remote",
+        "tag": "bilibili",
+        "url": "https://raw.githubusercontent.com/SagerNet/sing-geosite/refs/heads/rule-set/geosite-bilibili.srs",
+        "download_detour": "vless-out"
+      },
+      {
+        "type": "remote",
+        "tag": "csdn",
+        "url": "https://raw.githubusercontent.com/SagerNet/sing-geosite/refs/heads/rule-set/geosite-csdn.srs",
+        "download_detour": "vless-out"
+      },
+      {
+        "type": "remote",
         "tag": "gfw",
-        "type": "remote",
-        "format": "binary",
-        "url": "https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/sing/geo/geosite/gfw.srs",
+        "url": "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/sing/geo/geosite/gfw.srs",
         "download_detour": "vless-out"
       },
       {
-        "tag": "category-ads-all",
         "type": "remote",
-        "format": "binary",
-        "url": "https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/sing/geo/geosite/category-ads-all.srs",
+        "tag": "category-ads-all",
+        "url": "https://raw.githubusercontent.com/SagerNet/sing-geosite/refs/heads/rule-set/geosite-category-ads-all.srs",
+        "download_detour": "vless-out"
+      },
+      {
+        "type": "remote",
+        "tag": "discord",
+        "url": "https://raw.githubusercontent.com/SagerNet/sing-geosite/refs/heads/rule-set/geosite-discord.srs",
         "download_detour": "vless-out"
       }
     ],
