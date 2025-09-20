@@ -1,0 +1,11 @@
+#!/bin/sh
+
+for i in seq 1 5; do
+    if ss -tlnp | grep 'sing-box' >/dev/null 2>&1; then
+        exit 0
+    fi
+    sleep 1
+done
+
+exit 1
+
