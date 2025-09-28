@@ -14,6 +14,9 @@ Host github
     User git
     IdentityFile ~/.ssh/xxx
     IdentitiesOnly yes
+	#ProxyCommand nc -X 5 -x 127.0.0.1:13131 %h %p
+	#AddKeysToAgent yes
+
 
 Host codeberg
     HostName codeberg.com
@@ -21,3 +24,5 @@ Host codeberg
     User git
     IdentityFile ~/.ssh/custom_vps/ed25519
     IdentitiesOnly yes
+	#ProxyCommand nc -X 5 -x 127.0.0.1:13131 %h %p
+	#AddKeysToAgent yes
