@@ -15,28 +15,23 @@ xmirror # choose a preferred mirror
 ```
 ### 1.4 Connect to Wi-Fi
 ```sh
-ip link show 
+ip -brief link show
 ip link set <device> up # run this if the interface is down
 # Using iwd (recommended)
 xbps-install -y iwd
 rm /var/service/wpa_supplicant  # disable `wpa_supplicant`
 ln -s /etc/sv/iwd /var/service/ # start `iwd` 
 
-iwctl devices list
 iwctl station <device> scan
 iwctl station <device> get-networks 
 iwctl --passphrase <your_password> station <device> connect <ssid>
 # Using wpa_supplicant (default)
-wpa_supplicant -B -i <device> -c /etc/wpa_supplicant/wpa_supplicant.conf
 wpa_cli -i <device> scan
-wpa_cli -i <device> scan_result
-wpa_cli -i <device> add_network
-wpa_cli -i <device> set_network <network_id> ssid "ssid"
-wpa_cli -i <device> set_network <network_id> psk "your password"
-wpa_cli -i <device> enable_network <network_id>
-wpa_cli -i <device> save_config
+wpa_cli -i <device> scan_results
+wpa_passphrase "ssid" "your_password" > /etc/wpa_supplicant/wpa_supplicant.conf
+wpa_supplicant -B -i <device> -c /etc/wpa_supplicant/wpa_supplicant.conf
 # verify connection
-ip addr show <device>
+ip -brief addr show <device>
 ping -c 5 www.github.com
 ```
 ### 1.5 Partitioning
@@ -140,13 +135,13 @@ CGROUP_MODE=unified
 ```
 ### 1.17 Add a Keyfile for Home Encryption
 ```sh
-dd if=/dev/urandom of=/boot/crypt.key bs=1M count=1 # or head -c 1M /dev/urandom > /boot/crypt.key
-cryptsetup luksAddKey /dev/nvme0n1p3 /boot/crypt.key
+dd if=/dev/urandom of=/root/crypt.key bs=1M count=1 # or head -c 1M /dev/urandom > /boot/crypt.key
+cryptsetup luksAddKey /dev/nvme0n1p3 /root/crypt.key
 chmod 400 /root/crypt.key
 ```
 - edit `/etc/crypttab`
 ```
-crypthome   UUID=   /root/crypt.key     luks,discard    
+crypthome   UUID=<ROOT_UUID>   /root/crypt.key     luks,discard    
 ```
 ### 1.18 Install the Bootloader
 ```sh
@@ -156,7 +151,7 @@ bootctl install
 - edit `/boot/loader/entries/void-linux.conf`
 ```
 title        Void Linux
-options      rd.lvm.vg=vg1 rd.luks.allow-discards rd.luks.name=<LUKS UUID>=cryptlvm root=UUID=<ROOT UUID>  rw
+options      rd.lvm.vg=vg1 rd.luks.allow-discards rd.luks.uuid=<LUKS_UUID> root=UUID=<ROOT_UUID> resume=UUID=<SWAP_UUID> rw
 linux        vmlinuz-<version>
 initrd       initramfs-<version>.img
 ```
@@ -170,7 +165,7 @@ console-mode max
 - edit `/etc/dracut.conf.d/10-crypt.conf`
 ```
 add_dracutmodules+=" crypt lvm resume "
-compress="zstd"
+compress="gzip"
 hostonly="yes"
 ```
 ### 1.20 Create User 
@@ -198,7 +193,7 @@ Using uki + sbctl
 - edit `/etc/dracut.conf.d/20-uki.conf` 
 ```
 uefi_stub="/usr/lib/systemd/boot/efi/linuxx64.efi.stub"
-kernel_cmdline="rootfstype=ext4 rd.lvm.vg=vg1 rd.luks.allow-discards rd.luks.name=5dca6223-39fc-4959-9b87-9f00b2aa16d6=cryptlvm root=UUID=0526d93f-8b27-458a-b177-2f46a1d1c490  rw"
+kernel_cmdline="rootfstype=ext4 rd.lvm.vg=vg1 rd.luks.allow-discards rd.luks.uuid=5dca6223-39fc-4959-9b87-9f00b2aa16d6 rd.luks.name=5dca6223-39fc-4959-9b87-9f00b2aa16d6=cryptlvm root=UUID=0526d93f-8b27-458a-b177-2f46a1d1c490  rw"
 uefi="yes"
 ```
 ```sh
