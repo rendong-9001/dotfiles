@@ -1,0 +1,81 @@
+{
+  "log": {
+    "level": "error",
+    "output": "sing.log",
+    "timestamp": true
+  },
+  "dns": {
+    "servers": [
+      {
+        "type": "tcp",
+        "tag": "cloudflare",
+        "connect_timeout": "10s",
+        "server": "1.1.1.1"
+      }
+    ],
+    "strategy": "prefer_ipv4"
+  },
+  "inbounds": [
+    {
+      "type": "vless",
+      "tag": "vless-in",
+      "listen": "0.0.0.0",
+      "listen_port": 443,
+      "users": [
+        {
+          "name": "name",
+          "uuid": "uuid",
+          "flow": "xtls-rprx-vision"
+        }
+      ],
+      "tls": {
+        "enabled": true,
+        "server_name": "host",
+        "reality": {
+          "enabled": true,
+          "handshake": {
+            "server": "host",
+            "server_port": 443
+          },
+          "private_key": "private_key",
+          "short_id": "110355"
+        }
+      },
+      "multiplex": {
+        "enabled": true,
+        "brutal": {
+          "enabled": true,
+          "up_mbps": 25,
+          "down_mbps": 85
+        }
+      }
+    }
+  ],
+  "outbounds": [
+    {
+      "type": "vless",
+      "tag": "vless-out",
+      "domain_resolver": "cloudflare",
+      "server": "host",
+      "server_port": 443,
+      "uuid": "uuid",
+      "tls": {
+        "enabled": true,
+        "server_name": "host",
+        "utls": {
+          "enabled": true,
+          "fingerprint": "firefox"
+        },
+        "reality": {
+          "enabled": true,
+          "public_key": "public_key",
+          "short_id": "110355"
+        }
+      }
+    }
+  ],
+  "route": {
+    "final": "vless-out",
+    "auto_detect_interface": true
+  }
+}
