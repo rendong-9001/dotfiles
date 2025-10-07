@@ -9,7 +9,8 @@ xkb_keymap {
         include "pc"
         include "us"
         include "inet(evdev)"
-		include "ctrl:nocaps"
-        replace key <RALT> { [ Multi_key ] };
+        include "ctrl(nocaps)"
+        include "altwin(swap_lalt_lwin)"
+        include "compose(ralt)"
     };
 };
