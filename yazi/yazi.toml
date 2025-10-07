@@ -3,10 +3,17 @@ image_quality = 50
 
 [opener]
 pdf_open = [
-	{ run = 'zathura "$@"', orphan = true, desc = "Open pdf", for = "linux"},
+	{ run = 'zathura "$@"', orphan = true, desc = "Open pdf", for = "linux"}
+]
+img_open = [
+	{ run = 'imv "$@"', orphan = true, desc = "Open img", for = "linux"}
 ]
 
 [open]
 prepend_rules = [
 	{ mime = "application/pdf", use = "pdf_open" },
+	{ mime = "image/jpeg", use = "img_open" },
+	{ mime = "image/webp", use = "img_open" },
+	{ mime = "image/svg+xml", use = "img_open" },
+	{ mime = "image/png", use = "img_open" }
 ]
