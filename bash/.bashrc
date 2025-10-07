@@ -25,11 +25,6 @@ export CDPATH="$HOME/Work"
 export NNN_OPENER="$HOME/.config/nnn/plugins/opener"
 export NNN_BMS="m:/run/media;s:/etc;h:$HOME/.config"
 export NNN_PLUG="v:preview-tui"
-# fcitx5
-export GTK_IM_MODULE=fcitx
-export QT_IM_MODULE=fcitx
-export SDL_IM_MODULE=fcitx
-export XMODIFIERS=@im=fcitx
 # bash_
 if [[ -f '/usr/share/bash-completion/bash_completion' ]]; then
     . /usr/share/bash-completion/bash_completion
