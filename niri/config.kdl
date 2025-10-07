@@ -53,7 +53,7 @@ input {
             layout "us"
             // variant "colemak_dh_ortho"
             model "pc86"
-            options "ctrl:nocaps,compose:rwin,altwin:swap_lalt_lwin"
+            options "ctrl:nocaps,compose:ralt,altwin:swap_lalt_lwin"
             rules "evdev"
         }
     }
@@ -550,13 +550,12 @@ window-rule {
 }
 layer-rule {
     match namespace="^notifications$"
-    match namespace="^ironbar$"
-    opacity 0.7
+    opacity 0.8
     block-out-from "screencast"
 }
 layer-rule {
-  match namespace="^swww-daemon$"
-  place-within-backdrop true
+    match namespace="^swww-daemon$"
+    place-within-backdrop true
 }
 // floating
 window-rule {
@@ -612,7 +611,6 @@ spawn-at-startup "swww-daemon"
 spawn-at-startup "foot" "--server"
 spawn-at-startup "fcitx5" "-d"
 spawn-at-startup "gammastep"
-spawn-at-startup "ironbar"
 spawn-at-startup "mako"
 spawn-at-startup "pipewire"
 spawn-sh-at-startup "$HOME/.config/niri/wallpaper.sh"
