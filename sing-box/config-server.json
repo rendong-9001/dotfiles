@@ -1,7 +1,7 @@
 {
   "log": {
     "level": "error",
-    "output": "/var/log/sing.log",
+    "output": "sing.log",
     "timestamp": true
   },
   "dns": {
@@ -9,7 +9,6 @@
       {
         "type": "tcp",
         "tag": "cloudflare",
-        "detour": "direct",
         "connect_timeout": "5s",
         "server": "1.1.1.1"
       }
@@ -46,8 +45,8 @@
         "enabled": true,
         "brutal": {
           "enabled": true,
-          "up_mbps": 40,
-          "down_mbps": 80
+          "up_mbps": 50,
+          "down_mbps": 100
         }
       }
     }
@@ -70,7 +69,10 @@
         "outbound": "block"
       },
       {
-        "rule_set": "ip-cn",
+        "rule_set": [
+          "ip-cn",
+          "site-cn"
+        ],
         "outbound": "block"
       }
     ],
@@ -78,7 +80,13 @@
       {
         "type": "remote",
         "tag": "ip-cn",
-        "url": "https://raw.githubusercontent.com/SagerNet/sing-geoip/rule-set/geoip-cn.srs",
+        "url": "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/sing/geo/geoip/cn.srs",
+        "download_detour": "direct"
+      },
+      {
+        "type": "remote",
+        "tag": "site-cn",
+        "url": "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/sing/geo/geosite/cn.srs",
         "download_detour": "direct"
       }
     ],

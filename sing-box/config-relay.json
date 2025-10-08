@@ -9,7 +9,7 @@
       {
         "type": "tcp",
         "tag": "cloudflare",
-        "connect_timeout": "10s",
+        "connect_timeout": "5s",
         "server": "1.1.1.1"
       }
     ],
@@ -45,13 +45,17 @@
         "enabled": true,
         "brutal": {
           "enabled": true,
-          "up_mbps": 25,
-          "down_mbps": 85
+          "up_mbps": 50,
+          "down_mbps": 100
         }
       }
     }
   ],
   "outbounds": [
+    {
+      "type": "block",
+      "tag": "block"
+    },
     {
       "type": "vless",
       "tag": "vless-out",
@@ -75,6 +79,12 @@
     }
   ],
   "route": {
+    "rules": [
+      {
+        "ip_is_private": true,
+        "outbound": "block"
+      }
+    ],
     "final": "vless-out",
     "auto_detect_interface": true
   }

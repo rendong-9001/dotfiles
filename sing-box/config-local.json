@@ -10,13 +10,12 @@
         "type": "tcp",
         "tag": "cloudflare",
         "detour": "vless-out",
-        "connect_timeout": "10s",
+        "connect_timeout": "5s",
         "server": "1.1.1.1"
       },
       {
-        "type": "udp",
+        "type": "tcp",
         "tag": "alidns",
-        "detour": "direct",
         "connect_timeout": "5s",
         "server": "223.5.5.5"
       }
@@ -25,7 +24,9 @@
       {
         "rule_set": [
           "gfw",
-          "discord"
+          "discord",
+          "github",
+          "steam"
         ],
         "server": "cloudflare"
       }
@@ -81,20 +82,24 @@
         "action": "hijack-dns"
       },
       {
-        "domain_suffix": ".cn",
+        "domain_suffix": "cn",
         "outbound": "direct"
       },
       {
         "rule_set": [
-          "cn",
-          "bilibili"
+          "ip-cn",
+          "site-cn",
+          "bilibili",
+          "bilibili2"
         ],
         "outbound": "direct"
       },
       {
         "rule_set": [
           "gfw",
-          "discord"
+          "discord",
+          "github",
+          "steam"
         ],
         "outbound": "vless-out"
       },
@@ -109,20 +114,14 @@
     "rule_set": [
       {
         "type": "remote",
-        "tag": "cn",
-        "url": "https://raw.githubusercontent.com/SagerNet/sing-geosite/refs/heads/rule-set/geosite-cn.srs",
+        "tag": "ip-cn",
+        "url": "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/sing/geo/geoip/cn.srs",
         "download_detour": "vless-out"
       },
       {
         "type": "remote",
-        "tag": "bilibili",
-        "url": "https://raw.githubusercontent.com/SagerNet/sing-geosite/refs/heads/rule-set/geosite-bilibili.srs",
-        "download_detour": "vless-out"
-      },
-      {
-        "type": "remote",
-        "tag": "csdn",
-        "url": "https://raw.githubusercontent.com/SagerNet/sing-geosite/refs/heads/rule-set/geosite-csdn.srs",
+        "tag": "site-cn",
+        "url": "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/sing/geo/geosite/cn.srs",
         "download_detour": "vless-out"
       },
       {
@@ -134,13 +133,43 @@
       {
         "type": "remote",
         "tag": "category-ads-all",
-        "url": "https://raw.githubusercontent.com/SagerNet/sing-geosite/refs/heads/rule-set/geosite-category-ads-all.srs",
+        "url": "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/sing/geo/geosite/category-ads-all.srs",
         "download_detour": "vless-out"
       },
       {
         "type": "remote",
         "tag": "discord",
         "url": "https://raw.githubusercontent.com/SagerNet/sing-geosite/refs/heads/rule-set/geosite-discord.srs",
+        "download_detour": "vless-out"
+      },
+      {
+        "type": "remote",
+        "tag": "github",
+        "url": "https://raw.githubusercontent.com/SagerNet/sing-geosite/refs/heads/rule-set/geosite-github.srs",
+        "download_detour": "vless-out"
+      },
+      {
+        "type": "remote",
+        "tag": "bilibili",
+        "url": "https://raw.githubusercontent.com/SagerNet/sing-geosite/refs/heads/rule-set/geosite-bilibili.srs",
+        "download_detour": "vless-out"
+      },
+      {
+        "type": "remote",
+        "tag": "bilibili2",
+        "url": "https://raw.githubusercontent.com/SagerNet/sing-geosite/refs/heads/rule-set/geosite-bilibili2.srs",
+        "download_detour": "vless-out"
+      },
+      {
+        "type": "remote",
+        "tag": "csdn",
+        "url": "https://raw.githubusercontent.com/SagerNet/sing-geosite/refs/heads/rule-set/geosite-csdn.srs",
+        "download_detour": "vless-out"
+      },
+      {
+        "type": "remote",
+        "tag": "steam",
+        "url": "https://raw.githubusercontent.com/SagerNet/sing-geosite/refs/heads/rule-set/geosite-steam.srs",
         "download_detour": "vless-out"
       }
     ],
