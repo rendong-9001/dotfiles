@@ -115,9 +115,9 @@ layout {
     }
     focus-ring {
         width 4
-        urgent-color "#9B0000"
-        active-gradient from="#B71C1C" to="#FFFDD0" angle=45 relative-to="workspace-view" in="oklch longer hue"
-        inactive-gradient from="#7BB8FF" to="#121212" angle=45 relative-to="workspace-view" in="oklch longer hue"
+        urgent-color "#EE0000"
+        active-gradient from="#54FF9F" to="#87CEFF" angle=45 relative-to="workspace-view" in="oklch shorter hue"
+        inactive-gradient from="#C1CDCD" to="#F0FFFF" angle=45 relative-to="workspace-view" in="oklch longer hue"
     }
     insert-hint {
         color "#C87F80"
@@ -476,6 +476,9 @@ binds {
     Mod+Control+Bracketright allow-when-locked=true {
         spawn "wpctl" "set-volume" "@DEFAULT_AUDIO_SINK@" "10%+"
     }
+    Mod+Control+Equal allow-when-locked=true {
+        spawn "wpctl" "set-mute" "@DEFAULT_AUDIO_SINK@" "toggle"
+    }
     XF86AudioRaiseVolume allow-when-locked=true {
         spawn "wpctl" "set-volume" "@DEFAULT_AUDIO_SINK@" "10%+"
     }
@@ -498,6 +501,9 @@ binds {
     Mod+Control+Apostrophe {
         spawn "brightnessctl" "set" "+10%"
     }
+    Mod+Control+Slash {
+        spawn "brightnessctl" "set" "5%"
+    }
     // player
     Control+Alt+Down {
         spawn "playerctl" "play-pause"
@@ -515,7 +521,7 @@ binds {
     Mod+Escape allow-inhibiting=false cooldown-ms=500 {
         spawn "swaylock"
     }
-    Mod+Control+Escape {
+    Mod+Shift+Escape {
         power-off-monitors
     }
     // sleep
@@ -560,6 +566,7 @@ layer-rule {
 // floating
 window-rule {
     match app-id="^mpv$"
+    match app-id="^wev$"
     match app-id="^imv$"
     match title="^Library$"
     match title="^Preferences$"
