@@ -14,10 +14,10 @@
         "server": "1.1.1.1"
       },
       {
-        "type": "tcp",
+        "type": "https",
         "tag": "txdns",
         "connect_timeout": "1s",
-        "server": "119.29.29.29"
+        "server": "1.12.12.12"
       },
       {
         "type": "https",
