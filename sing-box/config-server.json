@@ -7,13 +7,15 @@
   "dns": {
     "servers": [
       {
-        "type": "tcp",
+        "type": "https",
         "tag": "cloudflare",
-        "connect_timeout": "5s",
+        "connect_timeout": "1s",
         "server": "1.1.1.1"
       }
     ],
-    "strategy": "prefer_ipv4"
+    "final": "cloudflare",
+    "strategy": "prefer_ipv4",
+    "cache_capacity": 500
   },
   "inbounds": [
     {
@@ -21,6 +23,7 @@
       "tag": "vless-in",
       "listen": "0.0.0.0",
       "listen_port": 443,
+      "tcp_fast_open": true,
       "users": [
         {
           "name": "name",
@@ -30,23 +33,16 @@
       ],
       "tls": {
         "enabled": true,
-        "server_name": "apache.org",
+        "server_name": "borrowed.com",
         "reality": {
           "enabled": true,
           "handshake": {
-            "server": "apache.org",
+            "server": "borrowed.com",
             "server_port": 443
           },
           "private_key": "private_key",
-          "short_id": "110355"
-        }
-      },
-      "multiplex": {
-        "enabled": true,
-        "brutal": {
-          "enabled": true,
-          "up_mbps": 50,
-          "down_mbps": 100
+          "short_id": "110355",
+          "max_time_difference": "2m30s"
         }
       }
     }
@@ -54,8 +50,7 @@
   "outbounds": [
     {
       "type": "direct",
-      "tag": "direct",
-      "domain_resolver": "cloudflare"
+      "tag": "direct"
     },
     {
       "type": "block",

@@ -7,16 +7,22 @@
   "dns": {
     "servers": [
       {
-        "type": "tcp",
+        "type": "https",
         "tag": "cloudflare",
         "detour": "vless-out",
-        "connect_timeout": "5s",
+        "connect_timeout": "1s",
         "server": "1.1.1.1"
       },
       {
         "type": "tcp",
+        "tag": "txdns",
+        "connect_timeout": "1s",
+        "server": "119.29.29.29"
+      },
+      {
+        "type": "https",
         "tag": "alidns",
-        "connect_timeout": "5s",
+        "connect_timeout": "1s",
         "server": "223.5.5.5"
       }
     ],
@@ -29,17 +35,32 @@
           "steam"
         ],
         "server": "cloudflare"
+      },
+      {
+        "rule_set": [
+          "bilibili",
+          "bilibili2",
+          "site-cn"
+        ],
+        "server": "alidns"
       }
     ],
-    "final": "alidns",
-    "strategy": "prefer_ipv4"
+    "final": "txdns",
+    "strategy": "prefer_ipv4",
+    "cache_capacity": 1000
   },
   "inbounds": [
     {
       "type": "mixed",
       "tag": "mixed",
       "listen": "0.0.0.0",
-      "listen_port": 14443
+      "listen_port": 14443,
+      "users": [
+        {
+          "Username": "admin",
+          "Password": "admin"
+        }
+      ]
     }
   ],
   "outbounds": [
@@ -55,14 +76,14 @@
     {
       "type": "vless",
       "tag": "vless-out",
-      "domain_resolver": "cloudflare",
-      "server": "host",
+      "domain_resolver": "alidns",
+      "server": "mydomain.com",
       "server_port": 443,
       "uuid": "uuid",
       "flow": "xtls-rprx-vision",
       "tls": {
         "enabled": true,
-        "server_name": "apache.org",
+        "server_name": "borrowed.com",
         "utls": {
           "enabled": true,
           "fingerprint": "firefox"
