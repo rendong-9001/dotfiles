@@ -275,16 +275,16 @@ binds {
         focus-workspace 10
     }
     // move column to monitor
-    Mod+ALt+Left {
+    Mod+Control+Left {
         move-column-to-monitor-left
     }
-    Mod+Alt+Down {
+    Mod+Control+Down {
         move-column-to-monitor-down
     }
-    Mod+Alt+Up {
+    Mod+Control+Up {
         move-column-to-monitor-up
     }
-    Mod+Alt+Right {
+    Mod+Control+Right {
         move-column-to-monitor-right
     }
     // move column to workspace
@@ -344,16 +344,16 @@ binds {
         move-workspace-up
     }
     // move workspace to monitor
-    Mod+Control+Left {
+    Mod+Shift+Left {
         move-workspace-to-monitor-left
     }
-    Mod+Control+Right {
+    Mod+Shift+Right {
         move-workspace-to-monitor-right
     }
-    Mod+Control+Up {
+    Mod+Shift+Up {
         move-workspace-to-monitor-up
     }
-    Mod+Control+Down {
+    Mod+Shift+Down {
         move-workspace-to-monitor-down
     }
     // columns and windows, resize and move
@@ -393,16 +393,16 @@ binds {
     mod+Control+End {
         move-column-to-last
     }
-    Mod+Alt+H {
+    Mod+Shift+H {
         move-window-to-monitor-left
     }
-    Mod+Alt+L {
+    Mod+Shift+L {
         move-window-to-monitor-right
     }
-    Mod+Alt+K {
+    Mod+Shift+K {
         move-window-to-monitor-up
     }
-    Mod+Alt+J {
+    Mod+Shift+J {
         move-window-to-monitor-down
     }
     Mod+BracketLeft {
