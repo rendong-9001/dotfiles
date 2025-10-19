@@ -56,3 +56,7 @@ ariac2 yt-dlp
 ```sh
 mtr iproute2 nmap openssh bind-utils nftables iwd wireless-regdb
 ```
+### Graph Visualization
+```sh
+graphviz
+```
