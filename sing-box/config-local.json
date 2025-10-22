@@ -29,10 +29,14 @@
     "rules": [
       {
         "rule_set": [
-          "gfw",
+          "youtube",
+          "codeberg",
+          "twitter",
+          "twitch",
           "discord",
           "github",
-          "steam"
+          "steam",
+          "gfw"
         ],
         "server": "cloudflare"
       },
@@ -117,10 +121,14 @@
       },
       {
         "rule_set": [
-          "gfw",
+          "youtube",
+          "twitch",
+          "codeberg",
+          "twitter",
           "discord",
           "github",
-          "steam"
+          "steam",
+          "gfw"
         ],
         "outbound": "vless-out"
       },
@@ -191,6 +199,30 @@
         "type": "remote",
         "tag": "steam",
         "url": "https://raw.githubusercontent.com/SagerNet/sing-geosite/refs/heads/rule-set/geosite-steam.srs",
+        "download_detour": "vless-out"
+      },
+      {
+        "type": "remote",
+        "tag": "twitch",
+        "url": "https://raw.githubusercontent.com/SagerNet/sing-geosite/refs/heads/rule-set/geosite-twitch.srs",
+        "download_detour": "vless-out"
+      },
+      {
+        "type": "remote",
+        "tag": "codeberg",
+        "url": "https://raw.githubusercontent.com/SagerNet/sing-geosite/refs/heads/rule-set/geosite-codeberg.srs",
+        "download_detour": "vless-out"
+      },
+      {
+        "type": "remote",
+        "tag": "youtube",
+        "url": "https://raw.githubusercontent.com/SagerNet/sing-geosite/refs/heads/rule-set/geosite-youtube.srs",
+        "download_detour": "vless-out"
+      },
+      {
+        "type": "remote",
+        "tag": "twitter",
+        "url": "https://raw.githubusercontent.com/SagerNet/sing-geosite/refs/heads/rule-set/x.srs",
         "download_detour": "vless-out"
       }
     ],
