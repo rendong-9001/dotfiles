@@ -43,5 +43,3 @@ export PROMPT_COMMAND="history -a"
 # runit
 export SVDIR="$HOME/.config/service"
 export SVWAIT=5
-# keychain
-. "$HOME/.keychain/void-linux-sh" 
