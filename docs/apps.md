@@ -54,7 +54,7 @@ ariac2 yt-dlp
 ```
 ### Net
 ```sh
-mtr iproute2 nmap openssh bind-utils nftables iwd wireless-regdb
+mtr iproute2 nmap openssh bind-utils nftables iwd wireless-regdb tcpdump lsof nmap tshark 
 ```
 ### Graph Visualization
 ```sh
