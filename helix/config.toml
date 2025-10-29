@@ -1,4 +1,4 @@
-theme = "carbonfox"
+theme = "ttox"
 
 [editor.lsp]
 display-inlay-hints = true
