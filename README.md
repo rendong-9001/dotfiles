@@ -3,16 +3,17 @@
 - [Void Linux docs](https://docs.voidlinux.org/)
 - [My Installation Guide](./docs/voidlinux.md)
 ### Windows Manager
-- [river project](https://codeberg.org/river/river)
-- [niri project](https://github.com/YaLTeR/niri)
+- [river](https://codeberg.org/river/river)
+- [niri](https://github.com/YaLTeR/niri)
 ### Editor
-- [helix project](https://docs.helix-editor.com/title-page.html)
+- [helix](https://docs.helix-editor.com/title-page.html)
 ### Terminal
-- [foot project](https://codeberg.org/dnkl/foot)
+- [foot](https://codeberg.org/dnkl/foot)
+- [alacritty](https://alacritty.org/config-alacritty.html)
 ### NTP
-- [ntpd-rs project](https://docs.ntpd-rs.pendulum-project.org/)
+- [ntpd-rs](https://docs.ntpd-rs.pendulum-project.org/)
 ### Proxy
-- [sing-box project](https://sing-box.sagernet.org/)
+- [sing-box](https://sing-box.sagernet.org/)
 ### File Manager
-- [nnn project](https://github.com/jarun/nnn)
-- [yazi project](https://yazi-rs.github.io/docs/installation)
+- [nnn](https://github.com/jarun/nnn)
+- [yazi](https://yazi-rs.github.io/docs/installation)
