@@ -5,7 +5,7 @@ debug {
  // preview-render "screencast"
 }
 prefer-no-csd
-screenshot-path "~/Pictures/Screenshots/Screenshot from %Y-%m-%d %H-%M-%S.png"
+screenshot-path "~/Pictures/Screenshots/%Y-%m-%d %H-%M-%S.png"
 environment {
     QT_QPA_PLATFORM "wayland-egl"
     SDL_VIDEODRIVER "wayland"
@@ -548,12 +548,13 @@ window-rule {
     geometry-corner-radius 3
     clip-to-geometry true
 }
-// conceal
+// privacy
 window-rule {
     match app-id="^Bitwarden$"
     match app-id="com.belmoussaoui.Authenticator$"
     block-out-from "screen-capture"
 }
+// layer
 layer-rule {
     match namespace="^notifications$"
     opacity 0.8
@@ -571,6 +572,7 @@ window-rule {
     match title="^Library$"
     match title="^Preferences$"
     match title="^Picture-in-Picture$"
+    match title="Configuration$"
     match title="Open File$"
     match title="Open Folder$"
     match title="Save File$"
