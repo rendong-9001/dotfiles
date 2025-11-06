@@ -19,6 +19,7 @@ clipboard-provider = "wayland"
 cursorline = true
 scrolloff = 10
 continue-comments = false
+true-color = true
 popup-border = 'popup'
 text-width = 100
 
