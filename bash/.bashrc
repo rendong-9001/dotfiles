@@ -25,10 +25,7 @@ export CDPATH="$HOME/Work"
 export NNN_OPENER="$HOME/.config/nnn/plugins/opener"
 export NNN_BMS="m:/run/media;s:/etc;h:$HOME/.config"
 export NNN_PLUG="v:preview-tui"
-# bash_
-if [[ -f '/usr/share/bash-completion/bash_completion' ]]; then
-    . /usr/share/bash-completion/bash_completion
-fi
+# bash
 shopt -s cdspell
 shopt -s dirspell
 shopt -s histappend
