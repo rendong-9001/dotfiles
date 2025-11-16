@@ -31,27 +31,38 @@
         "rule_set": [
           "youtube",
           "codeberg",
-          "twitter",
+          "sourceforge",
+          "huggingface",
+          "google",
+          "docker",
           "twitch",
           "discord",
           "github",
           "steam",
-          "gfw"
+          "ai-chat-!cn",
+          "spotify",
+          "mozilla",
+          "cloudflare",
+          "wikimedia",
+          "pixiv",
+          "google-play",
+          "flatpak",
+          "x"
         ],
         "server": "cloudflare"
       },
       {
         "rule_set": [
+          "bilibili-cdn",
           "bilibili",
-          "bilibili2",
-          "site-cn"
+          "google-play@cn"
         ],
         "server": "alidns"
       }
     ],
     "final": "txdns",
     "strategy": "prefer_ipv4",
-    "cache_capacity": 1000
+    "cache_capacity": 1500
   },
   "inbounds": [
     {
@@ -59,19 +70,13 @@
       "tag": "mixed",
       "listen": "0.0.0.0",
       "listen_port": 14443,
-      "users": [
-        {
-          "Username": "admin",
-          "Password": "admin"
-        }
-      ]
+      "tcp_fast_open": true
     }
   ],
   "outbounds": [
     {
       "type": "direct",
-      "tag": "direct",
-      "domain_resolver": "alidns"
+      "tag": "direct"
     },
     {
       "type": "block",
@@ -80,11 +85,12 @@
     {
       "type": "vless",
       "tag": "vless-out",
+      "connect_timeout": "10s",
+      "tcp_fast_open": true,
       "domain_resolver": "alidns",
       "server": "mydomain.com",
       "server_port": 443,
       "uuid": "uuid",
-      "flow": "xtls-rprx-vision",
       "tls": {
         "enabled": true,
         "server_name": "borrowed.com",
@@ -97,6 +103,17 @@
           "public_key": "public_key",
           "short_id": "110355"
         }
+      },
+      "transport": {
+        "type": "ws",
+        "path": "/watch",
+        "headers": {
+          "Accept-Language": "en-US,en;q=0.5",
+          "Host": "borrowed.com",
+          "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:144.0) Gecko/20100101 Firefox/144.0"
+        },
+        "max_early_data": 2080,
+        "early_data_header_name": "Sec-WebSocket-Protocol"
       }
     }
   ],
@@ -112,30 +129,40 @@
       },
       {
         "rule_set": [
-          "ip-cn",
-          "site-cn",
+          "bilibili-cdn",
           "bilibili",
-          "bilibili2"
+          "google-play@cn"
         ],
         "outbound": "direct"
       },
       {
         "rule_set": [
           "youtube",
-          "twitch",
           "codeberg",
-          "twitter",
+          "sourceforge",
+          "huggingface",
+          "google",
+          "docker",
+          "twitch",
           "discord",
           "github",
           "steam",
-          "gfw"
+          "ai-chat-!cn",
+          "spotify",
+          "mozilla",
+          "cloudflare",
+          "wikimedia",
+          "pixiv",
+          "google-play",
+          "flatpak",
+          "x"
         ],
         "outbound": "vless-out"
       },
       {
         "rule_set": [
           "csdn",
-          "category-ads-all"
+          "zhihu"
         ],
         "outbound": "block"
       }
@@ -143,26 +170,44 @@
     "rule_set": [
       {
         "type": "remote",
-        "tag": "ip-cn",
-        "url": "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/sing/geo/geoip/cn.srs",
+        "tag": "flatpak",
+        "url": "https://raw.githubusercontent.com/SagerNet/sing-geosite/refs/heads/rule-set/geosite-flatpak.srs",
         "download_detour": "vless-out"
       },
       {
         "type": "remote",
-        "tag": "site-cn",
-        "url": "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/sing/geo/geosite/cn.srs",
+        "tag": "google-play",
+        "url": "https://raw.githubusercontent.com/SagerNet/sing-geosite/refs/heads/rule-set/geosite-google-play.srs",
         "download_detour": "vless-out"
       },
       {
         "type": "remote",
-        "tag": "gfw",
-        "url": "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/sing/geo/geosite/gfw.srs",
+        "tag": "docker",
+        "url": "https://raw.githubusercontent.com/SagerNet/sing-geosite/refs/heads/rule-set/geosite-docker.srs",
         "download_detour": "vless-out"
       },
       {
         "type": "remote",
-        "tag": "category-ads-all",
-        "url": "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/sing/geo/geosite/category-ads-all.srs",
+        "tag": "ai-chat-!cn",
+        "url": "https://raw.githubusercontent.com/SagerNet/sing-geosite/refs/heads/rule-set/geosite-category-ai-chat-!cn.srs",
+        "download_detour": "vless-out"
+      },
+      {
+        "type": "remote",
+        "tag": "sourceforge",
+        "url": "https://raw.githubusercontent.com/SagerNet/sing-geosite/refs/heads/rule-set/geosite-sourceforge.srs",
+        "download_detour": "vless-out"
+      },
+      {
+        "type": "remote",
+        "tag": "pixiv",
+        "url": "https://raw.githubusercontent.com/SagerNet/sing-geosite/refs/heads/rule-set/geosite-pixiv.srs",
+        "download_detour": "vless-out"
+      },
+      {
+        "type": "remote",
+        "tag": "google",
+        "url": "https://raw.githubusercontent.com/SagerNet/sing-geosite/refs/heads/rule-set/geosite-google.srs",
         "download_detour": "vless-out"
       },
       {
@@ -175,24 +220,6 @@
         "type": "remote",
         "tag": "github",
         "url": "https://raw.githubusercontent.com/SagerNet/sing-geosite/refs/heads/rule-set/geosite-github.srs",
-        "download_detour": "vless-out"
-      },
-      {
-        "type": "remote",
-        "tag": "bilibili",
-        "url": "https://raw.githubusercontent.com/SagerNet/sing-geosite/refs/heads/rule-set/geosite-bilibili.srs",
-        "download_detour": "vless-out"
-      },
-      {
-        "type": "remote",
-        "tag": "bilibili2",
-        "url": "https://raw.githubusercontent.com/SagerNet/sing-geosite/refs/heads/rule-set/geosite-bilibili2.srs",
-        "download_detour": "vless-out"
-      },
-      {
-        "type": "remote",
-        "tag": "csdn",
-        "url": "https://raw.githubusercontent.com/SagerNet/sing-geosite/refs/heads/rule-set/geosite-csdn.srs",
         "download_detour": "vless-out"
       },
       {
@@ -221,12 +248,73 @@
       },
       {
         "type": "remote",
-        "tag": "twitter",
-        "url": "https://raw.githubusercontent.com/SagerNet/sing-geosite/refs/heads/rule-set/x.srs",
+        "tag": "x",
+        "url": "https://raw.githubusercontent.com/SagerNet/sing-geosite/refs/heads/rule-set/geosite-x.srs",
+        "download_detour": "vless-out"
+      },
+      {
+        "type": "remote",
+        "tag": "huggingface",
+        "url": "https://raw.githubusercontent.com/SagerNet/sing-geosite/refs/heads/rule-set/geosite-huggingface.srs",
+        "download_detour": "vless-out"
+      },
+      {
+        "type": "remote",
+        "tag": "spotify",
+        "url": "https://raw.githubusercontent.com/SagerNet/sing-geosite/refs/heads/rule-set/geosite-spotify.srs",
+        "download_detour": "vless-out"
+      },
+      {
+        "type": "remote",
+        "tag": "mozilla",
+        "url": "https://raw.githubusercontent.com/SagerNet/sing-geosite/refs/heads/rule-set/geosite-mozilla.srs",
+        "download_detour": "vless-out"
+      },
+      {
+        "type": "remote",
+        "tag": "cloudflare",
+        "url": "https://raw.githubusercontent.com/SagerNet/sing-geosite/refs/heads/rule-set/geosite-cloudflare.srs",
+        "download_detour": "vless-out"
+      },
+      {
+        "type": "remote",
+        "tag": "wikimedia",
+        "url": "https://raw.githubusercontent.com/SagerNet/sing-geosite/refs/heads/rule-set/geosite-wikimedia.srs",
+        "download_detour": "vless-out"
+      },
+      {
+        "type": "remote",
+        "tag": "bilibili",
+        "url": "https://raw.githubusercontent.com/SagerNet/sing-geosite/refs/heads/rule-set/geosite-bilibili.srs",
+        "download_detour": "vless-out"
+      },
+      {
+        "type": "remote",
+        "tag": "bilibili-cdn",
+        "url": "https://raw.githubusercontent.com/SagerNet/sing-geosite/refs/heads/rule-set/geosite-bilibili-cdn.srs",
+        "download_detour": "vless-out"
+      },
+      {
+        "type": "remote",
+        "tag": "csdn",
+        "url": "https://raw.githubusercontent.com/SagerNet/sing-geosite/refs/heads/rule-set/geosite-csdn.srs",
+        "download_detour": "vless-out"
+      },
+      {
+        "type": "remote",
+        "tag": "zhihu",
+        "url": "https://raw.githubusercontent.com/SagerNet/sing-geosite/refs/heads/rule-set/geosite-zhihu.srs",
+        "download_detour": "vless-out"
+      },
+      {
+        "type": "remote",
+        "tag": "google-play@cn",
+        "url": "https://raw.githubusercontent.com/SagerNet/sing-geosite/refs/heads/rule-set/geosite-google-play@cn.srs",
         "download_detour": "vless-out"
       }
     ],
     "final": "direct",
-    "auto_detect_interface": true
+    "auto_detect_interface": true,
+    "default_domain_resolver": "txdns"
   }
 }

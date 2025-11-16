@@ -1,13 +1,14 @@
 ## 1.Void Linux Installation Guide
-### 1.1 Prepare the Installation Media
+### 1.1 Prepare Installation Media
 ```sh
 dd if=<your_iso_path> of=<your_device_path> status=progress bs=4M oflag=sync
 ```
-- Alternatively, you may use tools like Ventoy or Rufus to create a bootable USB drive.
-### 1.2 Console font
+- Alternatively, you can create a bootable USB drive with tools such as Ventoy or Rufus.
+### 1.2 Set Console font
 ```sh
 bash # switch to bash shell
 setfont sun12x22
+setfont -d
 ```
 ### 1.3 Change mirror
 ```sh
@@ -15,35 +16,24 @@ xmirror # choose a preferred mirror
 ```
 ### 1.4 Connect to Wi-Fi
 ```sh
-ip -brief link show
-ip link set <device> up # run this if the interface is down
-# Using iwd (recommended)
-xbps-install -y iwd
-rm /var/service/wpa_supplicant  # disable `wpa_supplicant`
-ln -s /etc/sv/iwd /var/service/ # start `iwd` 
-
-iwctl station <device> scan
-iwctl station <device> get-networks 
-iwctl --passphrase <your_password> station <device> connect <ssid>
-# Using wpa_supplicant (default)
+ip -br link show
 wpa_cli -i <device> scan
 wpa_cli -i <device> scan_results
 wpa_passphrase "ssid" "your_password" > /etc/wpa_supplicant/wpa_supplicant.conf
-wpa_supplicant -B -i <device> -c /etc/wpa_supplicant/wpa_supplicant.conf
-# verify connection
-ip -brief addr show <device>
-ping -c 5 www.github.com
+sv restart wpa_supplicant
+# verify the connection
+ip -br a show <device>
+ping -c 5 github.com
 ```
 ### 1.5 Partitioning
 ```sh
-fdisk /dev/nvme0n1 # alternatives: `parted`,`cfdisk`,`gdisk`
-
-# Example layout:
-# esp   /dev/nvme0n1p1
+fdisk /dev/nvme0n1
+# Partitioning Example:
+# esp                       /dev/nvme0n1p1
 # root + swap (LVM on LUKS) /dev/nvme0n1p2
-# home (LUKS) /dev/nvme0n1p3
+# home (LUKS)               /dev/nvme0n1p3
 ```
-### 1.6 Formatting (LVM on LUKS)
+### 1.6 Formatting
 ```sh
 mkfs.vfat -F32 -n "ESP" /dev/nvme0n1p1
 
@@ -51,7 +41,7 @@ cryptsetup luksFormat /dev/nvme0n1p2
 cryptsetup luksFormat /dev/nvme0n1p3
 # Example with stronger parameters:
 # cryptsetup luksFormat --type luks2 --cipher aes-xts-plain64 --key-size 512 --hash sha512 --iter-time 4000 \
-# --pbkdf argon2id --pbkdf-memory 4194304 --pbkdf-parallel 6 --sector-size 4096
+# --pbkdf argon2id --pbkdf-memory 2097152 --pbkdf-parallel 6 --sector-size 4096
 
 cryptsetup open /dev/nvme0n1p2 cryptlvm
 cryptsetup open /dev/nvme0n1p3 crypthome
@@ -61,7 +51,7 @@ vgcreate vg1 /dev/mapper/cryptlvm # use `vgdisplay` to check
 lvcreate -L 32G -n swap vg1 # swap 
 lvcreate -l 100%FREE -n root vg1 # root
 
-mkfs.ext4 -L "HOME" /dev/nvme0n1p3
+mkfs.ext4 -L "HOME" /dev/mapper/crypthome
 mkfs.ext4 -L "ROOT" /dev/vg1/root 
 mkswap -L "SWAP" /dev/vg1/swap 
 ```
@@ -78,8 +68,8 @@ swapon /dev/vg1/swap
 mkdir -p /mnt/var/db/xbps/keys/
 cp /var/db/xbps/keys/* !$
 
-ARCH=x86_64 # or x86_64-musl
-REPO=https://mirrors.tuna.tsinghua.edu.cn/voidlinux/current
+ARCH=x86_64 # or `x86_64-musl`
+REPO=https://mirror.nju.edu.cn/voidlinux/current # or `https://mirror.nju.edu.cn/voidlinux/current/musl`
 # replace with your preferred mirror, use `xbps-query -L` to get your current repo. 
 
 # Standard installation
@@ -88,7 +78,7 @@ XBPS_ARCH=$ARCH xbps-install -S -r /mnt -R "$REPO" base-system lvm2 cryptsetup x
 XBPS_ARCH=$ARCH xbps-install -S -r /mnt -R "$REPO" base-minimal lvm2 cryptsetup xmirror vim procps-ng limine \
 bash tmux nftables xtools-minimal iproute2 bind-utils mdocml iwd dbus zramen acpid greetd tuigreet e2fsprogs \
 ethtool cronie eudev man-pages seatd turnstile podman openssh kmod kbd opendoas void-artwork less xfsprogs swww \
-dhcpcd usbutils pciutils flathub bubblewrap river fontconfig fcitx5 fcitx5-chinese-addons fcitx5-rime metalog \
+dhcpcd usbutils pciutils bubblewrap river niri fontconfig fcitx5 fcitx5-chinese-addons fcitx5-rime metalog \
 dracut udisks2 mako libnotify wl-clipboard flatpak zathura zathura-pdf-mupdf rsyslog btop nvtop ncdu rsync sbctl \
 imv mpv mpd mpc ncmpcpp grim slurp task tashwarrior-tui aria2 alsa-utils alsa-ucm-conf mtr bluetui bluez fuzzel \
 tlp waydroid libvirt nmap ifupdown dmidecode hwinfo lshw void-repo-nonfree blender smartmontools tree dosfstools \
@@ -173,9 +163,9 @@ hostonly="yes"
 passwd # set root password
 
 useradd -m <username>
-usermod -aG video,audio,input,wheel,_seatd <username>
+usermod -aG video,audio,input,wheel <username>
 
-visudo # uncomment %wheel ALL=(ALL:ALL) ALL
+visudo # uncomment `%wheel ALL=(ALL:ALL) ALL`
 ```
 ### 1.21 Reconfigure the System
 ```sh
@@ -186,7 +176,7 @@ xbps-reconfigure -fa
 exit # exit chroot
 swapoff /dev/vg1/swap
 umount -R /mnt
-reboot  
+reboot
 ```
 ### Secure boot (Optional)
 Using uki + sbctl
@@ -206,7 +196,7 @@ sudo xbps-install -y sbctl
 sudo sbctl status # check setup mode is enabled
 sudo sbctl enroll-keys --microsoft
 sudo sbctl sign --save /boot/EFI/Linux/void-linux.efi
-sudo efibootmgr --create --disk /dev/nvme0n1 --part 1  --label "Void Linux" --loader "EFI\Linux\void-linux.efi" # remember change bootorder
+sudo efibootmgr --create --disk /dev/nvme0n1 --part 1  --label "Void Linux" --loader "\EFI\Linux\void-linux.efi" # remember to change the boot order
 reboot
 ```
 

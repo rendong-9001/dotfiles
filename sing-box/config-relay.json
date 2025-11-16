@@ -9,13 +9,13 @@
       {
         "type": "https",
         "tag": "cloudflare",
-        "connect_timeout": "5s",
+        "connect_timeout": "1s",
         "server": "1.1.1.1"
       }
     ],
     "final": "cloudflare",
     "strategy": "prefer_ipv4",
-    "cache_capacity": 500
+    "disable_cache": true
   },
   "inbounds": [
     {
@@ -27,8 +27,7 @@
       "users": [
         {
           "name": "name",
-          "uuid": "uuid",
-          "flow": "xtls-rprx-vision"
+          "uuid": "uuid"
         }
       ],
       "tls": {
@@ -44,6 +43,17 @@
           "short_id": "110355",
           "max_time_difference": "2m30s"
         }
+      },
+      "transport": {
+        "type": "ws",
+        "path": "/watch",
+        "headers": {
+          "Accept-Language": "en-US,en;q=0.5",
+          "Host": "borrowed.com",
+          "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:144.0) Gecko/20100101 Firefox/144.0"
+        },
+        "max_early_data": 2080,
+        "early_data_header_name": "Sec-WebSocket-Protocol"
       }
     }
   ],
@@ -55,6 +65,7 @@
     {
       "type": "vless",
       "tag": "vless-out",
+      "tcp_fast_open": true,
       "domain_resolver": "cloudflare",
       "server": "mydomain.com",
       "server_port": 443,
