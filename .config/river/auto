@@ -1,6 +1,6 @@
 #!/bin/sh
 
-killall -q  mako bar status sandbar swww-daemon fcitx5 pipewire kanshi || true
+killall -q  mako bar status sandbar swww-daemon fcitx5 pipewire kanshi wallpaper.sh || true
 
 # wallpaper 
 riverctl spawn "swww-daemon && $HOME/.local/bin/wallpaper.sh"

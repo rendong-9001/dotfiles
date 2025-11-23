@@ -1,6 +1,5 @@
 #!/bin/sh
 
-. $HOME/.config/river/env
 . $HOME/.config/river/auto
 . $HOME/.config/river/modes
 . $HOME/.config/river/rules
