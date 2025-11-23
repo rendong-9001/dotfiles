@@ -1,0 +1,21 @@
+#!/bin/sh
+
+killall -q  mako bar status sandbar swww-daemon fcitx5 pipewire kanshi || true
+
+# wallpaper 
+riverctl spawn "swww-daemon && $HOME/.local/bin/wallpaper.sh"
+# input
+riverctl spawn "fcitx5 -d"
+# media
+riverctl spawn "pipewire"
+# terminal
+pgrep --full "foot --server" || riverctl spawn "foot --server"
+# notification
+riverctl spawn "mako"
+# screen
+riverctl spawn "gammastep"
+# display
+riverctl spawn "kanshi"
+# bar
+riverctl spawn "$HOME/.config/river/sandbar/status"
+riverctl spawn "$HOME/.config/river/sandbar/bar"

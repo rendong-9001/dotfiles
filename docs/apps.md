@@ -1,11 +1,11 @@
 ## Apps
 ### System Info
 ```sh
-dmidecode lshw hwinfo inxi ncdu btop nvtop sysstat smartmontools 
+dmidecode lshw hwinfo ncdu btop nvtop sysstat smartmontools 
 ```
 ### Bluetooth
 ```sh
-bluez bluez-alsa bluetui # enable bluetoothd & bluez-alsa service
+bluez bluez-alsa bluetui libspa-bluetooth # enable bluetoothd & bluez-alsa service
 ```
 ### Todo
 ```sh
@@ -17,12 +17,11 @@ lynx zen firefox
 ```
 ### File-Sharing
 ```sh
-android-file-transfer-cli termux+rsync kdeconnect
+android-file-transfer-cli rsync kdeconnect
 ```
 ### Security
 ```sh
-srm gunpg cryptsetup bubblewrap opendoas
-shred fstrim 
+gunpg cryptsetup bubblewrap opendoas srm clevis
 ```
 ### Uml
 ```sh
@@ -30,7 +29,7 @@ shred fstrim
 ```
 ### Log
 ```sh
-logrotate metalog rsyslogd svlogd
+logrotate metalog rsyslogd
 ```
 ### Coding
 ```sh
@@ -54,7 +53,7 @@ ariac2 yt-dlp
 ```
 ### Net
 ```sh
-mtr iproute2 nmap openssh bind-utils nftables iwd wireless-regdb tcpdump lsof nmap tshark 
+mtr iproute2 nmap openssh bind-utils nftables iwd wireless-regdb tcpdump lsof nmap tshark socat
 ```
 ### Graph Visualization
 ```sh

@@ -3,7 +3,7 @@
 ```sh
 git clone https://github.com/choff/anbox-modules.git
 ```
-## Fix Bug
+## Fix Bugs
 ```sh
 sudo ln -sf /dev/binderfs/anbox-binder  /dev/binder
 sudo ln -sf /dev/binderfs/anbox-vndbinder /dev/vndbinder
