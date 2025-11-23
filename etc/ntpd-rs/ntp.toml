@@ -1,0 +1,19 @@
+[observability]
+log-level = "info"
+observation-path = "/var/run/ntpd-rs/observe"
+
+[source-defaults]
+poll-interval-limits = { min = 60  , max = 90  } 
+initial-poll-interval = 4
+
+[[source]]
+mode = "pool"
+ntp-version = "auto"
+address = "cn.pool.ntp.org"
+count = 4
+
+[synchronization]
+single-step-panic-threshold = 500
+startup-step-panic-threshold = { forward = "inf", backward = 43200 }
+accumulated-step-panic-threshold = 1500
+minimum-agreeing-sources = 3

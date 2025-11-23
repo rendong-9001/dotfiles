@@ -1,8 +1,0 @@
-#!/bin/sh
-exec 2>&1
-
-HOME="/home/username"
-export PATH="$HOME/.local/bin"
-
-exec sing-box run -C "$HOME/.config/sing-box/"
-

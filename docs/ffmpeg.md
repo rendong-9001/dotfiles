@@ -1,7 +1,7 @@
 ### ffmpeg
 ## 1 
 ```sh
-ls -tr | grep "regex" > 'videos.txt'
+ls -1tr | awk '{printf "file %s\n",$1}' > videos.txt
 ffmpeg -hwaccel vaapi -f concat -safe 0 -i ./videos.txt -c:a acc -c:v h264_vaapi -qp 25  ~/videos/xxx.mp4 
 ```
 ## 2

@@ -1,0 +1,62 @@
+[env]
+TERM = "xterm-256color"
+
+[window]
+padding = { x = 5, y = 5 }
+decorations = "Full"
+opacity = 0.1
+dimensions = { columns = 0, lines = 0 }
+title = "Alacritty"
+
+[scrolling]
+history = 8192
+multiplier = 3
+
+[font]
+normal = { family = "Hack", style = "Italic" }
+size = 16
+
+[cursor]
+style = { "shape" = "Block", blinking = "On" }
+
+[terminal]
+shell = { program = "/bin/bash", args = ["-l"] }
+osc52 = "OnlyCopy"
+
+[mouse]
+hide_when_typing = true
+bindings = [{ mouse = "Right", mods = "Control|Shift", action = "Paste" }]
+
+[keyboard]
+bindings = [
+  { key = "C", mods = "Control|Shift", action = "Copy" },
+  { key = "V", mods = "Control|Shift", action = "Paste" },
+]
+
+[colors]
+cursor = { text = "#2F4F4F", cursor = "#FFD700" }
+selection = { text = "#FFD700", background = "#2F4F4F" }
+
+[colors.primary]
+background = "#2F4F4F"
+foreground = "#FFFAFA"
+
+[colors.normal]
+black = "#2F4F4F"
+red = "#CD3700"
+green = "#66CD00"
+yellow = "#CDAD00"
+blue = "#8DB6CD"
+magenta = "#CD2990"
+cyan = "#79CDCD"
+white = "#FFFAFA"
+
+[colors.bright]
+black = "#2F4F4F"
+red = "#FF4500"
+green = "#7FFF00"
+yellow = "#FFD700"
+blue = "#B0E2FF"
+magenta = "#FF34B3"
+cyan = "#97FFFF"
+white = "#FFFAFA"
