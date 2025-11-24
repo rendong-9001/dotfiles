@@ -39,7 +39,7 @@
           "discord",
           "github",
           "steam",
-          "ai-chat-!cn",
+          "openai",
           "spotify",
           "mozilla",
           "cloudflare",
@@ -147,7 +147,7 @@
           "discord",
           "github",
           "steam",
-          "ai-chat-!cn",
+          "openai",
           "spotify",
           "mozilla",
           "cloudflare",
@@ -188,8 +188,8 @@
       },
       {
         "type": "remote",
-        "tag": "ai-chat-!cn",
-        "url": "https://raw.githubusercontent.com/SagerNet/sing-geosite/refs/heads/rule-set/geosite-category-ai-chat-!cn.srs",
+        "tag": "openai",
+        "url": "https://raw.githubusercontent.com/SagerNet/sing-geosite/refs/heads/rule-set/geosite-openai.srs",
         "download_detour": "vless-out"
       },
       {
