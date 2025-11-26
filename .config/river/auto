@@ -3,7 +3,8 @@
 killall -q  mako bar status sandbar swww-daemon fcitx5 pipewire kanshi wallpaper.sh || true
 
 # wallpaper 
-riverctl spawn "swww-daemon && $HOME/.local/bin/wallpaper.sh"
+riverctl spawn "swww-daemon"
+riverctl spawn "$HOME/.local/bin/wallpaper.sh"
 # input
 riverctl spawn "fcitx5 -d"
 # media
