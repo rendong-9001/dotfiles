@@ -4,7 +4,6 @@ set recolor true
 set recolor-lightcolor "#FFFFFF"
 set recolor-darkcolor "#1E1E1E" 
 set scroll-step 50
-set page-padding 1
 set database 'sqlite'
 set statusbar-h-padding 0
 set statusbar-v-padding 0
