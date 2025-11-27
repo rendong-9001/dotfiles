@@ -17,7 +17,7 @@
         "type": "https",
         "tag": "txdns",
         "connect_timeout": "1s",
-        "server": "1.12.12.12"
+        "server": "120.53.53.53"
       },
       {
         "type": "https",
@@ -134,6 +134,13 @@
           "google-play@cn"
         ],
         "outbound": "direct"
+      },
+      {
+        "domain_suffix": [
+          ".org",
+          ".io"
+        ],
+        "outbound": "vless-out"
       },
       {
         "rule_set": [
