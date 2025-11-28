@@ -1,0 +1,48 @@
+--- config.kdl	2025-11-28 20:33:11.892068286 +0800
++++ config-noctalia-shell.kdl	2025-11-28 20:45:51.859108944 +0800
+@@ -525,21 +525,14 @@
+     }
+     // screenlock
+     Mod+Escape allow-inhibiting=false cooldown-ms=500 {
+-        spawn "swaylock"
++        spawn "qs" "-c" "noctalia-shell" "ipc" "call" "lockScreen" "lock"
+     }
+     Mod+Shift+Escape allow-when-locked=true {
+         power-off-monitors
+     }
+-    // sleep
+-    Mod+Z repeat=false cooldown-ms=500 {
+-        spawn "doas" "zzz" "-z"
+-    }
+-    Mod+Shift+Z repeat=false cooldown-ms=500 {
+-        spawn "sh" "-c" "notify-send 'Sleep!!!' && doas zzz -Z"
+-    }
+     // app
+     Mod+A {
+-        spawn "fuzzel"
++        spawn "qs" "-c" "noctalia-shell" "ipc" "call" "launcher" "toggle"
+     }
+     Mod+T {
+         spawn "footclient"
+@@ -557,7 +550,8 @@
+ }
+ // wallpaper
+ layer-rule {
+-    match namespace="^swww-daemon$"
++    match namespace="^noctalia-wallpaper*"
++    match namespace="^noctalia-overview*"
+     place-within-backdrop true
+ }
+ // window
+@@ -630,10 +624,8 @@
+     }
+ }
+ // auto
+-spawn-at-startup "swww-daemon"
+ spawn-at-startup "foot" "--server"
+ spawn-at-startup "fcitx5" "-d"
+ spawn-at-startup "gammastep"
+-spawn-at-startup "mako"
+ spawn-at-startup "pipewire"
+-spawn-sh-at-startup "$HOME/.config/niri/wallpaper.sh"
++spawn-at-startup "qs" "-c" "noctalia-shell"
