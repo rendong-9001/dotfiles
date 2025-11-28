@@ -1,5 +1,5 @@
---- config.kdl	2025-11-28 20:33:11.892068286 +0800
-+++ config-noctalia-shell.kdl	2025-11-28 20:45:51.859108944 +0800
+--- config.kdl	2025-11-28 23:08:28.533382378 +0800
++++ config-noctalia-shell.kdl	2025-11-28 23:34:37.236261164 +0800
 @@ -525,21 +525,14 @@
      }
      // screenlock
@@ -34,7 +34,7 @@
      place-within-backdrop true
  }
  // window
-@@ -630,10 +624,8 @@
+@@ -630,11 +624,8 @@
      }
  }
  // auto
@@ -43,6 +43,7 @@
  spawn-at-startup "fcitx5" "-d"
  spawn-at-startup "gammastep"
 -spawn-at-startup "mako"
- spawn-at-startup "pipewire"
--spawn-sh-at-startup "$HOME/.config/niri/wallpaper.sh"
+-spawn-at-startup "pipewire"
+-spawn-sh-at-startup "$HOME/.local/bin/wallpaper.sh"
 +spawn-at-startup "qs" "-c" "noctalia-shell"
+ spawn-sh-at-startup "$HOME/.local/bin/weather.sh"
