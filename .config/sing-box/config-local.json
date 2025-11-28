@@ -47,6 +47,8 @@
           "pixiv",
           "google-play",
           "flatpak",
+          "reddit",
+          "meta",
           "x"
         ],
         "server": "cloudflare"
@@ -162,6 +164,8 @@
           "pixiv",
           "google-play",
           "flatpak",
+          "reddit",
+          "meta",
           "x"
         ],
         "outbound": "vless-out"
@@ -175,6 +179,18 @@
       }
     ],
     "rule_set": [
+      {
+        "type": "remote",
+        "tag": "meta",
+        "url": "https://raw.githubusercontent.com/SagerNet/sing-geosite/refs/heads/rule-set/geosite-meta.srs",
+        "download_detour": "vless-out"
+      },
+      {
+        "type": "remote",
+        "tag": "reddit",
+        "url": "https://raw.githubusercontent.com/SagerNet/sing-geosite/refs/heads/rule-set/geosite-reddit.srs",
+        "download_detour": "vless-out"
+      },
       {
         "type": "remote",
         "tag": "flatpak",
