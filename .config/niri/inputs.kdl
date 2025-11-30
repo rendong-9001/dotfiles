@@ -1,0 +1,37 @@
+input {
+    mod-key "Super"
+    mod-key-nested "Alt"
+    warp-mouse-to-focus mode="center-xy"
+    workspace-auto-back-and-forth
+    focus-follows-mouse max-scroll-amount="10%"
+    keyboard {
+        track-layout "global"
+        repeat-delay 400
+        repeat-rate 50
+        numlock
+        xkb {
+            layout "us"
+            model "pc86"
+            options "ctrl:nocaps,compose:ralt,altwin:swap_lalt_lwin"
+            rules "evdev"
+        }
+    }
+    touchpad {
+        tap
+        dwt
+        natural-scroll
+        scroll-method "two-finger"
+        accel-profile "flat"
+        tap-button-map "left-middle-right"
+        click-method "button-areas"
+        scroll-factor 1.25
+    }
+    mouse {
+        natural-scroll
+        accel-profile "flat"
+        scroll-factor horizontal=1.5 vertical=-1.0
+    }
+    trackpoint {
+        off
+    }
+}

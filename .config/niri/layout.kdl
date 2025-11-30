@@ -1,0 +1,59 @@
+layout {
+    gaps 10
+    center-focused-column "never"
+    default-column-display "normal"
+    background-color "transparent"
+    preset-column-widths {
+        proportion 0.3
+        proportion 0.5
+        proportion 0.7
+        proportion 1.0
+    }
+    preset-window-heights {
+        proportion 0.3
+        proportion 0.5
+        proportion 0.7
+        proportion 1.0
+    }
+    default-column-width {
+        proportion 0.5
+    }
+    focus-ring {
+        width 4
+        urgent-color "#EE0000"
+        active-gradient from="#54FF9F" to="#87CEFF" angle=45 relative-to="workspace-view" in="oklch shorter hue"
+        inactive-gradient from="#C1CDCD" to="#F0FFFF" angle=45 relative-to="workspace-view" in="oklch longer hue"
+    }
+    insert-hint {
+        color "#C87F80"
+    }
+    border {
+        off
+        width 2
+    }
+    shadow {
+        on
+        softness 30
+        spread 5
+        offset x=2 y=2
+        color "#1A1A2E"
+    }
+    tab-indicator {
+        gap 6
+        width 4
+        position "top"
+        gaps-between-tabs 2
+        hide-when-single-tab
+        length total-proportion=0.95
+        corner-radius 3
+        active-color "#00FFC8"
+        inactive-color "#3A4D44"
+        urgent-color "#9B0000"
+    }
+    struts {
+        left 10
+        right 10
+        top 0
+        bottom 0
+    }
+}

@@ -1,0 +1,5 @@
+spawn-at-startup "foot" "--server"
+spawn-at-startup "fcitx5" "-d"
+spawn-at-startup "gammastep"
+spawn-at-startup "qs" "-c" "noctalia-shell"
+spawn-sh-at-startup "$HOME/.local/bin/weather.sh"

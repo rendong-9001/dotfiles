@@ -1,0 +1,22 @@
+output "DP-1" {
+    mode custom=true "2560x1440@120"
+    scale 1.0
+    transform "normal"
+    position x=0 y=0
+    variable-refresh-rate on-demand=true
+}
+output "eDP-1" {
+    focus-at-startup
+    mode "1920x1080@60"
+    scale 1.0
+    transform "normal"
+    position x=2560 y=-720
+    variable-refresh-rate on-demand=true
+}
+output "HDMI-A-1" {
+    mode custom=true "2560x1440@120"
+    scale 1.0
+    transform "normal"
+    position x=0 y=0
+    variable-refresh-rate on-demand=true
+}

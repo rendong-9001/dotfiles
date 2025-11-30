@@ -1,0 +1,82 @@
+// layer
+// notification
+layer-rule {
+    match namespace="notifications"
+    opacity 0.8
+    block-out-from "screencast"
+}
+// wallpaper
+layer-rule {
+    match namespace="^noctalia-wallpaper*"
+    match namespace="^noctalia-overview*"
+    place-within-backdrop true
+}
+// window
+// all windows
+window-rule {
+    geometry-corner-radius 5
+    clip-to-geometry true
+}
+// privacy
+window-rule {
+    match app-id="^Bitwarden$"
+    match app-id="com.belmoussaoui.Authenticator$"
+    block-out-from "screen-capture"
+}
+// steam
+window-rule {
+    match app-id="steam" title="^notificationtoasts_\\d+_desktop$"
+    default-floating-position x=10 y=10 relative-to="bottom-right"
+}
+// floating
+window-rule {
+    match app-id="^mpv$"
+    match app-id="^wev$"
+    match app-id="^imv$"
+    match title="^Library$"
+    match title="^Preferences$"
+    match title="^Picture-in-Picture$"
+    match title="Configuration$"
+    match title="Open File$"
+    match title="Open Folder$"
+    match title="Save File$"
+    match title="File Upload$"
+    open-floating true
+    default-floating-position x=0 y=100 relative-to="top"
+    default-window-height {
+        fixed 600
+    }
+    default-column-width {
+        proportion 0.5
+    }
+}
+// maximized
+window-rule {
+    match app-id="^Firefox$"
+    match app-id="^blender$"
+    match app-id="^com.obsproject.Studio$"
+    open-maximized true
+}
+// vrr
+window-rule {
+    match app-id="^mpv$"
+    variable-refresh-rate true
+}
+// tabbed
+window-rule {
+    match app-id="^footclient$"
+    match app-id="^Alacritty$"
+    default-column-display "tabbed"
+}
+// screencast
+window-rule {
+    match is-window-cast-target=true
+    focus-ring {
+        active-color "#FF2A4DAA"
+        inactive-color "#00C8FFAA"
+    }
+    tab-indicator {
+        active-color "#9D7CD8AA"
+        inactive-color "#00C8FFAA"
+    }
+}
