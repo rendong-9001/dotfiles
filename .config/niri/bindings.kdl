@@ -1,0 +1,361 @@
+binds {
+    Mod+Q {
+        close-window
+    }
+    Mod+I {
+        toggle-keyboard-shortcuts-inhibit
+    }
+    Mod+O repeat=false {
+        toggle-overview
+    }
+    // shortcuts
+    Mod+Shift+Slash {
+        show-hotkey-overlay
+    }
+    // exit niri
+    Mod+Shift+E {
+        quit skip-confirmation=true
+    }
+    // tabbed display
+    Mod+W {
+        toggle-column-tabbed-display
+    }
+    // focus monitors
+    Mod+Left {
+        focus-monitor-left
+    }
+    Mod+Down {
+        focus-monitor-down
+    }
+    Mod+Up {
+        focus-monitor-up
+    }
+    Mod+Right {
+        focus-monitor-right
+    }
+    // focus workspaces
+    Mod+Page_Down {
+        focus-workspace-down
+    }
+    Mod+Page_Up {
+        focus-workspace-up
+    }
+    Mod+N {
+        focus-workspace-down
+    }
+    Mod+P {
+        focus-workspace-up
+    }
+    Mod+Tab {
+        focus-workspace-previous
+    }
+    Mod+1 {
+        focus-workspace 1
+    }
+    Mod+2 {
+        focus-workspace 2
+    }
+    Mod+3 {
+        focus-workspace 3
+    }
+    Mod+4 {
+        focus-workspace 4
+    }
+    Mod+5 {
+        focus-workspace 5
+    }
+    Mod+6 {
+        focus-workspace 6
+    }
+    Mod+7 {
+        focus-workspace 7
+    }
+    Mod+8 {
+        focus-workspace 8
+    }
+    Mod+9 {
+        focus-workspace 9
+    }
+    Mod+0 {
+        focus-workspace 10
+    }
+    // move column to monitor
+    Mod+Control+Left {
+        move-column-to-monitor-left
+    }
+    Mod+Control+Down {
+        move-column-to-monitor-down
+    }
+    Mod+Control+Up {
+        move-column-to-monitor-up
+    }
+    Mod+Control+Right {
+        move-column-to-monitor-right
+    }
+    // move column to workspace
+    Mod+Control+Page_Down {
+        move-column-to-workspace-down
+    }
+    Mod+Control+Page_Up {
+        move-column-to-workspace-up
+    }
+    Mod+Control+N {
+        move-column-to-workspace-down
+    }
+    Mod+Control+P {
+        move-column-to-workspace-up
+    }
+    Mod+Control+1 {
+        move-column-to-workspace 1
+    }
+    Mod+Control+2 {
+        move-column-to-workspace 2
+    }
+    Mod+Control+3 {
+        move-column-to-workspace 3
+    }
+    Mod+Control+4 {
+        move-column-to-workspace 4
+    }
+    Mod+Control+5 {
+        move-column-to-workspace 5
+    }
+    Mod+Control+6 {
+        move-column-to-workspace 6
+    }
+    Mod+Control+7 {
+        move-column-to-workspace 7
+    }
+    Mod+Control+8 {
+        move-column-to-workspace 8
+    }
+    Mod+Control+9 {
+        move-column-to-workspace 9
+    }
+    Mod+Control+0 {
+        move-column-to-workspace 10
+    }
+    // move workspace
+    Mod+Shift+Page_Down {
+        move-workspace-down
+    }
+    Mod+Shift+Page_Up {
+        move-workspace-up
+    }
+    Mod+Shift+N {
+        move-workspace-down
+    }
+    Mod+Shift+P {
+        move-workspace-up
+    }
+    // move workspace to monitor
+    Mod+Shift+Left {
+        move-workspace-to-monitor-left
+    }
+    Mod+Shift+Right {
+        move-workspace-to-monitor-right
+    }
+    Mod+Shift+Up {
+        move-workspace-to-monitor-up
+    }
+    Mod+Shift+Down {
+        move-workspace-to-monitor-down
+    }
+    // columns and windows, resize and move
+    Mod+H {
+        focus-column-left
+    }
+    Mod+J {
+        focus-window-down
+    }
+    Mod+K {
+        focus-window-up
+    }
+    Mod+L {
+        focus-column-right
+    }
+    Mod+Home {
+        focus-column-first
+    }
+    Mod+End {
+        focus-column-last
+    }
+    Mod+Control+H {
+        move-column-left
+    }
+    Mod+Control+J {
+        move-window-down
+    }
+    Mod+Control+K {
+        move-window-up
+    }
+    Mod+Control+L {
+        move-column-right
+    }
+    mod+Control+Home {
+        move-column-to-first
+    }
+    mod+Control+End {
+        move-column-to-last
+    }
+    Mod+Shift+H {
+        move-window-to-monitor-left
+    }
+    Mod+Shift+L {
+        move-window-to-monitor-right
+    }
+    Mod+Shift+K {
+        move-window-to-monitor-up
+    }
+    Mod+Shift+J {
+        move-window-to-monitor-down
+    }
+    Mod+BracketLeft {
+        consume-or-expel-window-left
+    }
+    Mod+BracketRight {
+        consume-or-expel-window-right
+    }
+    Mod+Comma {
+        consume-window-into-column
+    }
+    Mod+Period {
+        expel-window-from-column
+    }
+    Mod+R {
+        switch-preset-column-width
+    }
+    Mod+Shift+R {
+        switch-preset-window-height
+    }
+    Mod+Alt+R {
+        reset-window-height
+    }
+    Mod+M {
+        maximize-column
+    }
+    Mod+Shift+M {
+        expand-column-to-available-width
+    }
+    Mod+F {
+        maximize-window-to-edges
+    }
+    Mod+Shift+F {
+        fullscreen-window
+    }
+    Mod+C {
+        center-column
+    }
+    Mod+Shift+C {
+        center-visible-columns
+    }
+    Mod+Minus {
+        set-column-width "-5%"
+    }
+    Mod+Equal {
+        set-column-width "+5%"
+    }
+    Mod+Shift+Minus {
+        set-window-height "-5%"
+    }
+    Mod+Shift+Equal {
+        set-window-height "+5%"
+    }
+    Mod+G {
+        toggle-window-floating
+    }
+    Mod+Shift+G {
+        switch-focus-between-floating-and-tiling
+    }
+    // screenshot
+    Print {
+        screenshot show-pointer=false
+    }
+    Control+Print {
+        screenshot-screen show-pointer=false write-to-disk=false
+    }
+    Alt+Print {
+        screenshot-window write-to-disk=false
+    }
+    // audio
+    Mod+Control+Bracketleft allow-when-locked=true {
+        spawn "wpctl" "set-volume" "@DEFAULT_AUDIO_SINK@" "5%-"
+    }
+    Mod+Control+Bracketright allow-when-locked=true {
+        spawn "wpctl" "set-volume" "@DEFAULT_AUDIO_SINK@" "5%+"
+    }
+    Mod+Control+Equal allow-when-locked=true {
+        spawn "wpctl" "set-mute" "@DEFAULT_AUDIO_SINK@" "toggle"
+    }
+    XF86AudioRaiseVolume allow-when-locked=true {
+        spawn "wpctl" "set-volume" "@DEFAULT_AUDIO_SINK@" "5%+"
+    }
+    XF86AudioLowerVolume allow-when-locked=true {
+        spawn "wpctl" "set-volume" "@DEFAULT_AUDIO_SINK@" "5%-"
+    }
+    XF86AudioMute allow-when-locked=true {
+        spawn "wpctl" "set-mute" "@DEFAULT_AUDIO_SINK@" "toggle"
+    }
+    // player
+    XF86AudioPrev allow-when-locked=true {
+        spawn "playerctl" "previous"
+    }
+    XF86AudioNext allow-when-locked=true {
+        spawn "playerctl" "next"
+    }
+    XF86AudioPlay allow-when-locked=true {
+        spawn "playerctl" "play-pause"
+    }
+    Control+Alt+Left allow-when-locked=true {
+        spawn "playerctl" "previous"
+    }
+    Control+Alt+Right allow-when-locked=true {
+        spawn "playerctl" "next"
+    }
+    Control+Alt+Down allow-when-locked=true {
+        spawn "playerctl" "play-pause"
+    }
+    Control+Alt+Up allow-when-locked=true {
+        spawn "playerctl" "play-pause"
+    }
+    // brightness
+    XF86MonBrightnessDown {
+        spawn "brightnessctl" "set" "10%-"
+    }
+    XF86MonBrightnessUp {
+        spawn "brightnessctl" "set" "+10%"
+    }
+    Mod+Control+Semicolon {
+        spawn "brightnessctl" "set" "10%-"
+    }
+    Mod+Control+Apostrophe {
+        spawn "brightnessctl" "set" "+10%"
+    }
+    Mod+Control+Slash {
+        spawn "brightnessctl" "set" "5%"
+    }
+    // screenlock
+    Mod+Escape allow-inhibiting=false cooldown-ms=500 {
+        spawn "qs" "-c" "noctalia-shell" "ipc" "call" "lockScreen" "lock"
+    }
+    Mod+Shift+Escape {
+        power-off-monitors
+    }
+    // sleep
+    Mod+Z repeat=false cooldown-ms=500 {
+        spawn "doas" "zzz" "-z"
+    }
+    Mod+Shift+Z repeat=false cooldown-ms=500 {
+        spawn "sh" "-c" "notify-send 'Sleep!!!' && doas zzz -Z"
+    }
+    // app
+    Mod+A {
+        spawn "qs" "-c" "noctalia-shell" "ipc" "call" "launcher" "toggle"
+    }
+    Mod+T {
+        spawn "footclient"
+    }
+    Mod+B {
+        spawn "firefox-wayland"
+    }
+}
