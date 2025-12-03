@@ -1,4 +1,4 @@
--o "~/videos/%(title)s.%(ext)s"
+-o "~/Videos/%(title)s.%(ext)s"
 --embed-metadata
 --socket-timeout 25
 --retries 4
