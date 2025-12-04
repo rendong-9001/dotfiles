@@ -1,7 +1,6 @@
 #!/bin/sh
-set -eu
 
-sleep 4
+sleep 3
 FILE_PATH='/tmp/weather'
 CITY=${CITY:-'武汉'}
 WEATHER_INTERVAL=${WEATHER_INTERVAL:-1800}
