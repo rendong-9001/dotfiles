@@ -1,15 +1,7 @@
 #!/bin/sh
 
-# main window
-riverctl map normal Super+Control H  send-layout-cmd rivertile "main-location left"
-riverctl map normal Super+Control L  send-layout-cmd rivertile "main-location right"
 # tile
 riverctl default-layout rivertile
 riverctl spawn "rivertile -view-padding 3 -outer-padding 3 -main-location right -main-count 1 -main-ratio 0.7"
-# layout
-riverctl map normal Super+Shift H send-layout-cmd rivertile "main-ratio -0.05"
-riverctl map normal Super+Shift L send-layout-cmd rivertile "main-ratio +0.05"
-riverctl map normal Super+Control K send-layout-cmd rivertile "main-count +1"
-riverctl map normal Super+Control J send-layout-cmd rivertile "main-count -1"
 # attach-mode
 riverctl default-attach-mode below
