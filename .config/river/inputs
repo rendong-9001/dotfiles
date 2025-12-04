@@ -1,0 +1,18 @@
+#!/bin/sh
+
+# keyboard
+riverctl set-repeat 50 400
+riverctl keyboard-layout-file "$HOME/.config/xkb/keyboard.xkb"  
+# touchpad
+for i in $(riverctl list-inputs | grep -i touchpad); do
+    riverctl input "$i" tap enabled
+    riverctl input "$i" disable-while-typing enabled
+    riverctl input "$i" click-method button-areas
+    riverctl input "$i" scroll-factor 1.25 
+done
+# mouse
+for i in $(riverctl list-inputs | grep -i mouse); do
+    riverctl input "$i" accel-profile flat
+    riverctl input "$i" natural-scroll enabled
+    riverctl input "$i" scroll-factor 1.25 
+done
