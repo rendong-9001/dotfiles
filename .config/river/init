@@ -1,19 +1,9 @@
 #!/bin/sh
 
 . $HOME/.config/river/auto
+. $HOME/.config/river/misc
 . $HOME/.config/river/modes
 . $HOME/.config/river/rules
 . $HOME/.config/river/layout
 . $HOME/.config/river/inputs
 . $HOME/.config/river/bindings
-
-# color 
-riverctl background-color 0x0A0A12 
-riverctl border-color-focused 0x00FFC8 
-riverctl border-color-unfocused 0x3A4D44
-# cursor
-riverctl focus-follows-cursor disabled
-riverctl xcursor-theme Adwaita 20
-riverctl hide-cursor timeout 5000
-riverctl hide-cursor when-typing enabled
-riverctl set-cursor-warp on-output-change
