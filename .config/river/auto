@@ -1,7 +1,7 @@
 #!/bin/sh
 
 killall -q  mako bar status sandbar swww-daemon fcitx5 pipewire \
-	kanshi xdg-desktop-portal wallpaper.sh weather.sh || true
+	kanshi wallpaper.sh weather.sh || true
 
 # wallpaper 
 riverctl spawn "swww-daemon"
@@ -18,8 +18,6 @@ riverctl spawn "mako"
 riverctl spawn "gammastep"
 # display
 riverctl spawn "kanshi"
-# xdg-desktop-portal
-riverctl spawn "/usr/libexec/xdg-desktop-portal"
 # bar
 riverctl spawn "$HOME/.config/river/sandbar/status"
 riverctl spawn "$HOME/.config/river/sandbar/bar"
