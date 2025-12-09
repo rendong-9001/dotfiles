@@ -15,9 +15,13 @@ riverctl rule-add -app-id "mpv" position 500 200
 riverctl rule-add -app-id "mpv" dimensions 900 600
 # imv
 riverctl rule-add -app-id "imv" float
-riverctl rule-add -app-id "imv" position 500 200 
+riverctl rule-add -app-id "imv" position 500 200
 riverctl rule-add -app-id "imv" dimensions 900 600
 # blender
 riverctl rule-add -app-id "blender" no-float
-riverctl rule-add -app-id "blender" position 500 200 
+riverctl rule-add -app-id "blender" position 500 200
 riverctl rule-add -app-id "blender" dimensions 900 600
+# nautilus
+riverctl rule-add -app-id "org.gnome.Nautilus" float
+riverctl rule-add -app-id "org.gnome.Nautilus" position 500 200
+riverctl rule-add -app-id "org.gnome.Nautilus" dimensions 900 600
