@@ -33,6 +33,7 @@ window-rule {
     match app-id="^mpv$"
     match app-id="^wev$"
     match app-id="^imv$"
+    match app-id="^org.gnome.Nautilus$"
     match title="^Library$"
     match title="^Preferences$"
     match title="^Picture-in-Picture$"
