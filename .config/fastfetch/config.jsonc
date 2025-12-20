@@ -3,14 +3,17 @@
   "logo": {
     "type":"auto",
     "source":"void",
+    "width": 18,
+    "height": 16,
     "color":{
 	    "1":"green",
 	    "2":"white"
     },
     "padding": {
-      "top": 2,
+      "top": 1,
+      "buttom": 1,
       "left": 1,
-      "right": 2
+      "right": 1
     }
   },
   "display": {
