@@ -37,11 +37,10 @@ window-rule {
     match title="^Library$"
     match title="^Preferences$"
     match title="^Picture-in-Picture$"
-    match title="Configuration$"
-    match title="Open File$"
-    match title="Open Folder$"
-    match title="Save File$"
-    match title="File Upload$"
+    match title="*Configuration$"
+    match title="^Open*"
+    match title="^Save*"
+    match title="*Upload$"
     open-floating true
     default-floating-position x=0 y=100 relative-to="top"
     default-window-height {
