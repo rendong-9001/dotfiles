@@ -4,14 +4,23 @@
 riverctl rule-add -app-id "*" ssd
 # firefox
 riverctl rule-add -app-id "Firefox" -title "Library" float
-riverctl rule-add -app-id "Firefox" -title "Library" position 500 200 
+riverctl rule-add -app-id "Firefox" -title "Library" position 500 200
 riverctl rule-add -app-id "Firefox" -title "Library" dimensions 900 600
+riverctl rule-add -app-id "Firefox" -title "Save*" float
+riverctl rule-add -app-id "Firefox" -title "Save*" position 500 200
+riverctl rule-add -app-id "Firefox" -title "Save*" dimensions 900 600
+riverctl rule-add -app-id "Firefox" -title "Open*" float
+riverctl rule-add -app-id "Firefox" -title "Open*" position 500 200
+riverctl rule-add -app-id "Firefox" -title "Open*" dimensions 900 600
+riverctl rule-add -app-id "Firefox" -title "*Upload" float
+riverctl rule-add -app-id "Firefox" -title "*Upload" position 500 200
+riverctl rule-add -app-id "Firefox" -title "*Upload" dimensions 900 600
 riverctl rule-add -app-id "Firefox" no-float 
 riverctl rule-add -app-id "Firefox" position 500 200 
 riverctl rule-add -app-id "Firefox" dimensions 900 600
 # mpv
 riverctl rule-add -app-id "mpv" float
-riverctl rule-add -app-id "mpv" position 500 200 
+riverctl rule-add -app-id "mpv" position 500 200
 riverctl rule-add -app-id "mpv" dimensions 900 600
 # imv
 riverctl rule-add -app-id "imv" float
