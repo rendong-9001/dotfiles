@@ -107,7 +107,7 @@ riverctl map -repeat normal Super+Control Semicolon spawn "brightnessctl set 10%
 riverctl map normal Super+Control Slash spawn "brightnessctl set 5%"
 # player 
 riverctl map normal	None XF86AudioPrev spawn "playerctl previous"
-riverctl map normal	None iXF86AudioPlay  spawn "playerctl play-pause "
+riverctl map normal	None XF86AudioPlay  spawn "playerctl play-pause "
 riverctl map normal	None XF86AudioNext spawn "playerctl next"
 riverctl map normal	Control+Alt Left spawn "playerctl previous"
 riverctl map normal	Control+Alt Up spawn "playerctl play-pause "
