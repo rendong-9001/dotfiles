@@ -75,12 +75,14 @@ done
 # main-location
 riverctl map normal Super+Control H  send-layout-cmd rivertile "main-location left"
 riverctl map normal Super+Control L  send-layout-cmd rivertile "main-location right"
+riverctl map normal Super+Control K  send-layout-cmd rivertile "main-location top"
+riverctl map normal Super+Control J  send-layout-cmd rivertile "main-location bottom"
 # main-ratio
 riverctl map normal Super+Shift H send-layout-cmd rivertile "main-ratio -0.05"
 riverctl map normal Super+Shift L send-layout-cmd rivertile "main-ratio +0.05"
 # main-count
-riverctl map normal Super+Control K send-layout-cmd rivertile "main-count +1"
-riverctl map normal Super+Control J send-layout-cmd rivertile "main-count -1"
+riverctl map normal Super+Shift K send-layout-cmd rivertile "main-count +1"
+riverctl map normal Super+Shift J send-layout-cmd rivertile "main-count -1"
 # fuzzel
 riverctl map normal Super A spawn "fuzzel"
 # firefox
@@ -113,3 +115,10 @@ riverctl map normal	Control+Alt Left spawn "playerctl previous"
 riverctl map normal	Control+Alt Up spawn "playerctl play-pause "
 riverctl map normal	Control+Alt Down spawn "playerctl play-pause "
 riverctl map normal	Control+Alt Right spawn "playerctl next"
+# screenshot
+riverctl map normal	None XF86SelectiveScreenshot spawn "screenshot.sh"
+riverctl map normal	Alt XF86SelectiveScreenshot spawn "screenshot.sh window"
+riverctl map normal	Control XF86SelectiveScreenshot spawn "screenshot.sh full"
+# screencap
+riverctl map normal	Super Backslash spawn "screencast.sh start"
+riverctl map normal	Super+Shift Backslash spawn "screencast.sh stop"
