@@ -1,6 +1,6 @@
 #!/bin/sh
 
-killall -q  mako bar status sandbar swww-daemon fcitx5 pipewire \
+killall -q mako swww-daemon fcitx5 pipewire \
 	kanshi wallpaper.sh weather.sh || true
 
 # wallpaper 
@@ -19,7 +19,7 @@ riverctl spawn "gammastep"
 # display
 riverctl spawn "kanshi"
 # bar
-riverctl spawn "$HOME/.config/river/sandbar/status"
-riverctl spawn "$HOME/.config/river/sandbar/bar"
+pgrep "status" || riverctl spawn "$HOME/.config/river/sandbar/status"
+pgrep "bar" || riverctl spawn "$HOME/.config/river/sandbar/bar"
 # weather
 riverctl spawn "$HOME/.local/bin/weather.sh"
