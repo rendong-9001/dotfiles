@@ -1,4 +1,5 @@
 #!/bin/sh
+set -eu
 
 . $HOME/.config/river/auto
 . $HOME/.config/river/misc

@@ -1,3 +1,6 @@
+#!/bin/sh
+set -eu
+
 # color 
 riverctl background-color 0x0A0A12 
 riverctl border-color-focused 0x00FFC8 

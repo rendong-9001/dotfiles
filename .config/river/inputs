@@ -1,4 +1,5 @@
 #!/bin/sh
+set -eu
 
 # keyboard
 riverctl set-repeat 50 400

@@ -71,4 +71,3 @@ while true; do
 		sec=$((sec + 1))
 	}
 done
-

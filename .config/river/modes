@@ -1,4 +1,5 @@
 #!/bin/sh
+set -eu
 
 fcitx_mode="switch_input"
 
