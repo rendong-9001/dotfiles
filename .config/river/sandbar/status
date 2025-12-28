@@ -1,4 +1,5 @@
 #!/bin/sh
+set -eu
 
 cpu() {
 		cpu="CPU:$(top -bn1 | grep "%Cpu(s)" | awk '{ printf "%.0f%%\n",$2 + $4 }')"
