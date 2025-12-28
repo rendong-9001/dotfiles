@@ -1,4 +1,5 @@
 #!/bin/sh
+set -eu
 
 # all
 riverctl rule-add -app-id "*" ssd
@@ -32,5 +33,5 @@ riverctl rule-add -app-id "blender" position 500 200
 riverctl rule-add -app-id "blender" dimensions 900 600
 # nautilus
 riverctl rule-add -app-id "org.gnome.Nautilus" float
-riverctl rule-add -app-id "org.gnome.Nautilus" position 500 200
+riverctl rule-add -app-id "org.gnome.Nautilus" position 500 200 
 riverctl rule-add -app-id "org.gnome.Nautilus" dimensions 900 600

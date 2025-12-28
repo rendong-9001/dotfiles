@@ -1,4 +1,5 @@
 #!/bin/sh
+set -eu
 
 # tile
 riverctl default-layout rivertile

@@ -1,4 +1,5 @@
 #!/bin/sh
+set -eu
 
 FIFO="/tmp/sandbar"
 [ -e "$FIFO" ] && rm -f "$FIFO"
@@ -17,5 +18,3 @@ while cat "$FIFO"; do :; done | sandbar \
 	-no-layout \
 	-vertical-padding 3 \
 	-scale 1
-	
-	
