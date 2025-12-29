@@ -2,7 +2,7 @@
 set -eu
 
 killall -q mako swww-daemon fcitx5 pipewire \
-	kanshi wallpaper.sh weather.sh sandbar bar status || true
+	kanshi wallpaper.sh weather.sh bar status || true
 
 # wallpaper 
 riverctl spawn "swww-daemon"
