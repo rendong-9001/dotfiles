@@ -17,10 +17,10 @@ middle-click-paste = false
 bufferline = "multiple"
 clipboard-provider = "wayland"
 cursorline = true
-scrolloff = 10
+scrolloff = 8
 continue-comments = false
 true-color = true
-popup-border = 'popup'
+popup-border = "popup"
 text-width = 100
 
 [editor.cursor-shape]
@@ -43,8 +43,21 @@ max-wrap = 20
 
 [editor.statusline]
 left = ["mode", "spinner"]
-center = ["read-only-indicator", "version-control", "file-base-name"]
-right = ["diagnostics", "selections", "position", "file-encoding", "file-type"]
+center = [
+  "read-only-indicator",
+  "version-control",
+  "file-base-name",
+  "file-modification-indicator",
+]
+right = [
+  "diagnostics",
+  "file-type",
+  "file-encoding",
+  "total-line-numbers",
+  "selections",
+  "separator",
+  "position",
+]
 separator = "|"
 mode.normal = "NORMAL"
 mode.insert = "INSERT"
@@ -63,7 +76,7 @@ mode.select = "SELECT"
 min-width = 2
 
 [editor.gutters]
-layout = ["diff", "diagnostics", "line-numbers", "spacer"]
+layout = ["diagnostics", "spacer", "line-numbers", "spacer", "diff"]
 
 [editor.indent-guides]
 render = true
