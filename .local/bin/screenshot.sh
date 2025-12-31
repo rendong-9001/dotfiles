@@ -28,7 +28,7 @@ case "$MODE" in
 		# todo
 		;;
 	region)
-		_region="$(slurp)"
+		_region="$(slurp || true)"
 		check_esc "$_region"
 		grim -g "$_region" - | tee "$FILE" | wl-copy 
 		;;
