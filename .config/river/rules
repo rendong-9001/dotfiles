@@ -16,6 +16,9 @@ riverctl rule-add -app-id "Firefox" -title "Open*" dimensions 900 600
 riverctl rule-add -app-id "Firefox" -title "*Upload" float
 riverctl rule-add -app-id "Firefox" -title "*Upload" position 500 200
 riverctl rule-add -app-id "Firefox" -title "*Upload" dimensions 900 600
+riverctl rule-add -app-id "Firefox" -title "Picture-in-Picture" float
+riverctl rule-add -app-id "Firefox" -title "Picture-in-Picture" position 500 200
+riverctl rule-add -app-id "Firefox" -title "Picture-in-Picture" dimensions 900 600
 riverctl rule-add -app-id "Firefox" no-float 
 riverctl rule-add -app-id "Firefox" position 500 200 
 riverctl rule-add -app-id "Firefox" dimensions 900 600
