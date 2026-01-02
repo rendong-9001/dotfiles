@@ -2,7 +2,7 @@
 TERM = "xterm-256color"
 
 [window]
-padding = { x = 5, y = 5 }
+padding = { x = 2, y = 2 }
 decorations = "Full"
 opacity = 0.1
 dimensions = { columns = 0, lines = 0 }
@@ -20,7 +20,6 @@ size = 16
 style = { "shape" = "Block", blinking = "On" }
 
 [terminal]
-shell = { program = "/bin/bash", args = ["-l"] }
 osc52 = "OnlyCopy"
 
 [mouse]
