@@ -123,3 +123,5 @@ riverctl map normal	Control XF86SelectiveScreenshot spawn "screenshot.sh full"
 # screencap
 riverctl map normal	Super Backslash spawn "screencast.sh start"
 riverctl map normal	Super+Shift Backslash spawn "screencast.sh stop"
+# wallpaper
+riverctl map normal	Super+Shift R spawn "wallpaper-update.sh"
