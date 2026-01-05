@@ -2,7 +2,8 @@
 
 # If not running interactively, don't do anything
 [[ $- != *i* ]] && return
-# rust
+
+# rust 
 . "$HOME/.cargo/env" 
 export RUSTUP_DIST_SERVER='https://rsproxy.cn'
 export RUSTUP_UPDATE_ROOT='https://rsproxy.cn/rustup'
@@ -22,7 +23,9 @@ export TERM=xterm-256color
 export CDPATH="$HOME/Work"
 # nnn
 export NNN_OPENER="$HOME/.config/nnn/plugins/opener"
-export NNN_BMS="m:/run/media;s:/etc;h:$HOME/.config"
+export NNN_BMS="m:/run/media/$USER;e:/etc;c:$HOME/.config;"
+export NNN_PLUG='v:preview-tui'
+export NNN_FIFO='/tmp/nnn.fifo' 
 # bash
 shopt -s cdspell
 shopt -s dirspell
@@ -30,7 +33,6 @@ shopt -s histappend
 shopt -s checkwinsize
 shopt -s extglob
 export HISTFILE="$HOME/.local/state/bash_history"
-export LESSHISTFILE="$HOME/.local/state/less_history"
 export HISTSIZE=8192
 export HISTFILESIZE=8192
 export HISTCONTROL=ignoredups:erasedup:ignoreboth
@@ -38,3 +40,7 @@ export PROMPT_COMMAND='history -a'
 # runit
 export SVDIR="$HOME/.config/service"
 export SVWAIT=5
+# less
+export LESSHISTFILE="$HOME/.local/state/less_history"
+export LESS_TERMCAP_se=$'\E[0m'
+export LESS_TERMCAP_so=$'\E[01;48;5;220m'
