@@ -173,7 +173,8 @@
       {
         "rule_set": [
           "csdn",
-          "zhihu"
+          "zhihu",
+          "ads-all"
         ],
         "outbound": "block"
       }
@@ -333,6 +334,12 @@
         "type": "remote",
         "tag": "google-play@cn",
         "url": "https://raw.githubusercontent.com/SagerNet/sing-geosite/refs/heads/rule-set/geosite-google-play@cn.srs",
+        "download_detour": "vless-out"
+      },
+      {
+        "type": "remote",
+        "tag": "ads-all",
+        "url": "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/sing/geo/geosite/category-ads-all.srs",
         "download_detour": "vless-out"
       }
     ],
