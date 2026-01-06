@@ -44,6 +44,15 @@
           "max_time_difference": "2m30s"
         }
       },
+      "multiplex": {
+        "enabled": true,
+        "padding": true,
+        "brutal": {
+          "enabled": true,
+          "up_mbps": 50,
+          "down_mbps": 100
+        }
+      },
       "transport": {
         "type": "ws",
         "path": "/watch",
