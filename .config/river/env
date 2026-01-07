@@ -1,12 +1,4 @@
 #!/bin/sh
 set -eu 
 
-export XDG_CURRENT_DESKTOP=river
-export QT_QPA_PLATFORM=wayland
-export ELM_DISPLAY=wl
-export SDL_VIDEODRIVER=wayland
-export XMODIFIERS=@im=fcitx
-export GTK_THEME=Adwaita-dark
-export QT_QPA_PLATFORMTHEME=gtk3
-
-exec river
+riverctl spawn "dbus-update-activation-environment DISPLAY WAYLAND_DISPLAY XDG_RUNTIME_DIR"
