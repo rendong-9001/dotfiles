@@ -19,3 +19,10 @@ export XDG_DATA_HOME="$HOME/.local/share"
 export XDG_STATE_HOME="$HOME/.local/state"
 # nvidia
 export CUDA_CACHE_PATH="$XDG_CACHE_HOME/nv"
+# apps
+export QT_QPA_PLATFORM=wayland
+export ELM_DISPLAY=wl
+export SDL_VIDEODRIVER=wayland
+export XMODIFIERS=@im=fcitx
+export GTK_THEME=Adwaita:dark
+export QT_QPA_PLATFORMTHEME=gtk3
