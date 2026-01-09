@@ -1,0 +1,4 @@
+#!/bin/sh
+exec 2>&1
+
+exec podman --log-level info system service -t 0 2>&1
