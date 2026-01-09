@@ -1,7 +1,0 @@
-#!/bin/sh
-exec 2>&1
-
-HOME="/home/username"
-
-exec /usr/sbin/sshd -D \
-    -f "$HOME/.ssh/sshd_config"

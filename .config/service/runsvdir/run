@@ -6,5 +6,4 @@ export HOME="/home/username"
 groups="$(id -Gn "$USER" | tr ' ' ':')"
 svdir="$HOME/.service"
 
-exec chpst -u "$USER:$groups" -n 10 runsvdir "$svdir"
-
+exec chpst -b "runsvdir-$USER" -u "$USER:$groups" -n 5 runsvdir "$svdir"
