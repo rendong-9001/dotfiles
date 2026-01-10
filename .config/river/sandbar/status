@@ -30,11 +30,15 @@ bat() {
 light() {
   		_current=$(brightnessctl get)
   		_max=$(brightnessctl max)
-  		brightnss="LIGHT:$(((_current * 100) / _max))%"
+  		light="LIGHT:$(((_current * 100) / _max))%"
 }
 
 vol() {
-		vol="VOL:$(wpctl get-volume @DEFAULT_SINK@ | awk '{printf "%.0f%%\n", $2*100}')"
+	_vol=$(wpctl get-volume @DEFAULT_SINK@ 2>/dev/null)
+	case "$_vol" in
+		*MUTED*) vol='VOL:MUTED' ;;
+		*) vol="VOL:$(printf '%s' "$_vol" | awk '{printf "%.0f%%\n", $2*100}')" ;;
+	esac
 }
 
 wifi() {
@@ -47,12 +51,16 @@ temp() {
 }
 
 display() {
-		echo "all status [$cpu $temp $memory $disk_root $disk_home] [$brightnss] [$vol] [$wifi] [$bat] [$datetime]" >"$FIFO"
+	printf 'all status [%s %s %s %s %s] [%s] [%s] [%s] [%s] [%s]\n' \
+       "$cpu" "$temp" "$memory" "$disk_root" "$disk_home" "$light" "$vol" "$wifi" "$bat" "$datetime" > "$FIFO"
 }
 
-printf "%s" "$$" > "/tmp/status_pid"
+PID_FILE="/tmp/status_pid"
+printf "%s" "$$" > "$PID_FILE"
 FIFO="/tmp/sandbar"
 [ -e "$FIFO" ] || mkfifo "$FIFO"
+
+trap 'rm -f "$FIFO" "$PID_FILE"; exit 0' INT TERM
 sec=0
 
 while true; do
