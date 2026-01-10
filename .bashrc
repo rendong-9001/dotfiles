@@ -44,3 +44,5 @@ export SVWAIT=5
 export LESSHISTFILE="$HOME/.local/state/less_history"
 export LESS_TERMCAP_se=$'\E[0m'
 export LESS_TERMCAP_so=$'\E[01;48;5;220m'
+# xon/xoff
+stty -ixon
