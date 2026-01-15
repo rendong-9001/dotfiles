@@ -40,3 +40,5 @@ set foldcolumn=0
 setlocal foldlevel=1
 nnoremap <space> @=((foldclosed(line('.')) < 0) ? 'zc' : 'zo')<CR>
 set statusline=\ %<%F\ [%1*%M%*%n%R%H]%=\ %y\ %0(%{&fileformat}\ %{&encoding}\ Ln\ %l,\ Col\ %c/%L%)
+set splitbelow
+set splitright
