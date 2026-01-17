@@ -51,14 +51,11 @@ unicode = true
 progress.when = "always"
 progress.width = 100
 
-#[install]
-#root = "/home/rendong/.local/bin"
-
 [profile.release]
 opt-level = "s"
 codegen-units = 1
 lto = "thin"
-debug = "line-tables-only"
+strip = true
 
 [source.crates-io]
 replace-with = 'rsproxy-sparse'
