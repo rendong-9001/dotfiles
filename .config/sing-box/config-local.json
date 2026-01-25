@@ -17,7 +17,7 @@
         "type": "https",
         "tag": "txdns",
         "connect_timeout": "1s",
-        "server": "120.53.53.53"
+        "server": "1.12.12.12"
       },
       {
         "type": "https",
@@ -49,6 +49,9 @@
           "flatpak",
           "reddit",
           "meta",
+          "telegram",
+          "amazon",
+          "aws",
           "x"
         ],
         "server": "cloudflare"
@@ -59,20 +62,19 @@
           "bilibili",
           "google-play@cn"
         ],
-        "server": "alidns"
+        "server": "txdns"
       }
     ],
-    "final": "txdns",
+    "final": "alidns",
     "strategy": "prefer_ipv4",
-    "cache_capacity": 1500
+    "cache_capacity": 3000
   },
   "inbounds": [
     {
       "type": "mixed",
       "tag": "mixed",
       "listen": "0.0.0.0",
-      "listen_port": 14443,
-      "tcp_fast_open": true
+      "listen_port": 14443
     }
   ],
   "outbounds": [
@@ -89,26 +91,19 @@
       "tag": "vless-out",
       "connect_timeout": "10s",
       "tcp_fast_open": true,
-      "domain_resolver": "alidns",
-      "server": "mydomain.com",
+      "domain_resolver": "txdns",
+      "server": "example.com",
       "server_port": 443,
       "uuid": "uuid",
+      "network": "tcp",
       "tls": {
         "enabled": true,
-        "server_name": "borrowed.com",
-        "utls": {
-          "enabled": true,
-          "fingerprint": "firefox"
-        },
-        "reality": {
-          "enabled": true,
-          "public_key": "public_key",
-          "short_id": "110355"
-        }
+        "server_name": "example.com",
+        "min_version": "1.2"
       },
       "multiplex": {
         "enabled": true,
-        "protocol": "h2mux",
+        "protocol": "smux",
         "max_connections": 4,
         "min_streams": 4,
         "padding": true,
@@ -123,11 +118,30 @@
         "path": "/watch",
         "headers": {
           "Accept-Language": "en-US,en;q=0.5",
-          "Host": "borrowed.com",
+          "Host": "example.com",
           "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:144.0) Gecko/20100101 Firefox/144.0"
         },
         "max_early_data": 2080,
         "early_data_header_name": "Sec-WebSocket-Protocol"
+      }
+    },
+    {
+      "type": "tuic",
+      "tag": "tuic-out",
+      "connect_timeout": "10s",
+      "domain_resolver": "txdns",
+      "server": "example.com",
+      "server_port": 443,
+      "uuid": "uuid",
+      "password": "password",
+      "congestion_control": "bbr",
+      "udp_relay_mode": "quic",
+      "heartbeat": "10s",
+      "network": "tcp",
+      "tls": {
+        "enabled": true,
+        "server_name": "example.com",
+        "alpn": "h3"
       }
     }
   ],
@@ -178,6 +192,9 @@
           "flatpak",
           "reddit",
           "meta",
+          "telegram",
+          "amazon",
+          "aws",
           "x"
         ],
         "outbound": "vless-out"
@@ -192,6 +209,24 @@
       }
     ],
     "rule_set": [
+      {
+        "type": "remote",
+        "tag": "amazon",
+        "url": "https://raw.githubusercontent.com/SagerNet/sing-geosite/refs/heads/rule-set/geosite-amazon.srs",
+        "download_detour": "vless-out"
+      },
+      {
+        "type": "remote",
+        "tag": "aws",
+        "url": "https://raw.githubusercontent.com/SagerNet/sing-geosite/refs/heads/rule-set/geosite-aws.srs",
+        "download_detour": "vless-out"
+      },
+      {
+        "type": "remote",
+        "tag": "telegram",
+        "url": "https://raw.githubusercontent.com/SagerNet/sing-geosite/refs/heads/rule-set/geosite-telegram.srs",
+        "download_detour": "vless-out"
+      },
       {
         "type": "remote",
         "tag": "meta",
