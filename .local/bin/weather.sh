@@ -33,7 +33,7 @@ trap '{ cleanup; exit 0; }' TERM INT EXIT
 printf "%s\n" "$$" >"$PID"
 
 while :; do
-	URL="https://wttr.in/$CITY?format=%l:+%C+%t\&lang=zh"
+	URL="https://wttr.in/$CITY?format=%l:+%C+%t&lang=zh"
 	weather=$(curl -s --max-time 3 "$URL") || :
 	if [ -z "$weather" ]; then
 		sleep 5
