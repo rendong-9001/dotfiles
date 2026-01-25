@@ -7,7 +7,7 @@ WALLPAPER_DIR=${WALLPAPER_DIR:-"$HOME/.local/share/wallpapers"}
 WALLPAPER_PROG="swww"
 
 if [ ! -d "$WALLPAPER_DIR" ] || ! command -v "$WALLPAPER_PROG" >/dev/null 2>&1; then 
-	exit 1
+  exit 1
 fi
 
 interrupt_sleep() {
@@ -17,6 +17,7 @@ interrupt_sleep() {
 }
 
 trap 'interrupt_sleep' USR1
+trap '{ interrupt_sleep; exit 0; }' INT TERM EXIT
 
 while :; do
 	if ! pgrep -x 'swww-daemon' >/dev/null 2>&1; then
