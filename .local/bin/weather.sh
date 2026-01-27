@@ -33,8 +33,10 @@ trap '{ cleanup; exit 0; }' TERM INT EXIT
 printf "%s\n" "$$" >"$PID"
 
 while :; do
-	URL="https://wttr.in/$CITY?format=%l:+%C+%t&lang=zh"
-	weather=$(curl -s --max-time 3 "$URL") || :
+	URL="wttr.in/$CITY?format=%l:+%C+%t&lang=zh"
+	weather=$(curl -s --max-time 3 "$URL") || {
+		log "error" "failed to obtain weather"
+	}
 	if [ -z "$weather" ]; then
 		sleep 5
 		continue
@@ -43,5 +45,7 @@ while :; do
 	printf "%s\n" "$weather" >"$tmp_result" && mv "$tmp_result" "$RESULT"
 	sleep "${WEATHER_INTERVAL:-1800}" &
 	sleep_pid="$!"
-	wait "$sleep_pid" || :
+	wait "$sleep_pid" || {
+		log 'info' "killed $sleep_pid"
+	}
 done
