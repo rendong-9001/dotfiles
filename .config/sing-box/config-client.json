@@ -1,7 +1,7 @@
 {
   "log": {
     "level": "info",
-    "output": "./sing.log",
+    "output": "sing.log",
     "timestamp": true
   },
   "dns": {
@@ -201,6 +201,10 @@
           "x"
         ],
         "outbound": "vless-out"
+      },
+      {
+        "ip_is_private": true,
+        "outbound": "direct"
       },
       {
         "rule_set": [
