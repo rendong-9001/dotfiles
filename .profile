@@ -26,3 +26,4 @@ export SDL_VIDEODRIVER=wayland
 export XMODIFIERS=@im=fcitx
 export GTK_THEME=Adwaita:dark
 export QT_QPA_PLATFORMTHEME=gtk3
+export XDG_CURRENT_DESKTOP=river
