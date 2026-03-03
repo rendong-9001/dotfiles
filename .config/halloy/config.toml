@@ -1,0 +1,10 @@
+[servers.Libera]
+server = "irc.libera.chat"
+use_tls = true
+port = 6697
+nickname = "xxx"
+channels = ["#voidlinux"]
+
+[servers.Libera.sasl.plain]
+username = "xxx"
+password = "xxx"
