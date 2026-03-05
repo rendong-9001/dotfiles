@@ -39,7 +39,7 @@
             "example.com",
             "www.example.com"
           ],
-          "data_directory": "/var/lib/sing-box/certs",
+          "data_directory": "/var/lib/sing-box/certs-vless",
           "default_server_name": "example.com",
           "email": "example@example.com",
           "disable_http_challenge": true,
@@ -95,8 +95,11 @@
             "example.com",
             "www.example.com"
           ],
+          "data_directory": "/var/lib/sing-box/certs-tuic",
           "default_server_name": "example.com",
-          "email": "example@example.com"
+          "email": "example@example.com",
+          "disable_http_challenge": true,
+          "alternative_tls_port": 443
         }
       }
     }
