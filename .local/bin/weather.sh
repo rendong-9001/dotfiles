@@ -29,7 +29,8 @@ cleanup() {
 	fi
 	:> "$PID"
 }
-trap '{ cleanup; exit 0; }' TERM INT EXIT
+trap 'exit 0' TERM INT
+trap 'cleanup' EXIT
 printf "%s\n" "$$" >"$PID"
 
 while :; do
