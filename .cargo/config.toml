@@ -1,3 +1,8 @@
+include = [
+  { path = "config.toml.d/unstable.toml", optional = true },
+  { path = "config.toml.d/sources.toml", optional = true },
+]
+
 [net]
 git-fetch-with-cli = true
 retry = 3
@@ -56,12 +61,3 @@ opt-level = "s"
 codegen-units = 1
 lto = "thin"
 strip = true
-
-[source.crates-io]
-replace-with = 'rsproxy-sparse'
-[source.rsproxy]
-registry = "https://rsproxy.cn/crates.io-index"
-[source.rsproxy-sparse]
-registry = "sparse+https://rsproxy.cn/index/"
-[registries.rsproxy]
-index = "https://rsproxy.cn/crates.io-index"
