@@ -6,3 +6,4 @@
 
 dmesg -n 4
 mount --make-rshared /
+iw reg set CN
