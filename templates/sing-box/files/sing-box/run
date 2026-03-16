@@ -6,7 +6,7 @@ exec 2>&1
 : ${CONFIG_DIR:=/etc/sing-box}
 /usr/bin/sing-box -C $CONFIG_DIR check || exit 1
 
-install -d -m0755 -o _sing_box -g _sing_box $WORK_DIR
+install -d -m0700 -o _sing_box -g _sing_box $WORK_DIR
 
 exec setpriv --reuid=_sing_box --regid=_sing_box --clear-groups \
 	--inh-caps=-all,+net_admin,+net_raw,+net_bind_service,+sys_ptrace,+dac_read_search \
