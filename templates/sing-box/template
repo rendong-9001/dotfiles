@@ -6,7 +6,7 @@ archs="i686* x86_64* aarch64*"
 build_style=gnu-makefile
 make_build_args="VERSION=${version} GOFLAGS=-buildmode=pie"
 hostmakedepends="go"
-short_desc="A universal proxy platform"
+short_desc="Universal proxy platform"
 maintainer="Orphaned <orphan@voidlinux.org>"
 license="GPL-3.0-or-later"
 homepage="https://sing-box.sagernet.org"
@@ -21,5 +21,4 @@ do_install() {
 	vbin $pkgname
 	vsv $pkgname
 	vsconf release/config/config.json
-	vlicense LICENSE
 }
