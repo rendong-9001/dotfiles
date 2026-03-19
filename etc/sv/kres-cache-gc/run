@@ -1,0 +1,7 @@
+#!/bin/sh
+exec 2>&1
+[ -r ./conf ] && . ./conf
+install -d -m0700 -o _knot_resolver -g _knot_resolver /run/knot-resolver
+
+exec chpst -u "_knot_resolver:_knot_resolver" -b kres-cache-gc \
+  kres-cache-gc ${OPTS:- -d 1000 -c /var/cache/knot-resolver}
