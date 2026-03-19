@@ -1,0 +1,12 @@
+#!/bin/sh
+exec 2>&1
+[ -r ./conf ] && . ./conf
+install -d -m0700 -o _knot_resolver -g _knot_resolver /run/knot-resolver
+
+exec setpriv --clear-groups \
+    --reuid=_knot_resolver --regid=_knot_resolver \
+    --inh-caps=-all,+net_bind_service,+setpcap \
+    --ambient-caps=-all,+net_bind_service,+setpcap \
+    --bounding-set=-all,+net_bind_service,+setpcap \
+    --no-new-privs -- \
+    kresd ${OPTS:- --noninteractive -c /etc/knot-resolver/kresd.conf /run/knot-resolver}
