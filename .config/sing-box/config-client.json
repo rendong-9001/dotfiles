@@ -46,6 +46,7 @@
           "wikimedia",
           "pixiv",
           "google-play",
+          "google-play@cn",
           "flatpak",
           "reddit",
           "meta",
@@ -60,10 +61,9 @@
         "rule_set": [
           "bilibili-cdn",
           "bilibili",
-          "geosite-cn",
-          "google-play@cn"
+          "geosite-cn"
         ],
-        "server": "aldns"
+        "server": "alidns"
       }
     ],
     "final": "txdns",
@@ -153,25 +153,8 @@
         "action": "hijack-dns"
       },
       {
-        "domain_suffix": "cn",
+        "ip_is_private": true,
         "outbound": "direct"
-      },
-      {
-        "rule_set": [
-          "bilibili-cdn",
-          "bilibili",
-          "geoip-cn",
-          "geosite-cn",
-          "google-play@cn"
-        ],
-        "outbound": "direct"
-      },
-      {
-        "domain_suffix": [
-          ".org",
-          ".io"
-        ],
-        "outbound": "vless-out"
       },
       {
         "rule_set": [
@@ -192,6 +175,7 @@
           "wikimedia",
           "pixiv",
           "google-play",
+          "google-play@cn",
           "flatpak",
           "reddit",
           "meta",
@@ -203,7 +187,23 @@
         "outbound": "vless-out"
       },
       {
-        "ip_is_private": true,
+        "domain_suffix": [
+          ".org",
+          ".io"
+        ],
+        "outbound": "vless-out"
+      },
+      {
+        "rule_set": [
+          "bilibili-cdn",
+          "bilibili",
+          "geoip-cn",
+          "geosite-cn"
+        ],
+        "outbound": "direct"
+      },
+      {
+        "domain_suffix": "cn",
         "outbound": "direct"
       },
       {
