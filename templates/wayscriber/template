@@ -4,9 +4,9 @@ version=0.9.11
 revision=1
 archs="i686* x86_64* aarch64*"
 build_style=cargo
-make_build_args="--workspace --bins"
+make_build_args="--workspace --bin wayscriber --bin wayscriber-configurator"
 hostmakedepends="pkg-config"
-makedepends="glib-devel cairo-devel pango-devel libxkbcommon-devel"
+makedepends="cairo-devel pango-devel libxkbcommon-devel"
 depends="wl-clipboard grim slurp"
 short_desc="Screen annotation tool for Wayland compositors"
 maintainer="Orphaned <orphan@voidlinux.org>"
@@ -23,17 +23,36 @@ do_install() {
 	vinstall packaging/wayscriber-configurator.desktop 644 usr/share/applications
 
 	for sz in 16 19 22 24 38 64 128; do
-	    if [ "$sz" != "128" ]; then
-	        vinstall packaging/icons/wayscriber-${sz}.png 644 \
-						usr/share/icons/hicolor/${sz}x${sz}/status wayscriber.png
-	    fi
-	    vinstall packaging/icons/wayscriber-${sz}.png 644 \
-				usr/share/icons/hicolor/${sz}x${sz}/apps wayscriber.png
-	    vinstall packaging/icons/wayscriber-configurator-${sz}.png  644 \
-				usr/share/icons/hicolor/${sz}x${sz}/apps wayscriber-configurator.png
+		if [ "$sz" = "128" ]; then
+			vinstall packaging/icons/wayscriber-${sz}.png 644 \
+				usr/share/pixmaps wayscriber.png
+			vinstall packaging/icons/wayscriber-configurator-${sz}.png 644 \
+				usr/share/pixmaps wayscriber-configurator.png
+		fi
+		vinstall packaging/icons/wayscriber-${sz}.png 644 \
+			usr/share/icons/hicolor/${sz}x${sz}/status wayscriber.png
+		vinstall packaging/icons/wayscriber-${sz}.png 644 \
+			usr/share/icons/hicolor/${sz}x${sz}/apps wayscriber.png
+		vinstall packaging/icons/wayscriber-configurator-${sz}.png  644 \
+			usr/share/icons/hicolor/${sz}x${sz}/apps wayscriber-configurator.png
 	done
 
 	vdoc README.md
 	vsconf config.example.toml
 	vlicense LICENSE
+}
+
+wayscriber-configurator_package() {
+	short_desc="GUI configuration tool for wayscriber"
+	pkg_install() {
+		vmove usr/bin/wayscriber-configurator
+		vmove usr/share/applications/wayscriber-configurator.desktop
+
+		for sz in 16 19 22 24 38 64 128; do
+			if [ "$sz" = "128" ]; then
+				vmove usr/share/pixmaps/wayscriber-configurator.png
+			fi
+			vmove usr/share/icons/hicolor/${sz}x${sz}/apps/wayscriber-configurator.png
+		done
+	}
 }
