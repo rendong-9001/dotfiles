@@ -1,0 +1,26 @@
+ip saddr @blacklist_ipv4 counter drop
+
+icmp type echo-request limit rate 2/second burst 4 packets accept
+
+tcp dport == $HTTPS_PORT \
+	ct state new \
+	limit name "lim_https_port" \
+	accept
+
+tcp dport == $SSH_PORT \
+	ct state new \
+	update @rate_limit_ipv4 { ip saddr limit rate 4/minute burst 8 packets } \
+	accept
+tcp dport == $SSH_PORT \
+	ct state new \
+	update @rate_limit_ipv4 { ip saddr limit rate over 4/minute burst 8 packets } \
+	add @blacklist_ipv4 { ip saddr } \
+	log prefix "drop_input_ipv4_ssh : " level warn \
+	flags tcp sequence,options \
+	flags ip options \
+	drop
+
+ip saddr @lan_input_ipv4 tcp dport @ports_tcp_private accept
+ip saddr @whitelist_input_ipv4 tcp dport @ports_tcp_public accept
+ip saddr @lan_input_ipv4 udp dport @ports_udp_private accept
+ip saddr @whitelist_input_ipv4 udp dport @ports_udp_public accept

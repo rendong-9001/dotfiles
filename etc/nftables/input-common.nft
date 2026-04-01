@@ -1,0 +1,1 @@
+iifname { "waydroid0", "virbr0" } meta l4proto { tcp, udp } th dport { 53, 67 } accept

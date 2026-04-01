@@ -1,0 +1,3 @@
+define INET_DEV = "wlo1"
+define SSH_PORT = 22
+define HTTPS_PORT = 443

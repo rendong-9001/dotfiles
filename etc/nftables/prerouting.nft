@@ -1,0 +1,4 @@
+chain prerouting {
+	type nat hook prerouting priority dstnat; policy accept;
+	udp dport 2077-2099 redirect to :443
+}
