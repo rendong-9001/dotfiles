@@ -1,24 +1,44 @@
 # Template file for 'sing-box'
 pkgname=sing-box
-version=1.13.2
+version=1.13.5
 revision=1
-archs="i686* x86_64* aarch64*"
-build_style=gnu-makefile
-make_build_args="VERSION=${version} GOFLAGS=-buildmode=pie"
-hostmakedepends="go"
+build_style=go
+go_import_path=github.com/sagernet/sing-box
+go_package=github.com/sagernet/sing-box/cmd/sing-box
+go_ldflags="-X github.com/sagernet/sing-box/constant.Version=${version}"
 short_desc="Universal proxy platform"
 maintainer="Orphaned <orphan@voidlinux.org>"
 license="GPL-3.0-or-later"
 homepage="https://sing-box.sagernet.org"
 distfiles="https://github.com/SagerNet/sing-box/archive/refs/tags/v${version}.tar.gz"
-checksum=04b72fcd355c36a85eb028f47986894e9cf4dadbea3fee79f6891481cabeb692
+checksum=e429a655f5301e4d60e0011fb34f1c7abcdf4035d6f8e32081cfad2031383b2a
+
+build_options="static quic gvisor acme utls clash_api dhcp wireguard tailscale"
+build_options_default="quic gvisor acme"
+desc_option_static="Enable static linking"
+
+if [ "$build_option_static" ]; then
+	export CGO_ENABLED=0
+fi
+
+for opt in $build_options; do
+	case "$opt" in
+		static) continue ;;
+	esac
+	_opt_var="build_option_${opt}"
+	if [ "${!_opt_var}" ]; then
+		go_build_tags+=" with_${opt} "
+	fi
+done
 
 system_accounts="_sing_box"
 _sing_box_homedir="/var/lib/sing-box"
-make_dirs="/etc/sing-box 0755 root root"
+make_dirs="
+	/etc/sing-box 0700 root root
+	/var/lib/sing-box 0700 _sing_box _sing_box
+"
 
-do_install() {
-	vbin $pkgname
+post_install() {
 	vsv $pkgname
 	vsconf release/config/config.json
 }

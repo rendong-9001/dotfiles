@@ -1,16 +1,10 @@
 #!/bin/sh
 exec 2>&1
 
-[ -r conf ] && . ./conf
-: ${WORK_DIR:=/var/lib/sing-box}
-: ${CONFIG_DIR:=/etc/sing-box}
-/usr/bin/sing-box -C $CONFIG_DIR check || exit 1
-
-install -d -m0700 -o _sing_box -g _sing_box $WORK_DIR
-
-exec setpriv --reuid=_sing_box --regid=_sing_box --clear-groups \
+exec setpriv \
+	--reuid=_sing_box --regid=_sing_box --clear-groups \
 	--inh-caps=-all,+net_admin,+net_raw,+net_bind_service,+sys_ptrace,+dac_read_search \
 	--ambient-caps=-all,+net_admin,+net_raw,+net_bind_service,+sys_ptrace,+dac_read_search \
 	--bounding-set=-all,+net_admin,+net_raw,+net_bind_service,+sys_ptrace,+dac_read_search \
 	--no-new-privs -- \
-	/usr/bin/sing-box -D $WORK_DIR -C $CONFIG_DIR run
+	/usr/bin/sing-box -D /var/lib/sing-box -C /etc/sing-box run
