@@ -8,6 +8,8 @@
 --embed-thumbnail
 --embed-chapters
 --compat-options no-keep-subs
+--convert-thumbnails jpg
+--convert-subs vtt
 --js-runtimes node
 --socket-timeout 25
 --retries 4
@@ -16,8 +18,7 @@
 --limit-rate 2M
 --concurrent-fragments 6
 --merge-output-format mkv
---audio-format m4a
---remux-video "m4a>mka/mkv"
+--remux-video "m4a>mka/webm>mka/mkv"
 --sleep-interval 5
 --max-sleep-interval 12
 --progress-template "Download:[%(info.title).35s...] %(progress._percent_str)s | Speed: %(progress._speed_str)s | ETA: %(progress._eta_str)s"
