@@ -1,12 +1,6 @@
-# .bashrc
-
 # If not running interactively, don't do anything
 [[ $- != *i* ]] && return
 
-# rust 
-. "$HOME/.cargo/env" 
-export RUSTUP_DIST_SERVER='https://rsproxy.cn'
-export RUSTUP_UPDATE_ROOT='https://rsproxy.cn/rustup'
 # alias
 alias cal='cal --monday'
 alias ls='ls --color=auto'
@@ -46,3 +40,9 @@ export LESS_TERMCAP_se=$'\E[0m'
 export LESS_TERMCAP_so=$'\E[01;48;5;220m'
 # xon/xoff
 stty -ixon
+# rust 
+[ -f "$HOME/.cargo/env" ] && . "$HOME/.cargo/env" 
+export RUSTUP_DIST_SERVER='https://rsproxy.cn'
+export RUSTUP_UPDATE_ROOT='https://rsproxy.cn/rustup'
+# keychain
+[ -f "$HOME/.keychain/$HOSTNAME-sh" ] && . "$HOME/.keychain/$HOSTNAME-sh"
