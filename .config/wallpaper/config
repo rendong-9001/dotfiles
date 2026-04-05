@@ -1,0 +1,6 @@
+# vim: ft=sh
+
+WALLPAPER_INTERVAL=1h
+WALLPAPER_DIR="$HOME/.local/share/wallpapers"
+WALLPAPER_PROG=wbg
+WALLPAPER_ARGS="-s"
