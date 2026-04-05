@@ -3,12 +3,7 @@ set -eu
 
 : "${XDG_CURRENT_DESKTOP:=}"
 
-wm_env() {
-	export WALLPAPER_INTERVAL=1800 # 30min
-}
-
 start_wm() {
-	wm_env
 	if command -v turnstiled >/dev/null 2>&1; then
 		exec "$@"
 	fi
