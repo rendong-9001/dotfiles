@@ -1,0 +1,4 @@
+# vim: ft=sh
+
+CITY=武汉
+WEATHER_INTERVAL=30m
