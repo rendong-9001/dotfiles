@@ -6,7 +6,7 @@ padding = { x = 2, y = 2 }
 decorations = "Full"
 opacity = 0.1
 dimensions = { columns = 0, lines = 0 }
-title = "Alacritty"
+title = "alacritty"
 
 [scrolling]
 history = 8192
@@ -25,13 +25,21 @@ osc52 = "OnlyCopy"
 
 [mouse]
 hide_when_typing = true
-bindings = [{ mouse = "Right", mods = "Control|Shift", action = "Paste" }]
 
 [keyboard]
 bindings = [
   { key = "C", mods = "Control|Shift", action = "Copy" },
   { key = "V", mods = "Control|Shift", action = "Paste" },
 ]
+
+[hints]
+alphabet = "JFKDLSAHGURIEOWPQ"
+
+[[hints.enabled]]
+regex = "(https:|http:)[^\\s ]+"
+command = "firefox-wayland"
+post_processing = true
+binding = { key = "O", mods = "Control|Shift" }
 
 [general]
 import = ["colors.toml"]
