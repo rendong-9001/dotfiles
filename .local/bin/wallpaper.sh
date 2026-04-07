@@ -32,6 +32,9 @@ fi
 exec >"$DATA_DIR/log" 2>&1
 
 set_bg() {
+	pkill $WALLPAPER_PROG || {
+		log 'info' "killed $WALLPAPER_PROG"
+	}
 	log 'info' "set wallpaper $1"
 	$WALLPAPER_PROG $WALLPAPER_ARGS $1
 }
