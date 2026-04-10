@@ -24,6 +24,7 @@ export NNN_FIFO='/tmp/nnn.fifo'
 # bash
 shopt -s cdspell
 shopt -s dirspell
+shopt -s direxpand
 shopt -s histappend
 shopt -s checkwinsize
 shopt -s extglob
@@ -41,8 +42,8 @@ export LESS_TERMCAP_se=$'\E[0m'
 export LESS_TERMCAP_so=$'\E[01;48;5;220m'
 # xon/xoff
 stty -ixon
-# rust 
-[ -f "$HOME/.cargo/env" ] && . "$HOME/.cargo/env" 
+# rust
+[ -f "$HOME/.cargo/env" ] && . "$HOME/.cargo/env"
 export RUSTUP_DIST_SERVER='https://rsproxy.cn'
 export RUSTUP_UPDATE_ROOT='https://rsproxy.cn/rustup'
 # keychain
