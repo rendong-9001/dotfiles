@@ -1,7 +1,6 @@
 set number
 set relativenumber
 set cursorline
-set tabstop=2
 set encoding=utf-8
 set fileencoding=utf-8
 set nocompatible
@@ -27,15 +26,17 @@ syntax on
 filetype plugin indent on
 set viminfofile=~/.config/vim/viminfo
 set cmdheight=1
+set modeline
 set modelines=1
-set shiftwidth=2
 set matchtime=2
 set backupcopy=yes
-set softtabstop=2
+set tabstop=4
+set shiftwidth=4
+set softtabstop=4
 set matchtime=2
 set autochdir
 set foldenable
-set foldmethod=syntax
+set foldmethod=manual
 set foldcolumn=0
 setlocal foldlevel=1
 nnoremap <space> @=((foldclosed(line('.')) < 0) ? 'zc' : 'zo')<CR>
