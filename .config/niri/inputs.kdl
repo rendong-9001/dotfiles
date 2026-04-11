@@ -11,8 +11,8 @@ input {
         numlock
         xkb {
             layout "us"
-            model "pc86"
-            options "ctrl:nocaps,compose:ralt,altwin:swap_lalt_lwin"
+            model "pc105"
+            options "ctrl:swapcaps,compose:ralt,altwin:swap_lalt_lwin"
             rules "evdev"
         }
     }
