@@ -3,7 +3,11 @@ set -eu
 
 # keyboard
 riverctl set-repeat 50 400
-riverctl keyboard-layout-file "$HOME/.config/xkb/keyboard.xkb"  
+riverctl keyboard-layout \
+	-rules "evdev" \
+	-model "pc105" \
+	-options "ctrl:swapcaps,altwin:swap_lalt_lwin,compose:ralt" \
+	"us"
 # touchpad
 for i in $(riverctl list-inputs | grep -i touchpad); do
     riverctl input "$i" tap enabled
