@@ -1,15 +1,10 @@
 # If not running interactively, don't do anything
-[[ $- != *i* ]] && return
-
+case $- in
+    *i*) ;;
+      *) return;;
+esac
 # alias
-alias cal='cal --monday'
-alias ls='ls --color=auto'
-alias l.='ls -d .* --color=auto'
-alias ll='ls -hl --color=auto'
-alias grep='grep --color=auto'
-alias diff='diff --color=auto'
-alias nnn='nnn -e' 2>/dev/null
-alias ping='ping -c 5' 2>/dev/null
+[ -f "$HOME/.bash_aliases" ] && . "$HOME/.bash_aliases"
 # PS1='[\u@\h \W]\$ '
 export PS1='\[\e[32m\]\u@\h \[\e[33m\]\w\[\e[36m\]\[\e[0m\]\n# '
 export EDITOR=hx
