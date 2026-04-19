@@ -33,6 +33,7 @@ set backupcopy=yes
 set tabstop=4
 set shiftwidth=4
 set softtabstop=4
+set expandtab
 set matchtime=2
 set autochdir
 set foldenable
@@ -43,3 +44,4 @@ nnoremap <space> @=((foldclosed(line('.')) < 0) ? 'zc' : 'zo')<CR>
 set statusline=\ %<%F\ [%1*%M%*%n%R%H]%=\ %y\ %0(%{&fileformat}\ %{&encoding}\ Ln\ %l,\ Col\ %c/%L%)
 set splitbelow
 set splitright
+packadd! editorconfig
