@@ -43,3 +43,5 @@ export RUSTUP_DIST_SERVER='https://rsproxy.cn'
 export RUSTUP_UPDATE_ROOT='https://rsproxy.cn/rustup'
 # keychain
 [ -f "$HOME/.keychain/$HOSTNAME-sh" ] && . "$HOME/.keychain/$HOSTNAME-sh"
+# pass
+export PASSWORD_STORE_DIR="$HOME/.config/password-store"
