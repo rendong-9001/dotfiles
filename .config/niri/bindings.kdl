@@ -243,6 +243,9 @@ binds {
     Mod+Shift+F {
         fullscreen-window
     }
+    Mod+Control+F {
+        toggle-windowed-fullscreen
+    }
     Mod+C {
         center-column
     }

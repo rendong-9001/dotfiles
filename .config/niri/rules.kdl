@@ -8,14 +8,28 @@ layer-rule {
 // wallpaper
 layer-rule {
     match namespace="^noctalia-wallpaper*"
-    match namespace="^noctalia-overview*"
     place-within-backdrop true
+}
+// blur
+layer-rule {
+    match namespace="^noctalia-(background|launcher-overlay|dock)-.*$"
+    background-effect {
+        blur false
+        xray false
+    }
 }
 // window
 // all windows
 window-rule {
     geometry-corner-radius 5
     clip-to-geometry true
+}
+// blur
+window-rule {
+    background-effect {
+        blur true
+        xray false
+    }
 }
 // privacy
 window-rule {
