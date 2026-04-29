@@ -1,10 +1,10 @@
 #!/bin/sh
 set -eu
 
-killall -q mako swww-daemon pipewire kanshi bar status || true
+killall -q mako pipewire kanshi \
+    bar status wallpaper.sh weather.sh || true
 
 # wallpaper 
-riverctl spawn "swww-daemon"
 riverctl spawn "$HOME/.local/bin/wallpaper.sh"
 # input
 riverctl spawn "fcitx5 --replace -d"
