@@ -1,4 +1,4 @@
 #!/bin/sh
 set -eu 
 
-riverctl spawn "dbus-update-activation-environment DISPLAY WAYLAND_DISPLAY XDG_RUNTIME_DIR"
+riverctl spawn "$HOME/.local/bin/env-update.sh"
