@@ -1,11 +1,16 @@
 #!/bin/sh
 set -eu
 
-FIFO="/tmp/sandbar"
-[ -e "$FIFO" ] && rm -f "$FIFO"
-mkfifo "$FIFO"
+UID=$(id -u)
+DATA_DIR="/tmp/sandbar-$UID"
+FIFO_FILE="$DATA_DIR/fifo"
 
-while cat "$FIFO"; do :; done | sandbar \
+[ -d "$DATA_DIR" ] || mkdir -p "$DATA_DIR"
+[ -e "$FIFO_FILE" ] && rm -f "$FIFO_FILE"
+
+mkfifo "$FIFO_FILE"
+
+while cat "$FIFO_FILE"; do :; done | sandbar \
 	-font "Hack:style=Bold Italic:pixelsize=16" \
 	-active-fg-color "#000000" \
 	-active-bg-color "#a4e378" \
