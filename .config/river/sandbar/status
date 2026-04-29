@@ -2,35 +2,35 @@
 set -eu
 
 cpu() {
-		cpu="CPU:$(top -bn1 | grep "%Cpu(s)" | awk '{ printf "%.0f%%\n",$2 + $4 }')"
+	cpu="CPU:$(top -bn1 | grep "%Cpu(s)" | awk '{ printf "%.0f%%\n",$2 + $4 }')"
 }
 
 memory() {
-		memory="MEM:$(free -m | awk '/Mem:/ {printf "%.0f%%\n", $3 / $2 * 100}')"
+	memory="MEM:$(free -m | awk '/Mem:/ {printf "%.0f%%\n", $3 / $2 * 100}')"
 }
 
 disk_root() {
-		disk_root="DISK@/:$(df / | grep -Eo "[0-9]{1,}%")"
+	disk_root="DISK@/:$(df / | grep -Eo "[0-9]{1,}%")"
 }
 
 disk_home() {
-		disk_home="DISK@/home:$(df /home | grep -Eo "[0-9]{1,}%")"
+	disk_home="DISK@/home:$(df /home | grep -Eo "[0-9]{1,}%")"
 }
 
 datetime() {
-		datetime="$(date "+%a %b %d %I:%M %P")"
+	datetime="$(date "+%a %b %d %I:%M %P")"
 }
 
 bat() {
-		read -r bat_status </sys/class/power_supply/BAT1/status
-		read -r bat_capacity </sys/class/power_supply/BAT1/capacity
-		bat="BAT:$bat_status($bat_capacity%)"
+	read -r bat_status </sys/class/power_supply/BAT1/status
+	read -r bat_capacity </sys/class/power_supply/BAT1/capacity
+	bat="BAT:$bat_status($bat_capacity%)"
 }
 
 light() {
-  		_current=$(brightnessctl get)
-  		_max=$(brightnessctl max)
-  		light="LIGHT:$(((_current * 100) / _max))%"
+	_current=$(brightnessctl get)
+	_max=$(brightnessctl max)
+	light="LIGHT:$(((_current * 100) / _max))%"
 }
 
 vol() {
@@ -42,28 +42,30 @@ vol() {
 }
 
 wifi() {
-		wifi="WIFI:$(cat /sys/class/net/w*/operstate 2>/dev/null | awk '{print toupper(substr($0,1,1)) tolower(substr($0,2))}')"
+	wifi="WIFI:$(cat /sys/class/net/wl*/operstate 2>/dev/null | awk '{print toupper(substr($0,1,1)) tolower(substr($0,2))}')"
 }
 
 temp() {
-		read -r raw_temp </sys/class/thermal/thermal_zone0/temp
-		temp="TEMP:$(($raw_temp / 1000))°C"
+	read -r raw_temp </sys/class/thermal/thermal_zone0/temp
+	temp="TEMP:$(($raw_temp / 1000))°C"
 }
 
 display() {
 	printf 'all status [%s %s %s %s %s] [%s] [%s] [%s] [%s] [%s]\n' \
-       "$cpu" "$temp" "$memory" "$disk_root" "$disk_home" "$light" "$vol" "$wifi" "$bat" "$datetime" > "$FIFO"
+        "$cpu" "$temp" "$memory" "$disk_root" "$disk_home" "$light" "$vol" "$wifi" "$bat" "$datetime" > "$FIFO_FILE"
 }
 
-PID_FILE="/tmp/status_pid"
+DATA_DIR="/tmp/sandbar-$(id -u)"
+PID_FILE="$DATA_DIR/pid"
 printf "%s" "$$" > "$PID_FILE"
-FIFO="/tmp/sandbar"
-[ -e "$FIFO" ] || mkfifo "$FIFO"
 
-trap 'rm -f "$FIFO" "$PID_FILE"; exit 0' INT TERM
+FIFO_FILE="$DATA_DIR/fifo"
+[ -e "$FIFO_FILE" ] || mkfifo "$FIFO_FILE"
+
+trap '{ rm -f "$FIFO_FILE" "$PID_FILE"; exit 0; }' INT TERM
+
 sec=0
-
-while true; do
+while :; do
 	sleep 1 &
 	wait && {
 		[ $((sec % 60)) -eq 0 ] && bat
