@@ -10,5 +10,5 @@ random_sleep() {
 timestamp() { date +%F-%H-%M-%S; }
 
 log() {
-	printf "%s [%s]: %s\n" "$(timestamp)" "$1" "$2"
+	printf "[%s] [%s]: %s\n" "$(timestamp)" "$1" "$2"
 }
