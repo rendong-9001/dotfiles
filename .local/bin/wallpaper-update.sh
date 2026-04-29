@@ -1,4 +1,6 @@
 #!/bin/sh
 set -eu
 
-pkill -USR1 -f wallpaper.sh || :
+UID=$(id -u)
+PID_FILE="/tmp/wallpaper-$UID/pid"
+kill -USR1 $(cat < $PID_FILE) || :
