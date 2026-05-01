@@ -10,8 +10,8 @@
 	    "2":"white"
     },
     "padding": {
-      "top": 1,
-      "left": 0,
+      "top": 2,
+      "left": 1,
       "right": 1
     }
   },
@@ -104,6 +104,11 @@
       "type": "disk",
       "key": "{#separator}│  {#keys}󰋊 Disk (/)",
       "folders": "/"
+    },
+    {
+      "type": "disk",
+      "key": "{#separator}│  {#keys}󰋊 Disk (/home)",
+      "folders": "/home"
     },
     {
       "type": "custom",
