@@ -1,29 +1,29 @@
-# .profile
+# vim: ft=sh noet ts=4 sw=4
+# PATH
 case ":${PATH}:" in
-  *:"$HOME/.local/bin":*) ;;
-  *) export PATH="$HOME/.local/bin:$PATH" ;;
+	*:"$HOME/.local/bin":*)
+		;;
+	*) export PATH="$HOME/.local/bin:$PATH"
+		;;
 esac
-# xdg
-export XDG_SESSION_TYPE=wayland
-export XDG_DOWNLOAD_DIR="$HOME/Downloads"
-export XDG_DOCUMENTS_DIR="$HOME/Documents"
-export XDG_MUSIC_DIR="$HOME/Music"
-export XDG_PICTURES_DIR="$HOME/Pictures"
-export XDG_VIDEOS_DIR="$HOME/Videos"
-export XDG_TEMPLATES_DIR="$HOME/Templates"
-export XDG_PUBLICSHARE_DIR="$HOME/Public"
-export XDG_DESKTOP_DIR="$HOME/Desktop"
-export XDG_CONFIG_HOME="$HOME/.config"
-export XDG_CACHE_HOME="$HOME/.cache"
-export XDG_DATA_HOME="$HOME/.local/share"
-export XDG_STATE_HOME="$HOME/.local/state"
+# XDG
+export XDG_CACHE_HOME="${XDG_CACHE_HOME:-$HOME/.cache}"
+export XDG_CONFIG_HOME="${XDG_CONFIG_HOME:-$HOME/.config}"
+export XDG_DATA_HOME="${XDG_DATA_HOME:-$HOME/.local/share}"
+export XDG_STATE_HOME="${XDG_STATE_HOME:-$HOME/.local/state}"
 # nvidia
 export CUDA_CACHE_PATH="$XDG_CACHE_HOME/nv"
 # apps
-export QT_QPA_PLATFORM=wayland
-export ELM_DISPLAY=wl
-export SDL_VIDEODRIVER=wayland
-export XMODIFIERS=@im=fcitx
-export GTK_THEME=Adwaita:dark
-export QT_QPA_PLATFORMTHEME=gtk3
-export XDG_CURRENT_DESKTOP=river
+if [ "$XDG_SESSION_TYPE" = wayland ]; then
+	# fcitx5
+	export XMODIFIERS=@im=fcitx
+	# EFL-based
+	export ELM_DISPLAY=wl
+	# SDL-based
+	export SDL_VIDEODRIVER=wayland
+	# GTK
+	export GTK_THEME=Adwaita:dark
+	# Qt
+	export QT_QPA_PLATFORM=wayland
+	export QT_QPA_PLATFORMTHEME=qt6ct
+fi
