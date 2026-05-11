@@ -1,21 +1,37 @@
+# vim: ft=bash noet sw=4 ts=4
 # If not running interactively, don't do anything
 case $- in
-    *i*) ;;
-      *) return;;
+	*i*) ;;
+	*) return;;
 esac
-# alias
-[ -f "$HOME/.bash_aliases" ] && . "$HOME/.bash_aliases"
+# umask
+umask 027
+# XDG
+export XDG_RUNTIME_DIR="${XDG_RUNTIME_DIR:-/tmp}"
+export XDG_CACHE_HOME="${XDG_CACHE_HOME:-$HOME/.cache}"
+export XDG_CONFIG_HOME="${XDG_CONFIG_HOME:-$HOME/.config}"
+export XDG_DATA_HOME="${XDG_DATA_HOME:-$HOME/.local/share}"
+export XDG_STATE_HOME="${XDG_STATE_HOME:-$HOME/.local/state}"
 # PS1='[\u@\h \W]\$ '
-export PS1='\[\e[32m\]\u@\h \[\e[33m\]\w\[\e[36m\]\[\e[0m\]\n# '
+prompt_status_color() {
+	local last_exit_code=$?
+	if [ $last_exit_code -eq 0 ]; then
+		PS1='\[\e[32m\]\u@\h \[\e[33m\]\w \n\[\e[36m\]$\[\e[0m\] '
+	else
+		PS1='\[\e[32m\]\u@\h \[\e[33m\]\w \n\[\e[31m\]$\[\e[0m\] '
+	fi
+}
+# editor
 export EDITOR=hx
+# pager
 export PAGER=less
+# term
 export TERM=xterm-256color
-export CDPATH="$HOME/Work"
 # nnn
-export NNN_OPENER="$HOME/.config/nnn/plugins/opener"
-export NNN_BMS="m:/run/media/$USER;e:/etc;c:$HOME/.config;"
+export NNN_OPENER="$XDG_CONFIG_HOME/nnn/plugins/opener"
+export NNN_BMS="m:/run/media/$USER;e:/etc;c:$XDG_CONFIG_HOME;"
 export NNN_PLUG='v:preview-tui'
-export NNN_FIFO='/tmp/nnn.fifo' 
+export NNN_FIFO="$XDG_RUNTIME_DIR/nnn-$UID.fifo"
 # bash
 shopt -s cdspell
 shopt -s dirspell
@@ -23,20 +39,24 @@ shopt -s direxpand
 shopt -s histappend
 shopt -s checkwinsize
 shopt -s extglob
-export HISTFILE="$HOME/.local/state/bash_history"
-export HISTSIZE=8192
-export HISTFILESIZE=8192
-export HISTCONTROL=ignoredups:erasedup:ignoreboth
-export PROMPT_COMMAND='history -a'
+CDPATH="$HOME/Work"
+HISTFILE="$XDG_STATE_HOME/bash_history"
+HISTSIZE=8192
+HISTFILESIZE=8192
+HISTCONTROL=ignoredups:erasedup:ignoreboth
+PROMPT_COMMAND='prompt_status_color; history -a'
 # runit
-export SVDIR="$HOME/.config/service"
+export SVDIR="$XDG_CONFIG_HOME/service"
 export SVWAIT=5
 # less
-export LESSHISTFILE="$HOME/.local/state/less_history"
-export LESS_TERMCAP_se=$'\E[0m'
-export LESS_TERMCAP_so=$'\E[01;48;5;220m'
+export LESSHISTFILE="$XDG_STATE_HOME/less_history"
+export LESS="-R -g -w --use-color -DWc -DEm -DPy -Dd+y -Du+g"
 # xon/xoff
 stty -ixon
+# alias
+[ -f "$HOME/.bash_aliases" ] && . "$HOME/.bash_aliases"
+# tmux
+export TMUX_TMPDIR="$XDG_RUNTIME_DIR"
 # rust
 [ -f "$HOME/.cargo/env" ] && . "$HOME/.cargo/env"
 export RUSTUP_DIST_SERVER='https://rsproxy.cn'
@@ -44,4 +64,5 @@ export RUSTUP_UPDATE_ROOT='https://rsproxy.cn/rustup'
 # keychain
 [ -f "$HOME/.keychain/$HOSTNAME-sh" ] && . "$HOME/.keychain/$HOSTNAME-sh"
 # pass
-export PASSWORD_STORE_DIR="$HOME/.config/password-store"
+export PASSWORD_STORE_CLIP_TIME=60
+export PASSWORD_STORE_DIR="$XDG_CONFIG_HOME/password-store"
