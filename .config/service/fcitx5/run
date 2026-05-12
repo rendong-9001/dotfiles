@@ -1,0 +1,6 @@
+#!/bin/sh
+exec 2>&1
+
+[ -f ./conf ] && . ./conf
+
+exec chpst -e "$TURNSTILE_ENV_DIR" -- fcitx5 -s 1

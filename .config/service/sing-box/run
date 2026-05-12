@@ -1,6 +1,17 @@
 #!/bin/sh
 exec 2>&1
 
+: "${XDG_STATE_HOME:=$HOME/.local/state}"
+: "${XDG_CONFIG_HOME:=$HOME/.config}"
+
 PATH="$HOME/.local/bin"
 
-exec sing-box run -C "$HOME/.config/sing-box"
+[ -f ./conf ] && . ./conf
+
+mkdir -p \
+	"$XDG_STATE_HOME/sing-box" \
+	"$XDG_CONFIG_HOME/sing-box"
+
+exec sing-box run \
+	-D "$XDG_STATE_HOME/sing-box" \
+	-C "$XDG_CONFIG_HOME/sing-box"

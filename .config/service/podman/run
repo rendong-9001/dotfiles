@@ -1,4 +1,7 @@
 #!/bin/sh
 exec 2>&1
 
-exec podman --log-level info system service -t 0 2>&1
+[ -f ./conf ] && . ./conf
+
+exec chpst -e "$TURNSTILE_ENV_DIR" -- \
+	podman --log-level info system service ${OPTS:--t 0}
