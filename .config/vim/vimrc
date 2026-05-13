@@ -1,47 +1,91 @@
-set number
-set relativenumber
+" general
 set cursorline
-set encoding=utf-8
-set fileencoding=utf-8
-set nocompatible
-set incsearch
+set laststatus=2
+set wildmenu
+set wildmode=list:longest,full
+set showmatch matchtime=2
+set number relativenumber
+set ruler title showcmd showmode
+set viminfofile=~/.config/vim/viminfo
+
+" search
+set ignorecase smartcase
+set incsearch hlsearch
+
+" scroll
 set scrolloff=8
 set sidescrolloff=5
-set ignorecase
-set showcmd
-set showmatch
-set wildmenu
-set wildmode=list:longest
-set showmode
-set hlsearch
-set nobackup
-setlocal noswapfile
-set history=1000
+
+" performance
+set hidden
+set autoread
 set lazyredraw
-set ruler
-set title
-set laststatus=2
-set smartindent
-syntax on
-filetype plugin indent on
-set viminfofile=~/.config/vim/viminfo
-set cmdheight=1
-set modeline
-set modelines=1
-set matchtime=2
-set backupcopy=yes
+set history=1000
+
+" files
+set backup
+set encoding=utf-8
+silent! call mkdir(expand('~/.config/vim/swap'), 'p', 0700)
+set directory=~/.config/vim/swap//
+silent! call mkdir(expand('~/.config/vim/backup'), 'p', 0700)
+set backupdir=~/.config/vim/backup//
+
+" indent
+set expandtab
 set tabstop=4
 set shiftwidth=4
 set softtabstop=4
-set expandtab
-set matchtime=2
-set autochdir
-set foldenable
-set foldmethod=manual
-set foldcolumn=0
-setlocal foldlevel=1
-nnoremap <space> @=((foldclosed(line('.')) < 0) ? 'zc' : 'zo')<CR>
-set statusline=\ %<%F\ [%1*%M%*%n%R%H]%=\ %y\ %0(%{&fileformat}\ %{&encoding}\ Ln\ %l,\ Col\ %c/%L%)
+
+" modeline
+set modeline
+set modelines=1
+
+" fold
+set foldlevel=2
+set foldcolumn=1
+set foldlevelstart=3
+set foldmethod=indent
+nnoremap <silent> <Leader><Space> @=(foldclosed('.') < 0 ? 'zc' : 'zo')<CR>
+
+" pane
 set splitbelow
 set splitright
+
+" packadd
 packadd! editorconfig
+
+" statusline
+set statusline=\ %<%F\ [%1*%M%*%n%R%H]%=\ %y\ %0(%{&fileformat}\ %{&encoding}\ Ln\ %l,\ Col\ %c/%L%)
+
+" filetype
+syntax on
+filetype plugin indent on
+augroup custom_indent
+    autocmd!
+    autocmd FileType yml,yaml setlocal et sw=2 ts=2 sts=2
+    autocmd FileType json,jsonc setlocal et sw=2 ts=2 sts=2
+    autocmd FileType css,scss setlocal et sw=2 ts=2 sts=2
+    autocmd FileType markdown setlocal et sw=4 ts=4 sts=4
+    autocmd FileType sh,bash setlocal noet sw=4 ts=4
+augroup END
+
+" toggle minimal view
+function! s:toggle_minimal_view()
+    if &number || &relativenumber || &foldcolumn > 0
+        set nonu nornu foldcolumn=0
+    else
+        set nu rnu foldcolumn=1
+    endif
+endfunction
+nnoremap <Leader>o :call <SID>toggle_minimal_view()<CR>
+
+" remove trailing whitespaces
+function! s:strip_trailing_whitespaces()
+    let l:save = winsaveview()
+    keeppatterns %s/\s\+$//e
+    call winrestview(l:save)
+endfunction
+augroup strip_trailing_whitespace
+    autocmd!
+    autocmd BufWritePre * call <SID>strip_trailing_whitespaces()
+augroup END
