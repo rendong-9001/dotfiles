@@ -52,10 +52,11 @@ temp() {
 
 display() {
 	printf 'all status [%s %s %s %s %s] [%s] [%s] [%s] [%s] [%s]\n' \
-        "$cpu" "$temp" "$memory" "$disk_root" "$disk_home" "$light" "$vol" "$wifi" "$bat" "$datetime" > "$FIFO_FILE"
+		"$cpu" "$temp" "$memory" "$disk_root" "$disk_home" "$light" "$vol" "$wifi" "$bat" "$datetime" > "$FIFO_FILE"
 }
 
-DATA_DIR="/tmp/sandbar-$(id -u)"
+sleep 0.5
+DATA_DIR="${XDG_RUNTIME_DIR:-/tmp}/sandbar-$(id -u)"
 PID_FILE="$DATA_DIR/pid"
 printf "%s" "$$" > "$PID_FILE"
 
