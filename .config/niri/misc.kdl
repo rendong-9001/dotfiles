@@ -25,7 +25,7 @@ debug {
 }
 cursor {
     xcursor-theme "Vanilla-DMZ"
-    xcursor-size 35
+    xcursor-size 32
     hide-when-typing
     hide-after-inactive-ms 5000
 }
