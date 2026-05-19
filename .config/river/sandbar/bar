@@ -2,7 +2,7 @@
 set -eu
 
 UID=$(id -u)
-DATA_DIR="/tmp/sandbar-$UID"
+DATA_DIR="${XDG_RUNTIME_DIR:-/tmp}/sandbar-$UID"
 FIFO_FILE="$DATA_DIR/fifo"
 
 [ -d "$DATA_DIR" ] || mkdir -p "$DATA_DIR"
