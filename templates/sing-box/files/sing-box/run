@@ -1,6 +1,10 @@
 #!/bin/sh
 exec 2>&1
 
+/usr/bin/sing-box -C /etc/sing-box check || exit 1
+
+install -d -m 0700 -o _sing_box -g _sing_box /var/lib/sing-box
+
 exec setpriv \
 	--reuid=_sing_box \
 	--regid=_sing_box \
