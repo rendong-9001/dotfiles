@@ -5,7 +5,12 @@ observation-permissions = 0o660
 
 [source-defaults]
 initial-poll-interval = 4
-poll-interval-limits = { min = 60, max = 80 }
+poll-interval-limits = { min = 10, max = 13 }
+
+[synchronization]
+single-step-panic-threshold = 900
+startup-step-panic-threshold = { forward = "inf", backward = 43200 }
+minimum-agreeing-sources = 3
 
 [[source]]
 mode = "pool"
@@ -23,8 +28,7 @@ mode = "server"
 ntp-version = "auto"
 address = "ntp.tencent.com"
 
-[synchronization]
-single-step-panic-threshold = 900
-startup-step-panic-threshold = { forward = "inf", backward = 43200 }
-accumulated-step-panic-threshold = 1500
-minimum-agreeing-sources = 4
+[[source]]
+mode = "nts"
+ntp-version = "auto"
+address = "time.cloudflare.com"
