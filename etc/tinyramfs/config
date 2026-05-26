@@ -1,0 +1,31 @@
+compress="zstd -9"
+
+hostonly=true
+
+hooks="eudev,luks,lvm,uki"
+
+uki_only=true
+uki_kernel=/boot/vmlinuz-$kernel
+
+luks_discard=true
+luks_name=voidcrypt
+luks_root=PARTUUID=85b8f389-4c58-407e-ba9b-351200f7e034
+
+lvm_group=voidvg
+lvm_name=root
+
+root=UUID=a3678ec0-4eae-44cd-a74d-1a67608ca6d3
+
+uki_cmdline="
+ rootfstype=xfs
+ rootflags=rw,relatime
+ psi=1
+ loglevel=6
+ printk.time=1
+ net.ifnames=0
+ iommu.strict=0
+ transparent_hugepage=always
+ tsc=nowatchdog
+ apparmor=1
+ security=apparmor
+"
