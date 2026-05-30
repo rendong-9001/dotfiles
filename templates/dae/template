@@ -1,0 +1,41 @@
+# Template file for 'dae'
+pkgname=dae
+version=1.1.0
+revision=1
+build_style=gnu-makefile
+make_build_args="VERSION=${version}"
+hostmakedepends="go clang21"
+short_desc="Linux high-performance transparent proxy solution"
+maintainer="Orphaned <orphan@voidlinux.org>"
+license="AGPL-3.0-or-later"
+homepage="https://github.com/daeuniverse/dae"
+changelog="https://github.com/daeuniverse/dae/blob/main/CHANGELOGS.md"
+distfiles="https://github.com/daeuniverse/dae/releases/download/v${version}/dae-full-src.tar.xz"
+checksum=2a8236f24fc1e60ca350d5e23e94b91fba1746bfc6b6856bb4d8690eff6f9530
+
+system_accounts="_dae"
+_dae_homedir="/var/lib/dae"
+make_dirs="
+ /etc/dae 0700 root root
+ /var/lib/dae 0700 root root
+"
+
+build_options="static"
+
+if [ "$build_option_static" ]; then
+	export CGO_ENABLED=0
+fi
+
+do_build() {
+	CFLAGS="" make
+}
+
+do_install() {
+	vbin dae
+	vsv dae
+	vsconf example.dae
+	vlicense LICENSE
+	vcompletion install/shell-completion/dae.bash bash
+	vcompletion install/shell-completion/dae.zsh zsh
+	vcompletion install/shell-completion/dae.fish fish
+}
