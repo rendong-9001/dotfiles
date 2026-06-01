@@ -1,0 +1,7 @@
+#! /bin/sh
+
+bspc rule -a Blender                              desktop='^8' follow=on
+bspc rule -a org.squidowl.halloy                  desktop='^9' follow=on
+bspc rule -a Firefox                              desktop='^2'
+bspc rule -a '*:*:Picture-in-Picture'             state=floating rectangle=400x300+0+0
+bspc rule -a feh                                  state=floating center=on rectangle=800x600+0+0

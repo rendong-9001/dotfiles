@@ -1,0 +1,14 @@
+#!/bin/sh
+
+setxkbmap \
+        -rules "evdev" \
+        -model "pc105" \
+        -option "ctrl:swapcaps,altwin:swap_lalt_lwin,compose:ralt" \
+        "us" &
+
+xset r rate 200 50 &
+
+xsetroot -cursor_name left_ptr &
+
+xinput set-prop "MSFT0002:00 04F3:317F Touchpad" "libinput Tapping Enabled" 1 &
+xinput set-prop "MSFT0002:00 04F3:317F Touchpad" "libinput Tapping Drag Enabled" 1 &
