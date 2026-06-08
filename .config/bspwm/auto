@@ -1,0 +1,15 @@
+#!/bin/sh
+
+run_app() {
+	if ! pgrep -x "$1" -U "$(id -u)" >/dev/null 2>&1; then
+		"$@" &
+	fi
+}
+
+run_app wallpaper.sh
+run_app sxhkd
+run_app picom
+run_app dunst
+run_app fcitx5
+run_app polybar
+run_app gammastep -m randr
