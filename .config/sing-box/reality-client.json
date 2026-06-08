@@ -1,0 +1,249 @@
+{
+  "log": {
+    "level": "info",
+    "timestamp": true
+  },
+  "dns": {
+    "servers": [
+      {
+        "type": "tls",
+        "tag": "foreign-dns",
+        "detour": "vless-out",
+        "connect_timeout": "1s",
+        "server": "1.1.1.1"
+      },
+      {
+        "type": "tls",
+        "tag": "txdns",
+        "connect_timeout": "1s",
+        "server": "1.12.12.12"
+      },
+      {
+        "type": "tls",
+        "tag": "alidns",
+        "connect_timeout": "1s",
+        "server": "223.5.5.5"
+      }
+    ],
+    "rules": [
+      {
+        "rule_set": [
+          "gfw",
+          "codeberg",
+          "huggingface",
+          "flatpak",
+          "google-play@cn",
+          "mozilla"
+        ],
+        "server": "foreign-dns"
+      },
+      {
+        "rule_set": [
+          "bilibili-cdn",
+          "bilibili",
+          "site-cn"
+        ],
+        "server": "alidns"
+      }
+    ],
+    "final": "txdns",
+    "strategy": "prefer_ipv4",
+    "cache_capacity": 2000
+  },
+  "inbounds": [
+    {
+      "type": "mixed",
+      "tag": "mixed",
+      "listen": "0.0.0.0",
+      "listen_port": 14443
+    }
+  ],
+  "outbounds": [
+    {
+      "type": "direct",
+      "tag": "direct"
+    },
+    {
+      "type": "block",
+      "tag": "block"
+    },
+    {
+      "type": "vless",
+      "tag": "vless-out",
+      "connect_timeout": "10s",
+      "server": "mydomain.com",
+      "server_port": 443,
+      "uuid": "uuid",
+      "flow": "xtls-rprx-vision",
+      "network": "tcp",
+      "tls": {
+        "enabled": true,
+        "server_name": "borrowed.com",
+        "utls": {
+          "enabled": true,
+          "fingerprint": "firefox"
+        },
+        "reality": {
+          "enabled": true,
+          "public_key": "pulic_key",
+          "short_id": "a638cc85"
+        }
+      }
+    }
+  ],
+  "route": {
+    "rules": [
+      {
+        "action": "sniff",
+        "sniffer": [
+          "tls",
+          "quic",
+          "http",
+          "dns"
+        ]
+      },
+      {
+        "type": "logical",
+        "mode": "or",
+        "rules": [
+          {
+            "port": 53
+          },
+          {
+            "protocol": "dns"
+          }
+        ],
+        "action": "hijack-dns"
+      },
+      {
+        "ip_is_private": true,
+        "outbound": "direct"
+      },
+      {
+        "domain_suffix": "cn",
+        "outbound": "direct"
+      },
+      {
+        "rule_set": [
+          "ip-cn",
+          "site-cn"
+        ],
+        "outbound": "direct"
+      },
+      {
+        "domain_suffix": [
+          ".org",
+          ".io"
+        ],
+        "outbound": "vless-out"
+      },
+      {
+        "rule_set": [
+          "gfw",
+          "codeberg",
+          "huggingface",
+          "flatpak",
+          "google-play@cn",
+          "mozilla"
+        ],
+        "outbound": "vless-out"
+      },
+      {
+        "rule_set": [
+          "csdn",
+          "zhihu",
+          "ads-all"
+        ],
+        "outbound": "block"
+      }
+    ],
+    "rule_set": [
+      {
+        "type": "remote",
+        "tag": "ip-cn",
+        "url": "https://gh-proxy.org/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/sing/geo/geoip/cn.srs",
+        "download_detour": "direct"
+      },
+      {
+        "type": "remote",
+        "tag": "site-cn",
+        "url": "https://gh-proxy.org/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/sing/geo/geosite/cn.srs",
+        "download_detour": "direct"
+      },
+      {
+        "type": "remote",
+        "tag": "flatpak",
+        "url": "https://gh-proxy.org/https://raw.githubusercontent.com/SagerNet/sing-geosite/refs/heads/rule-set/geosite-flatpak.srs",
+        "download_detour": "direct"
+      },
+      {
+        "type": "remote",
+        "tag": "codeberg",
+        "url": "https://gh-proxy.org/https://raw.githubusercontent.com/SagerNet/sing-geosite/refs/heads/rule-set/geosite-codeberg.srs",
+        "download_detour": "direct"
+      },
+      {
+        "type": "remote",
+        "tag": "huggingface",
+        "url": "https://gh-proxy.org/https://raw.githubusercontent.com/SagerNet/sing-geosite/refs/heads/rule-set/geosite-huggingface.srs",
+        "download_detour": "direct"
+      },
+      {
+        "type": "remote",
+        "tag": "gfw",
+        "url": "https://gh-proxy.org/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/sing/geo/geosite/gfw.srs",
+        "download_detour": "direct"
+      },
+      {
+        "type": "remote",
+        "tag": "mozilla",
+        "url": "https://gh-proxy.org/https://raw.githubusercontent.com/SagerNet/sing-geosite/refs/heads/rule-set/geosite-mozilla.srs",
+        "download_detour": "direct"
+      },
+      {
+        "type": "remote",
+        "tag": "csdn",
+        "url": "https://gh-proxy.org/https://raw.githubusercontent.com/SagerNet/sing-geosite/refs/heads/rule-set/geosite-csdn.srs",
+        "download_detour": "direct"
+      },
+      {
+        "type": "remote",
+        "tag": "zhihu",
+        "url": "https://gh-proxy.org/https://raw.githubusercontent.com/SagerNet/sing-geosite/refs/heads/rule-set/geosite-zhihu.srs",
+        "download_detour": "direct"
+      },
+      {
+        "type": "remote",
+        "tag": "google-play@cn",
+        "url": "https://gh-proxy.org/https://raw.githubusercontent.com/SagerNet/sing-geosite/refs/heads/rule-set/geosite-google-play@cn.srs",
+        "download_detour": "direct"
+      },
+      {
+        "type": "remote",
+        "tag": "bilibili",
+        "url": "https://gh-proxy.org/https://raw.githubusercontent.com/SagerNet/sing-geosite/refs/heads/rule-set/geosite-bilibili.srs",
+        "download_detour": "direct"
+      },
+      {
+        "type": "remote",
+        "tag": "bilibili-cdn",
+        "url": "https://gh-proxy.org/https://raw.githubusercontent.com/SagerNet/sing-geosite/refs/heads/rule-set/geosite-bilibili-cdn.srs",
+        "download_detour": "direct"
+      },
+      {
+        "type": "remote",
+        "tag": "ads-all",
+        "url": "https://gh-proxy.org/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/sing/geo/geosite/category-ads-all.srs",
+        "download_detour": "direct"
+      }
+    ],
+    "final": "vless-out",
+    "auto_detect_interface": true,
+    "default_domain_resolver": "alidns"
+  },
+  "experimental": {
+    "cache_file": {
+      "enabled": true
+    }
+  }
+}

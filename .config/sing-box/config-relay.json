@@ -1,0 +1,146 @@
+{
+  "log": {
+    "level": "error",
+    "output": "sing.log",
+    "timestamp": true
+  },
+  "dns": {
+    "servers": [
+      {
+        "type": "https",
+        "tag": "cloudflare",
+        "connect_timeout": "1s",
+        "server": "1.1.1.1"
+      }
+    ],
+    "final": "cloudflare",
+    "strategy": "prefer_ipv4",
+    "disable_cache": true
+  },
+  "inbounds": [
+    {
+      "type": "vless",
+      "tag": "vless-in",
+      "listen": "0.0.0.0",
+      "listen_port": 443,
+      "tcp_fast_open": true,
+      "users": [
+        {
+          "name": "name",
+          "uuid": "uuid"
+        }
+      ],
+      "tls": {
+        "enabled": true,
+        "server_name": "example.com",
+        "min_version": "1.2",
+        "acme": {
+          "domain": [
+            "example.com",
+            "www.example.com"
+          ],
+          "data_directory": "/var/lib/sing-box/certs-vless",
+          "default_server_name": "example.com",
+          "email": "example@example.com",
+          "disable_http_challenge": true,
+          "disable_tls_alpn_challenge": true,
+          "dns01_challenge": {
+            "provider": "cloudflare",
+            "api_token": "api_token"
+          }
+        }
+      },
+      "multiplex": {
+        "enabled": true,
+        "padding": true,
+        "brutal": {
+          "enabled": true,
+          "up_mbps": 50,
+          "down_mbps": 100
+        }
+      },
+      "transport": {
+        "type": "ws",
+        "path": "/watch",
+        "headers": {
+          "Accept-Language": "en-US,en;q=0.5",
+          "Host": "example.com",
+          "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:144.0) Gecko/20100101 Firefox/144.0"
+        },
+        "max_early_data": 2080,
+        "early_data_header_name": "Sec-WebSocket-Protocol"
+      }
+    },
+    {
+      "type": "tuic",
+      "tag": "tuic-in",
+      "listen": "::",
+      "listen_port": 443,
+      "users": [
+        {
+          "name": "name",
+          "uuid": "uuid",
+          "password": "password"
+        }
+      ],
+      "congestion_control": "bbr",
+      "auth_timeout": "5s",
+      "heartbeat": "15s",
+      "tls": {
+        "enabled": true,
+        "server_name": "example.com",
+        "alpn": "h3",
+        "acme": {
+          "domain": [
+            "example.com",
+            "www.example.com"
+          ],
+          "data_directory": "/var/lib/sing-box/certs-tuic",
+          "default_server_name": "example.com",
+          "email": "example@example.com",
+          "disable_http_challenge": true,
+          "alternative_tls_port": 443
+        }
+      }
+    }
+  ],
+  "outbounds": [
+    {
+      "type": "block",
+      "tag": "block"
+    },
+    {
+      "type": "vless",
+      "tag": "vless-out",
+      "tcp_fast_open": true,
+      "server": "example.com",
+      "server_port": 443,
+      "uuid": "uuid",
+      "flow": "xtls-rprx-vision",
+      "network": "tcp",
+      "tls": {
+        "enabled": true,
+        "server_name": "borrowed.com",
+        "utls": {
+          "enabled": true,
+          "fingerprint": "firefox"
+        },
+        "reality": {
+          "enabled": true,
+          "public_key": "public_key",
+          "short_id": "110355"
+        }
+      }
+    }
+  ],
+  "route": {
+    "rules": [
+      {
+        "ip_is_private": true,
+        "outbound": "block"
+      }
+    ],
+    "final": "vless-out",
+    "auto_detect_interface": true
+  }
+}
