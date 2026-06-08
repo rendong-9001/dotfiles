@@ -1,0 +1,21 @@
+[servers.Libera]
+server = "irc.libera.chat"
+use_tls = true
+port = 6697
+nickname = "xxx"
+channels = ["#voidlinux"]
+
+[servers.Libera.sasl.plain]
+username = "xxx"
+password = "xxx"
+
+[font]
+family = "Hack"
+size = 20
+line_height = 1.4
+
+[proxy.socks5]
+host = "127.0.0.1"
+port = 14443
+username = "username"
+password = "password"
