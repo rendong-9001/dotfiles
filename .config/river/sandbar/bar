@@ -1,0 +1,24 @@
+#!/bin/sh
+
+UID=$(id -u)
+DATA_DIR="${XDG_RUNTIME_DIR:-/tmp}/sandbar-$UID"
+FIFO_FILE="$DATA_DIR/fifo"
+
+[ -d "$DATA_DIR" ] || mkdir -p "$DATA_DIR"
+[ -e "$FIFO_FILE" ] && rm -f "$FIFO_FILE"
+
+mkfifo "$FIFO_FILE"
+
+while cat "$FIFO_FILE"; do :; done | sandbar \
+	-font "Hack:style=Bold Italic:pixelsize=16" \
+	-active-fg-color "#000000" \
+	-active-bg-color "#a4e378" \
+	-inactive-fg-color "#ebdbb2" \
+	-inactive-bg-color "#000000" \
+	-urgent-fg-color "#000000" \
+	-urgent-bg-color "#cc241d" \
+	-title-fg-color "#000000" \
+	-title-bg-color "#a4e378" \
+	-no-layout \
+	-vertical-padding 3 \
+	-scale 1

@@ -1,0 +1,24 @@
+#!/bin/sh
+
+killall -q mako pipewire kanshi \
+    bar status wallpaper.sh weather.sh || true
+
+# wallpaper
+riverctl spawn "$HOME/.local/bin/wallpaper.sh"
+# input
+riverctl spawn "fcitx5 --replace -d"
+# media
+riverctl spawn "pipewire"
+# terminal
+pgrep --full "foot --server" || riverctl spawn "foot --server"
+# notification
+riverctl spawn "mako"
+# screen
+riverctl spawn "gammastep"
+# display
+riverctl spawn "kanshi"
+# bar
+riverctl spawn "$HOME/.config/river/sandbar/bar"
+riverctl spawn "$HOME/.config/river/sandbar/status"
+# weather
+riverctl spawn "$HOME/.local/bin/weather.sh"

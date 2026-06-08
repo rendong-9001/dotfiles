@@ -1,0 +1,10 @@
+#!/bin/sh
+
+. $HOME/.config/river/env
+. $HOME/.config/river/auto
+. $HOME/.config/river/misc
+. $HOME/.config/river/modes
+. $HOME/.config/river/rules
+. $HOME/.config/river/layout
+. $HOME/.config/river/inputs
+. $HOME/.config/river/bindings
