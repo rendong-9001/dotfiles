@@ -1,0 +1,5 @@
+weekstart=monday
+include dark-256.theme
+
+data.location=~/.config/task/task
+hooks.location=~/.config/task/hooks
