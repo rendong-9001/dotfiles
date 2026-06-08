@@ -1,0 +1,84 @@
+theme = "ttox"
+
+[editor.lsp]
+display-inlay-hints = true
+display-signature-help-docs = true
+
+[editor.inline-diagnostics]
+cursor-line = "warning"
+prefix-len = 2
+max-wrap = 25
+
+[editor]
+line-number = "relative"
+mouse = false
+end-of-line-diagnostics = "hint"
+middle-click-paste = false
+bufferline = "multiple"
+clipboard-provider = "wayland"
+cursorline = true
+scrolloff = 8
+continue-comments = false
+true-color = true
+popup-border = "popup"
+text-width = 100
+
+[editor.cursor-shape]
+insert = "bar"
+normal = "block"
+select = "underline"
+
+[editor.file-picker]
+hidden = false
+git-global = false
+max-depth = 3
+
+[editor.auto-save]
+after-delay.enable = true
+after-delay.timeout = 60000
+
+[editor.soft-wrap]
+enable = true
+max-wrap = 20
+
+[editor.statusline]
+left = ["mode", "spinner"]
+center = [
+  "read-only-indicator",
+  "version-control",
+  "file-base-name",
+  "file-modification-indicator",
+]
+right = [
+  "diagnostics",
+  "file-type",
+  "file-encoding",
+  "total-line-numbers",
+  "selections",
+  "separator",
+  "position",
+]
+separator = "|"
+mode.normal = "NORMAL"
+mode.insert = "INSERT"
+mode.select = "SELECT"
+
+[editor.auto-pairs]
+'(' = ')'
+'{' = '}'
+'[' = ']'
+'"' = '"'
+'`' = '`'
+"'" = "'"
+'<' = '>'
+
+[editor.gutters.line-numbers]
+min-width = 2
+
+[editor.gutters]
+layout = ["diagnostics", "spacer", "line-numbers", "spacer", "diff"]
+
+[editor.indent-guides]
+render = true
+character = "╎"
+skip-levels = 1
