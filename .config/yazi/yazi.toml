@@ -1,0 +1,20 @@
+[preview]
+image_quality = 50
+
+[opener]
+pdf_open = [
+  { run = 'zathura %s', orphan = true, desc = "Open pdf", for = "linux" },
+]
+img_open = [
+  { run = 'imv %s', orphan = true, desc = "Open image", for = "linux" },
+]
+video_open = [
+  { run = 'mpv %s', orphan = true, desc = "Open video", for = "linux" },
+]
+
+[open]
+prepend_rules = [
+  { mime = "application/pdf", use = "pdf_open" },
+  { mime = "image/*", use = "img_open" },
+  { mime = "video/*", use = "video_open" },
+]
