@@ -1,0 +1,38 @@
+# Template file for 'sing-box'
+pkgname=sing-box
+version=1.13.19
+revision=1
+build_style=gnu-makefile
+make_build_args="VERSION=${version}"
+make_use_env=yes
+hostmakedepends="go"
+short_desc="Universal proxy platform"
+maintainer="Orphaned <orphan@voidlinux.org>"
+license="GPL-3.0-or-later"
+homepage="https://sing-box.sagernet.org"
+distfiles="https://github.com/SagerNet/sing-box/archive/refs/tags/v${version}.tar.gz"
+checksum=abc2f4805b3fd088c18a5694b51fed6f0e1d06632fae98029d6bf7bd79a1b3a2
+nopie=yes
+
+system_accounts="_sing_box"
+_sing_box_homedir="/var/lib/sing-box"
+
+make_dirs="
+ /etc/sing-box 0700 root root
+ /var/lib/sing-box 0700 _sing_box _sing_box
+"
+
+build_options="standalone"
+
+if [ "$build_option_standalone" ]; then
+	export CGO_ENABLED=0
+fi
+
+do_install() {
+	vbin sing-box
+	vsv sing-box
+	vsconf release/config/config.json
+	vcompletion release/completions/sing-box.bash bash
+	vcompletion release/completions/sing-box.zsh zsh
+	vcompletion release/completions/sing-box.fish fish
+}
