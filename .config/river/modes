@@ -1,0 +1,9 @@
+#!/bin/sh
+
+fcitx_mode="switch_input"
+
+riverctl declare-mode "$fcitx_mode"
+riverctl map normal Super+Shift Space enter-mode "$fcitx_mode"
+riverctl map "$fcitx_mode" None P spawn "fcitx5-remote -s pinyin"
+riverctl map "$fcitx_mode" None E spawn "fcitx5-remote -s english"
+riverctl map "$fcitx_mode" None Escape enter-mode normal

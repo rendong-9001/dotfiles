@@ -1,0 +1,3 @@
+#!/bin/sh
+
+riverctl spawn "$HOME/.local/bin/env-update.sh"
