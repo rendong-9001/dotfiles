@@ -1,0 +1,70 @@
+{
+  "log": {
+    "level": "error",
+    "output": "sing.log",
+    "timestamp": true
+  },
+  "dns": {
+    "servers": [
+      {
+        "type": "https",
+        "tag": "cloudflare",
+        "connect_timeout": "1s",
+        "server": "1.1.1.1"
+      }
+    ],
+    "final": "cloudflare",
+    "strategy": "prefer_ipv4",
+    "disable_cache": true
+  },
+  "inbounds": [
+    {
+      "type": "vless",
+      "tag": "vless-in",
+      "listen": "0.0.0.0",
+      "listen_port": 443,
+      "tcp_fast_open": true,
+      "users": [
+        {
+          "name": "name",
+          "uuid": "uuid",
+          "flow": "xtls-rprx-vision"
+        }
+      ],
+      "tls": {
+        "enabled": true,
+        "server_name": "borrowed.com",
+        "reality": {
+          "enabled": true,
+          "handshake": {
+            "server": "borrowed.com",
+            "server_port": 443
+          },
+          "private_key": "private_key",
+          "short_id": "110355",
+          "max_time_difference": "2m30s"
+        }
+      }
+    }
+  ],
+  "outbounds": [
+    {
+      "type": "direct",
+      "tag": "direct"
+    },
+    {
+      "type": "block",
+      "tag": "block"
+    }
+  ],
+  "route": {
+    "rules": [
+      {
+        "ip_is_private": true,
+        "outbound": "block"
+      }
+    ],
+    "final": "direct",
+    "auto_detect_interface": true
+  }
+}

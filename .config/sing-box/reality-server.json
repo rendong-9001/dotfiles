@@ -1,0 +1,72 @@
+{
+  "log": {
+    "level": "info",
+    "timestamp": true
+  },
+  "dns": {
+    "servers": [
+      {
+        "type": "tls",
+        "tag": "cloudflare",
+        "connect_timeout": "1s",
+        "server": "1.1.1.1"
+      }
+    ],
+    "strategy": "prefer_ipv4",
+    "disable_cache": true
+  },
+  "inbounds": [
+    {
+      "type": "vless",
+      "tag": "vless-in",
+      "listen": "0.0.0.0",
+      "listen_port": 443,
+      "tcp_fast_open": true,
+      "users": [
+        {
+          "name": "void-linux-laptop",
+          "uuid": "uuid",
+          "flow": "xtls-rprx-vision"
+        }
+      ],
+      "tls": {
+        "enabled": true,
+        "server_name": "brrowed.com",
+        "reality": {
+          "enabled": true,
+          "handshake": {
+            "server": "brrowed.com",
+            "server_port": 443
+          },
+          "private_key": "private_key",
+          "short_id": "a638cc85",
+          "max_time_difference": "1m12s"
+        }
+      }
+    }
+  ],
+  "outbounds": [
+    {
+      "type": "block",
+      "tag": "block"
+    },
+    {
+      "type": "direct",
+      "tag": "direct"
+    }
+  ],
+  "route": {
+    "rules": [
+      {
+        "port": 53,
+        "action": "hijack-dns"
+      },
+      {
+        "ip_is_private": true,
+        "outbound": "block"
+      }
+    ],
+    "final": "direct",
+    "auto_detect_interface": true
+  }
+}
