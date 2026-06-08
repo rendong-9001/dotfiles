@@ -1,0 +1,58 @@
+" general
+set cursorline
+set laststatus=2
+set wildmenu
+set wildmode=list:longest,full
+set showmatch matchtime=2
+set number relativenumber
+set ruler title showcmd showmode
+set viminfofile=~/.config/vim/viminfo
+
+" search
+set ignorecase smartcase
+set incsearch hlsearch
+
+" scroll
+set scrolloff=8
+set sidescrolloff=5
+
+" performance
+set hidden
+set autoread
+set lazyredraw
+set history=1000
+
+" files
+set backup
+set encoding=utf-8
+silent! call mkdir(expand('~/.config/vim/swap'), 'p', 0700)
+set directory=~/.config/vim/swap//
+silent! call mkdir(expand('~/.config/vim/backup'), 'p', 0700)
+set backupdir=~/.config/vim/backup//
+
+" indent
+set expandtab
+set tabstop=4
+set shiftwidth=4
+set softtabstop=4
+
+" modeline
+set modeline
+set modelines=1
+
+" fold
+set foldlevel=2
+set foldcolumn=1
+set foldlevelstart=3
+set foldmethod=indent
+nnoremap <silent> <Leader><Space> @=(foldclosed('.') < 0 ? 'zc' : 'zo')<CR>
+
+" pane
+set splitbelow
+set splitright
+
+" packadd
+packadd! editorconfig
+
+" statusline
+set statusline=\ %<%F\ [%1*%M%*%n%R%H]%=\ %y\ %0(%{&fileformat}\ %{&encoding}\ Ln\ %l,\ Col\ %c/%L%)
