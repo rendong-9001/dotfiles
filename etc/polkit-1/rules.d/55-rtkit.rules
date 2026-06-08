@@ -1,0 +1,9 @@
+polkit.addRule(function(action, subject) {
+  var allowedActions = [
+    "org.freedesktop.RealtimeKit1.acquire-real-time",
+    "org.freedesktop.RealtimeKit1.acquire-high-priority",
+  ];
+  if (subject.isInGroup("wheel") && allowedActions.indexOf(action.id) !== -1) {
+    return polkit.Result.YES;
+  }
+});
