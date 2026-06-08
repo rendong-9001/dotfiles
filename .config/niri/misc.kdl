@@ -1,0 +1,76 @@
+prefer-no-csd
+screenshot-path "~/Pictures/Screenshots/%Y-%m-%d~%H:%M:%S.png"
+xwayland-satellite {
+    path "xwayland-satellite"
+}
+switch-events {
+    lid-close {
+        spawn "notify-send 'The laptop lid is closed!'"
+    }
+    lid-open {
+        spawn "notify-send 'The laptop lid is open!'"
+    }
+}
+hotkey-overlay {
+    skip-at-startup
+    hide-not-bound
+}
+clipboard {
+    disable-primary
+}
+debug {
+    honor-xdg-activation-with-invalid-serial
+    enable-overlay-planes
+    render-drm-device "/dev/dri/by-path/pci-0000:01:00.0-render"
+}
+cursor {
+    xcursor-theme "Vanilla-DMZ"
+    xcursor-size 32
+    hide-when-typing
+    hide-after-inactive-ms 5000
+}
+overview {
+    zoom 0.6
+    backdrop-color "#333333"
+    workspace-shadow {
+        softness 30
+        spread 5
+        offset x=4 y=4
+        color "#CCCCCC"
+    }
+}
+recent-windows {
+    debounce-ms 750
+    open-delay-ms 100
+    highlight {
+        active-color "#00C5CD"
+        urgent-color "#DCDCDC"
+        padding 15
+        corner-radius 5
+    }
+    previews {
+        max-height 600
+        max-scale 0.45
+    }
+    binds {
+        Alt+Tab {
+            next-window scope="workspace"
+        }
+        Alt+Shift+Tab {
+            previous-window scope="workspace"
+        }
+        Alt+grave {
+            next-window scope="output" filter="app-id"
+        }
+        Alt+Shift+grave {
+            previous-window scope="output" filter="app-id"
+        }
+    }
+}
+blur {
+    //off
+    passes 2
+    offset 2.15
+    noise 0.04
+    saturation 1.2
+}

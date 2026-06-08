@@ -1,0 +1,5 @@
+spawn-at-startup "foot" "--server"
+spawn-at-startup "fcitx5" "-d" "-r"
+spawn-at-startup "gammastep" "-m" "wayland"
+spawn-at-startup "pipewire"
+spawn-at-startup "qs" "-c" "noctalia-shell"
