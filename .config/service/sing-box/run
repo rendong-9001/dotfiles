@@ -1,0 +1,5 @@
+#!/bin/sh
+exec 2>&1
+
+exec chpst -e "$TURNSTILE_ENV_DIR" -b sing-box -- \
+    "$HOME/.local/bin/sing-box.sh"
