@@ -1,0 +1,33 @@
+[theme]
+border = "bright-black"
+text = "white"
+time = "bright-blue"
+container = "black"
+title = "green"
+greet = "bright-cyan"
+prompt = "green"
+input = "red"
+action = "yellow"
+button = "bright-green"
+
+[layout]
+width = 70
+window_padding = 2
+container_padding = 1
+prompt_padding = 1
+
+[display]
+show_time = true
+time_format = "%a,%Y-%m-%d %H:%M:%S"
+align_greeting = "center"
+greeting = "MAYBE ON EARTH. MAYBE IN THE FUTURE."
+
+[remember]
+username = true
+
+[secret]
+mode = "characters"
+characters = ">"
+
+[session]
+command = "startwm.sh -t wayland"
