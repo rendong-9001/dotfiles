@@ -1,0 +1,20 @@
+#!/bin/sh
+exec 2>&1
+
+[ -f ./conf ] && . ./conf
+
+dae validate -c /etc/dae/config.dae || exit 1
+
+install -d -m 700 -o _dae -g _dae /var/lib/dae
+
+if ! mountpoint -q /sys/fs/bpf; then
+	mkdir -p /sys/fs/bpf
+	mount -t bpf bpf /sys/fs/bpf
+fi
+
+exec chpst -o 1048576 -p 4096 \
+	dae run \
+	--disable-pidfile \
+	--disable-timestamp \
+	--logfile /var/lib/dae/dae.log \
+	-c /etc/dae/config.dae
