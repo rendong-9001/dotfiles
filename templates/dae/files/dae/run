@@ -1,0 +1,37 @@
+#!/bin/sh
+exec 2>&1
+
+CGROUP_PATH='/sys/fs/cgroup/dae'
+BPF_PATH='/sys/fs/bpf'
+
+[ -f ./conf ] && . ./conf
+
+: "${MEMEROY_MAX:=512M}"
+: "${TASKS_MAX:=4096}"
+: "${OOM_SCORE_ADJUST:=-100}"
+: "${LIMIT_NOFILE:=1048576}"
+
+install -d -m 700 -o _dae -g _dae /var/lib/dae
+
+if ! mountpoint -q "$BPF_PATH"; then
+	mkdir -p "$BPF_PATH"
+	mount -t bpf bpf "$BPF_PATH" || exit 1
+fi
+
+printf "%s" "+pids +memory" > "/sys/fs/cgroup/cgroup.subtree_control"
+
+mkdir -p "$CGROUP_PATH"
+if [ -d "$CGROUP_PATH" ]; then
+	printf "%s" "$MEMEORY_MAX" > "$CGROUP_PATH/memory.max"
+	printf "%s" "$TASKS_MAX" > "$CGROUP_PATH/pids.max"
+	printf "%d" "$$" > "$CGROUP_PATH/cgroup.procs"
+fi
+
+choom -n "$OOM_SCORE_ADJUST" -p "$$"
+ulimit -n "$LIMIT_NOFILE"
+
+exec dae run \
+	--disable-pidfile \
+	--disable-timestamp \
+	--logfile /var/lib/dae/dae.log \
+	-c /etc/dae/config.dae
