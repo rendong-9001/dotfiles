@@ -1,0 +1,45 @@
+[env]
+TERM = "xterm-256color"
+
+[window]
+padding = { x = 2, y = 2 }
+decorations = "Full"
+opacity = 0.1
+dimensions = { columns = 0, lines = 0 }
+title = "alacritty"
+
+[scrolling]
+history = 8192
+multiplier = 3
+
+[font]
+normal = { family = "Hack", style = "Italic" }
+size = 16
+offset = { x = 1, y = 4 }
+
+[cursor]
+style = { "shape" = "Block", blinking = "On" }
+
+[terminal]
+osc52 = "OnlyCopy"
+
+[mouse]
+hide_when_typing = true
+
+[keyboard]
+bindings = [
+  { key = "C", mods = "Control|Shift", action = "Copy" },
+  { key = "V", mods = "Control|Shift", action = "Paste" },
+]
+
+[hints]
+alphabet = "JFKDLSAHGURIEOWPQ"
+
+[[hints.enabled]]
+regex = "(https:|http:)[^\\s ]+"
+command = "firefox-wayland"
+post_processing = true
+binding = { key = "O", mods = "Control|Shift" }
+
+[general]
+import = ["colors.toml"]
