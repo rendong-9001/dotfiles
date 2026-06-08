@@ -1,0 +1,34 @@
+[observability]
+log-level = "info"
+observation-path = "/var/run/ntpd-rs/observe.sock"
+observation-permissions = 0o660
+
+[source-defaults]
+initial-poll-interval = 4
+poll-interval-limits = { min = 10, max = 13 }
+
+[synchronization]
+single-step-panic-threshold = 900
+startup-step-panic-threshold = { forward = "inf", backward = 43200 }
+minimum-agreeing-sources = 3
+
+[[source]]
+mode = "pool"
+ntp-version = "auto"
+address = "cn.pool.ntp.org"
+count = 4
+
+[[source]]
+mode = "server"
+ntp-version = "auto"
+address = "ntp.aliyun.com"
+
+[[source]]
+mode = "server"
+ntp-version = "auto"
+address = "ntp.tencent.com"
+
+[[source]]
+mode = "server"
+ntp-version = "auto"
+address = "time.apple.com"
