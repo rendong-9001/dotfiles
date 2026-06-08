@@ -1,0 +1,1 @@
+limit lim_https_port { rate 50/second burst 100 packets }

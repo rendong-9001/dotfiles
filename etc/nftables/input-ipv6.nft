@@ -1,0 +1,27 @@
+ip6 saddr @blacklist_ipv6 counter drop
+
+icmpv6 type echo-request limit rate 3/second burst 6 packets accept
+icmpv6 type { nd-neighbor-solicit, nd-router-advert, nd-neighbor-advert } accept
+
+tcp dport == $HTTPS_PORT \
+	ct state new \
+	limit name "lim_https_port" \
+	accept
+
+tcp dport == $SSH_PORT \
+	ct state new \
+	update @rate_limit_ipv6 { ip6 saddr limit rate 4/minute burst 8 packets } \
+	accept
+tcp dport == $SSH_PORT \
+	ct state new \
+	update @rate_limit_ipv6 { ip6 saddr limit rate over 4/minute burst 8 packets } \
+	add @blacklist_ipv6 { ip6 saddr } \
+	log prefix "drop_input_ipv6_ssh : " level warn \
+	flags tcp sequence,options \
+	flags ip options \
+	drop
+
+ip6 saddr @lan_input_ipv6 tcp dport @ports_tcp_private accept
+ip6 saddr @whitelist_input_ipv6 tcp dport @ports_tcp_public accept
+ip6 saddr @lan_input_ipv6 udp dport @ports_udp_private accept
+ip6 saddr @whitelist_input_ipv6 udp dport @ports_udp_public accept
