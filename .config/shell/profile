@@ -1,0 +1,65 @@
+# vim: ft=sh et ts=4 sw=4 sts=4
+
+# Append PATH if ~/.local/bin missing
+case ":${PATH}:" in
+    *:"$HOME/.local/bin":*)
+        ;;
+    *)
+        export PATH="$HOME/.local/bin:$PATH"
+        ;;
+esac
+
+# Headless env vars
+env_base() {
+    # XDG Base Dir Spec
+    export XDG_CACHE_HOME="${XDG_CACHE_HOME:-$HOME/.cache}"
+    export XDG_CONFIG_HOME="${XDG_CONFIG_HOME:-$HOME/.config}"
+    export XDG_DATA_HOME="${XDG_DATA_HOME:-$HOME/.local/share}"
+    export XDG_STATE_HOME="${XDG_STATE_HOME:-$HOME/.local/state}"
+    # CUDA
+    export CUDA_CACHE_PATH="$XDG_CACHE_HOME/nv"
+}
+
+# GUI base env vars
+env_gui_base() {
+    # GTK theme
+    export GTK_THEME=Adwaita:dark
+    # Qt theme
+    export QT_QPA_PLATFORMTHEME=qt6ct
+}
+
+# X11 specific env vars
+env_x11() {
+    # Input method (Fcitx5)
+    export GTK_IM_MODULE=fcitx
+    export QT_IM_MODULE=fcitx
+    export XMODIFIERS=@im=fcitx
+    export SDL_IM_MODULE=fcitx
+}
+
+# Wayland specific env vars
+env_wayland() {
+    # Input method (Fcitx5)
+    export XMODIFIERS=@im=fcitx
+    # EFL/SDL backends
+    export ELM_DISPLAY=wl
+    export SDL_VIDEODRIVER=wayland
+}
+
+# Main GUI env dispatcher
+env_gui() {
+    env_gui_base
+    case "$XDG_SESSION_TYPE" in
+        wayland)
+            env_wayland
+            ;;
+        x11)
+            env_x11
+            ;;
+        *)
+            ;;
+    esac
+}
+
+env_base
+env_gui
