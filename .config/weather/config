@@ -1,0 +1,4 @@
+# vim: ft=sh
+
+CITY=
+WEATHER_INTERVAL=30m
