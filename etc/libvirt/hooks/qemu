@@ -1,0 +1,178 @@
+#!/bin/sh
+
+GUEST_NAME="$1"
+ACTION="$2"
+SUB_OP="$3"
+
+LOG_FILE='/var/log/libvirt/hook_qemu.log'
+
+exec >>"$LOG_FILE" 2>&1
+
+info() {
+    printf "[%s] %s\n" "$(date +%F-%H-%M-%S)" "$1"
+}
+
+vfio() {
+    case "$1" in
+        --load)
+            modprobe vfio
+            modprobe vfio_pci
+            modprobe vfio_iommu_type1
+
+            info 'VFIO loaded'
+            ;;
+        --unload)
+            modprobe -r vfio_iommu_type1
+            modprobe -r vfio_pci
+            modprobe -r vfio
+
+            info 'VFIO unloaded'
+            ;;
+    esac
+
+    sleep 1
+}
+
+nvidia() {
+    case "$1" in
+        --load)
+            modprobe nvidia
+            modprobe nvidia_modeset
+            modprobe nvidia_drm
+            modprobe nvidia_uvm
+
+            info 'NVIDIA GPU drivers loaded'
+            ;;
+        --unload)
+            modprobe -r nvidia_uvm
+            modprobe -r nvidia_drm
+            modprobe -r nvidia_modeset
+            modprobe -r nvidia
+
+            info 'NVIDIA GPU drivers unloaded'
+            ;;
+    esac
+
+    sleep 1
+}
+
+amd() {
+    case "$1" in
+        --load)
+            modprobe amdgpu
+
+            info 'AMD GPU drivers loaded'
+            ;;
+        --unload)
+            modprobe -r amdgpu
+
+            info 'AMD GPU drivers unloaded'
+            ;;
+    esac
+
+    sleep 1
+}
+
+gpu() {
+    case "$1" in
+        --nvidia)
+            nvidia "$2"
+            ;;
+        --amd)
+            amd "$2"
+            ;;
+    esac
+}
+
+vt() {
+    for vt in /sys/class/vtconsole/vtcon*; do
+        read -r _vt_name <"$vt/name"
+        if [ "$_vt_name" = '(M) frame buffer device' ]; then
+            case "$1" in
+                --bind)
+                    printf "%s" '1' >"$vt/bind"
+
+                    info "vtconsole${vt##*vtcon} bound"
+                    ;;
+                --unbind)
+                    printf "%s" '0' >"$vt/bind"
+
+                    info "vtconsole${vt##*vtcon} unbound"
+                    ;;
+            esac
+        fi
+    done
+}
+
+prepare_begin_hook() {
+    info "Prepare hook starting..."
+
+    vt --unbind
+
+    if [ -e /sys/bus/platform/drivers/efi-framebuffer/efi-framebuffer.0 ]; then
+        printf "%s" 'efi-framebuffer.0' >/sys/bus/platform/drivers/efi-framebuffer/unbind
+    fi
+
+    for vendor in /sys/class/drm/renderD*/device/vendor; do
+        read -r _vendor <"$vendor"
+        case "$_vendor" in
+            0x10de)
+                gpu --nvidia --unload
+                ;;
+            0x1002)
+                gpu --amd --unload
+                ;;
+        esac
+    done
+
+    vfio --load
+
+    info "Prepare hook done"
+}
+
+release_end_hook() {
+    info "Release hook starting..."
+
+    vfio --unload
+
+    for pci_dev in /sys/bus/pci/devices/*; do
+        read -r _class <"$pci_dev/class"
+        read -r _vendor <"$pci_dev/vendor"
+        if [ "$_class" = '0x030000' ]; then
+            case "$_vendor" in
+                0x10de)
+                    gpu --nvidia --load
+                    ;;
+                0x1002)
+                    gpu --amd --load
+                    ;;
+            esac
+        fi
+    done
+
+    vt --bind
+
+    info "Release hook done"
+}
+
+action() {
+    case "${ACTION}::${SUB_OP}" in
+        prepare::begin)
+            prepare_begin_hook
+            ;;
+        release::end)
+            release_end_hook
+            ;;
+        *)
+            return
+            ;;
+    esac
+}
+
+run() {
+    if [ "$GUEST_NAME" = 'win10' ]; then
+        action
+    fi
+}
+
+run
