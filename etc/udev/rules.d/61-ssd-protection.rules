@@ -1,0 +1,14 @@
+# Controller-challenged NVMe fix. Do not use this on decent drivers.
+
+ACTION!="add|change", GOTO="ssd_protection_end"
+SUBSYSTEM!="block", GOTO="ssd_protection_end"
+KERNEL!="nvme*", GOTO="ssd_protection_end"
+ENV{DEVTYPE}!="disk", GOTO="ssd_protection_end"
+
+ENV{ID_SERIAL_SHORT}=="<ID_SERIAL_SHORT>", ENV{ID_MODEL}=="<ID_MODEL>", \
+  ATTR{queue/scheduler}="mq-deadline", \
+  ATTR{queue/nr_requests}="64", \
+  ATTR{queue/iosched/fifo_batch}="8", \
+  ATTR{queue/iosched/write_expire}="3000"
+
+LABEL="ssd_protection_end"
